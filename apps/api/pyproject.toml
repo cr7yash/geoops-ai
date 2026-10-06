@@ -1,0 +1,27 @@
+[project]
+name = "geoops-api"
+version = "0.1.0"
+description = "FastAPI gateway for GeoOps AI"
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+  "fastapi>=0.119,<1",
+  "pydantic-settings>=2.11,<3",
+  "uvicorn[standard]>=0.37,<1",
+]
+
+[dependency-groups]
+dev = [
+  "httpx>=0.28,<1",
+  "mypy>=1.18,<2",
+  "pytest>=8.4,<9",
+  "ruff>=0.14,<1",
+]
+
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/geoops_api"]
+
