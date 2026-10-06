@@ -1,6 +1,6 @@
 # GeoOps AI
 
-GeoOps AI is a production-style geospatial AI operations platform for field-service teams. The long-term system combines structured operational data, geospatial reasoning, enterprise knowledge retrieval, typed agent tools, human approval, asynchronous dispatch, and reproducible evaluation.
+GeoOps AI is a geospatial AI operations platform for field-service teams. The planned system combines structured operational data, geospatial reasoning, enterprise knowledge retrieval, typed agent tools, human approval, asynchronous dispatch, and reproducible evaluation.
 
 This repository currently contains **Phase 1 only**: a tested Next.js operations shell connected to a tested FastAPI gateway. It intentionally does not include placeholder business data or simulated performance metrics.
 
@@ -175,5 +175,3 @@ Every response includes `X-Request-ID`. A caller-supplied ID is propagated; othe
 8. **Async dispatch:** event bus, idempotent worker, and operational updates.
 9. **Evaluation:** reproducible datasets, quality metrics, and regression gates.
 10. **Observability, infrastructure, and CI/CD:** cloud telemetry, Terraform, and deployment automation.
-
-Phase 2 should not begin until Phase 1 lint, type checks, unit tests, builds, and live connectivity checks pass.
