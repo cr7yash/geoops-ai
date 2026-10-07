@@ -101,3 +101,50 @@ export type Paginated<T> = {
   limit: number;
   offset: number;
 };
+
+export type DispatchExclusionReason =
+  | "unavailable"
+  | "missing_required_certification"
+  | "expired_required_certification"
+  | "schedule_conflict"
+  | "site_location_unavailable"
+  | "outside_service_radius";
+
+export type DispatchScoreBreakdown = {
+  certification: number;
+  proximity: number;
+  workload: number;
+  performance: number;
+  experience: number;
+};
+
+export type DispatchCandidate = {
+  rank: number | null;
+  technician_id: string;
+  technician_name: string;
+  status: TechnicianStatus;
+  eligible: boolean;
+  exclusion_reasons: DispatchExclusionReason[];
+  distance_km: number | null;
+  active_assignment_count: number;
+  matched_certification_ids: string[];
+  score: number | null;
+  score_breakdown: DispatchScoreBreakdown | null;
+};
+
+export type DispatchRecommendation = {
+  ticket_id: string;
+  ticket_title: string;
+  priority: TicketPriority;
+  sla_state: "overdue" | "at_risk" | "on_track" | "met";
+  policy_version: string;
+  evaluated_at: string;
+  service_window_start: string;
+  service_window_end: string;
+  maximum_distance_km: number;
+  required_certification_ids: string[];
+  recommended_technician_id: string | null;
+  eligible_candidates: DispatchCandidate[];
+  excluded_candidates: DispatchCandidate[];
+  total_evaluated: number;
+};

@@ -1,4 +1,5 @@
 import type {
+  DispatchRecommendation,
   Paginated,
   TechnicianDetail,
   TechnicianSummary,
@@ -46,6 +47,16 @@ export function getTechnicians(query: URLSearchParams, signal?: AbortSignal) {
 export function getTechnician(technicianId: string, signal?: AbortSignal) {
   return getJson<TechnicianDetail>(
     `/api/technicians/${encodeURIComponent(technicianId)}`,
+    signal,
+  );
+}
+
+export function getDispatchRecommendation(
+  ticketId: string,
+  signal?: AbortSignal,
+) {
+  return getJson<DispatchRecommendation>(
+    `/api/dispatch/recommendations/${encodeURIComponent(ticketId)}`,
     signal,
   );
 }
