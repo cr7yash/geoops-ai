@@ -15,11 +15,16 @@ services:
       MAPS_PROVIDER: ${MAPS_PROVIDER:-mock}
       GOOGLE_MAPS_API_KEY: ${GOOGLE_MAPS_API_KEY:-}
       MAPS_TIMEOUT_SECONDS: ${MAPS_TIMEOUT_SECONDS:-10}
+      KNOWLEDGE_DOCUMENTS_PATH: /app/data/documents
+      EMBEDDING_DIMENSIONS: ${EMBEDDING_DIMENSIONS:-256}
+      KNOWLEDGE_CHUNK_SIZE: ${KNOWLEDGE_CHUNK_SIZE:-900}
+      KNOWLEDGE_CHUNK_OVERLAP: ${KNOWLEDGE_CHUNK_OVERLAP:-120}
     ports:
       - "8000:8000"
     volumes:
       - ./apps/api/src:/app/apps/api/src:ro
       - ./apps/api/tests:/app/apps/api/tests:ro
+      - ./data/documents:/app/data/documents:ro
     healthcheck:
       test:
         [

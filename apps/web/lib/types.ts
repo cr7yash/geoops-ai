@@ -156,3 +156,53 @@ export type DispatchRecommendation = {
   excluded_candidates: DispatchCandidate[];
   total_evaluated: number;
 };
+
+export type KnowledgeDocumentType =
+  "contract" | "manual" | "service_report" | "incident_history" | "policy";
+
+export type KnowledgeDocumentSummary = {
+  document_id: string;
+  title: string;
+  document_type: KnowledgeDocumentType;
+  version: string;
+  effective_date: string | null;
+  customer_id: string | null;
+  equipment_type: string | null;
+  storage_uri: string;
+};
+
+export type KnowledgeDocumentList = {
+  items: KnowledgeDocumentSummary[];
+  total: number;
+};
+
+export type KnowledgeSource = {
+  rank: number;
+  score: number;
+  citation: string;
+  chunk_id: string;
+  document_id: string;
+  title: string;
+  document_type: KnowledgeDocumentType;
+  version: string;
+  effective_date: string | null;
+  customer_id: string | null;
+  equipment_type: string | null;
+  section: string;
+  excerpt: string;
+  storage_uri: string;
+};
+
+export type KnowledgeSearchRequest = {
+  query: string;
+  customer_id?: string;
+  equipment_type?: string;
+  document_type?: KnowledgeDocumentType;
+  limit?: number;
+};
+
+export type KnowledgeSearchResponse = {
+  query: string;
+  result_count: number;
+  sources: KnowledgeSource[];
+};

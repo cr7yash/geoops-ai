@@ -8,6 +8,7 @@ from pydantic import Field, SecretStr, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 DEFAULT_SEED_DATA_PATH = Path(__file__).resolve().parents[4] / "data/seed/geoops_seed.json"
+DEFAULT_KNOWLEDGE_DOCUMENTS_PATH = Path(__file__).resolve().parents[4] / "data/documents"
 
 
 class Settings(BaseSettings):
@@ -31,6 +32,10 @@ class Settings(BaseSettings):
     maps_provider: Literal["mock", "google"] = "mock"
     google_maps_api_key: SecretStr | None = None
     maps_timeout_seconds: float = Field(default=10.0, gt=0, le=60)
+    knowledge_documents_path: Path = DEFAULT_KNOWLEDGE_DOCUMENTS_PATH
+    embedding_dimensions: int = Field(default=256, ge=16, le=1024)
+    knowledge_chunk_size: int = Field(default=900, ge=200, le=4000)
+    knowledge_chunk_overlap: int = Field(default=120, ge=0, le=500)
 
     service_name: str = "geoops-api"
     version: str = "0.1.0"

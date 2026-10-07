@@ -2,7 +2,7 @@
 
 GeoOps AI is a geospatial AI operations platform for field-service teams. The planned system combines structured operational data, geospatial reasoning, enterprise knowledge retrieval, typed agent tools, human approval, asynchronous dispatch, and reproducible evaluation.
 
-The current implementation includes the platform foundation, domain/data catalog, deterministic dispatch, and Phase 4 maps slice: a tested Next.js operations console, typed FastAPI gateway, reproducible operational records, route-aware candidate scoring, provider-neutral maps contracts, and BigQuery schema definitions. It does not display invented performance metrics.
+The current implementation includes the platform foundation, domain/data catalog, deterministic dispatch, maps, and Phase 5 knowledge-retrieval slice: a tested Next.js operations console, typed FastAPI gateway, reproducible operational records, route-aware candidate scoring, cited semantic retrieval, provider-neutral boundaries, and BigQuery schema definitions. It does not display invented performance metrics.
 
 ## Current capabilities
 
@@ -17,6 +17,9 @@ The current implementation includes the platform foundation, domain/data catalog
 - Provider-neutral geocoding, route, and route-matrix APIs
 - Key-free deterministic maps adapter plus an opt-in Google Maps adapter
 - Route-duration evidence and explicit routing failures in dispatch results
+- Local document storage, heading-aware ingestion, and deterministic embeddings
+- Metadata-filtered knowledge search with ranked source passages and citations
+- BigQuery `VECTOR_SEARCH` query and vector-index definitions
 - Typed, deterministic `GET /health` API contract and generated OpenAPI documentation
 - Validated environment configuration with safe local defaults
 - Configurable CORS for local browser access
@@ -34,6 +37,8 @@ flowchart LR
     API[FastAPI gateway<br/>localhost:8000]
     DISPATCH[Dispatch policy<br/>eligibility + scoring]
     MAPS[Maps provider<br/>mock or Google]
+    KNOWLEDGE[Knowledge service<br/>ingestion + retrieval]
+    DOCS[Enterprise documents<br/>local originals]
     LOCAL[Deterministic JSON data]
     LOGS[Structured JSON logs]
     BQ[BigQuery schema<br/>cloud adapter planned]
@@ -45,14 +50,18 @@ flowchart LR
     DISPATCH --> LOCAL
     DISPATCH --> MAPS
     API -->|Geocode + route APIs| MAPS
+    API --> KNOWLEDGE
+    KNOWLEDGE --> DOCS
     API --> LOGS
     API -. repository port .-> BQ
 
-    FUTURE[Phase 5+ services]
+    KNOWLEDGE -. vector repository .-> BQ
+
+    FUTURE[Phase 6+ services]
     API -. typed boundaries .-> FUTURE
 ```
 
-The browser calls the API directly, exercising the real cross-origin application boundary. Application services depend on repository and maps protocols rather than vendor SDKs. Local mode reads a deterministic JSON snapshot and uses reproducible route estimates; the Google adapter is enabled only through configuration.
+The browser calls the API directly, exercising the real cross-origin application boundary. Application services depend on repository, maps, storage, and embedding protocols rather than vendor SDKs. Local mode uses a deterministic JSON snapshot, reproducible route estimates, filesystem documents, and key-free embeddings. Google Maps and BigQuery assets remain opt-in cloud paths.
 
 ## Repository layout
 
@@ -63,6 +72,7 @@ The browser calls the API directly, exercising the real cross-origin application
 │   └── web/              # Next.js application, tests, and container
 ├── data/
 │   ├── seed/             # Deterministic operational snapshot
+│   ├── documents/        # Versioned enterprise knowledge originals
 │   └── schema/           # BigQuery DDL migrations
 ├── .env.example          # Canonical local configuration contract
 ├── docker-compose.yml    # Hot-reloading local container stack
@@ -89,6 +99,7 @@ Worker, agent, evaluation, and infrastructure directories will be introduced onl
 cp .env.example .env
 make setup
 make seed
+make knowledge
 make dev
 ```
 
@@ -129,6 +140,10 @@ make api
 | `MAPS_PROVIDER` | `mock` | Maps adapter: `mock` or `google` |
 | `GOOGLE_MAPS_API_KEY` | unset | Server-only key required when `MAPS_PROVIDER=google` |
 | `MAPS_TIMEOUT_SECONDS` | `10` | Outbound maps request timeout, greater than 0 and at most 60 seconds |
+| `KNOWLEDGE_DOCUMENTS_PATH` | `data/documents` | Local source-document root |
+| `EMBEDDING_DIMENSIONS` | `256` | Deterministic local embedding dimensions |
+| `KNOWLEDGE_CHUNK_SIZE` | `900` | Maximum characters per source chunk |
+| `KNOWLEDGE_CHUNK_OVERLAP` | `120` | Character overlap between split chunks |
 | `NEXT_PUBLIC_API_BASE_URL` | `http://localhost:8000` | Browser-visible API origin |
 
 Values prefixed with `NEXT_PUBLIC_` are embedded in browser assets and must never contain secrets.
@@ -148,7 +163,7 @@ To format supported source files:
 make format
 ```
 
-The API test suite covers health and catalog contracts, seed-data integrity, dispatch rules, mock routing, Google response parsing, provider failures, configuration, CORS, correlation IDs, filtering, pagination, and unknown records. The web suite covers health states, catalog rendering, route-aware recommendations, and honest no-match results.
+The API test suite covers health and catalog contracts, seed-data integrity, dispatch rules, maps providers, document validation, deterministic embeddings, metadata filters, citations, configuration, CORS, and error handling. The web suite covers health states, catalogs, route-aware recommendations, knowledge citations, empty retrieval, and failure states.
 
 ## Operational catalog
 
@@ -164,8 +179,11 @@ The local dataset is anchored to a fixed reference time so SLA and certification
 | `POST /api/maps/geocode` | Geocode an address through the configured provider |
 | `POST /api/maps/routes` | Compute one driving route |
 | `POST /api/maps/route-matrix` | Compute routes between typed waypoint sets |
+| `GET /api/knowledge/documents` | List indexed source documents and metadata |
+| `POST /api/knowledge/search` | Retrieve ranked, filtered passages with citations |
+| `POST /api/knowledge/ingest` | Rebuild the deterministic in-memory index from originals |
 
-See [the data model](docs/data-model.md) for relationships and storage responsibilities, [the dispatch policy](docs/dispatch-policy.md) for gates and scoring, and [the maps providers](docs/maps-providers.md) for configuration and adapter behavior.
+See [the data model](docs/data-model.md) for relationships and storage responsibilities, [the dispatch policy](docs/dispatch-policy.md) for gates and scoring, [the maps providers](docs/maps-providers.md) for adapter behavior, and [knowledge retrieval](docs/knowledge-retrieval.md) for ingestion, filtering, and citation guarantees.
 
 ## Containers
 
@@ -210,6 +228,8 @@ Every response includes `X-Request-ID`. A caller-supplied ID is propagated; othe
 - **Route evidence is explicit:** a 65 km straight-line prefilter limits matrix size; the configured provider then supplies route duration and distance for ranking.
 - **Mock means estimate:** local route values are deterministic estimates and are labeled as such in API and UI responses.
 - **Credentials stay server-side:** the Google Maps key is read only by FastAPI and is never exposed through a `NEXT_PUBLIC_` variable.
+- **Retrieval is not an answer:** Phase 5 returns ranked source passages and citations; synthesis waits for the agent phase.
+- **Provider-neutral embeddings:** local hashing vectors require no key, while the embedding interface can accept a managed provider without changing retrieval logic.
 - **No empty architecture:** services and cloud resources arrive in the phase that needs them, avoiding unused abstractions.
 - **No fake dashboard metrics:** the console reports service state and records derived from the deterministic operational dataset.
 - **Local-first:** no cloud project, credentials, model key, or hosted deployment is required for the current implementation.
@@ -220,7 +240,7 @@ Every response includes `X-Request-ID`. A caller-supplied ID is propagated; othe
 2. **Domain and data — complete:** typed entities, repository boundaries, deterministic seed data, BigQuery DDL, ticket and technician browsing.
 3. **Deterministic dispatch — complete:** eligibility rules, explainable candidate scoring, API, and operator workbench.
 4. **Maps — complete:** mock and Google Maps provider adapters, geocoding, routes, route matrices, and route-aware dispatch.
-5. **Knowledge retrieval:** ingestion, chunking, embeddings, BigQuery vector search, citations.
+5. **Knowledge retrieval — complete:** source documents, ingestion, chunking, local embeddings, metadata filtering, BigQuery vector-search assets, citations, and operator workspace.
 6. **Agent orchestration:** typed tools and provider-neutral Gemini/ADK integration.
 7. **Human approval:** explicit mutation proposals and approval state machine.
 8. **Async dispatch:** event bus, idempotent worker, and operational updates.
