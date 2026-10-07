@@ -1,4 +1,4 @@
-"""Deterministic eligibility and ranking for technician dispatch."""
+"""Deterministic eligibility and route-aware ranking for technician dispatch."""
 
 from dataclasses import dataclass
 from datetime import datetime, timedelta
@@ -14,6 +14,13 @@ from geoops_api.domain.models import (
     TechnicianStatus,
     TicketStatus,
 )
+from geoops_api.maps.interfaces import MapsProvider
+from geoops_api.maps.models import (
+    MapsProviderError,
+    RouteElementStatus,
+    RouteMatrixElement,
+    RouteWaypoint,
+)
 from geoops_api.repositories.interfaces import CatalogRepository
 from geoops_api.schemas.dispatch import (
     DispatchCandidate,
@@ -26,8 +33,9 @@ from geoops_api.services.catalog import CatalogService
 
 @dataclass(frozen=True)
 class DispatchPolicy:
-    version: str = "dispatch-v1"
+    version: str = "dispatch-v2-routes"
     maximum_distance_km: float = 65.0
+    maximum_travel_minutes: float = 120.0
     service_duration: timedelta = timedelta(hours=4)
     lead_time: timedelta = timedelta(hours=1)
 
@@ -37,14 +45,16 @@ class TicketNotDispatchableError(ValueError):
 
 
 class DispatchService:
-    """Apply hard eligibility gates before producing an explainable score."""
+    """Apply hard eligibility gates, route evidence, then a stable score."""
 
     def __init__(
         self,
         repository: CatalogRepository,
+        maps_provider: MapsProvider,
         policy: DispatchPolicy | None = None,
     ) -> None:
         self._repository = repository
+        self._maps_provider = maps_provider
         self._policy = policy or DispatchPolicy()
 
     async def recommend(self, ticket_id: str) -> DispatchRecommendationResponse | None:
@@ -66,7 +76,7 @@ class DispatchService:
         assignments = self._repository.dataset.assignments
         certifications_by_technician = self._certifications_by_technician()
 
-        eligible: list[DispatchCandidate] = []
+        preliminary_eligible: list[DispatchCandidate] = []
         excluded: list[DispatchCandidate] = []
         for technician in self._repository.dataset.technicians:
             candidate = self._assess_candidate(
@@ -80,12 +90,21 @@ class DispatchService:
                 window_start=window_start,
                 window_end=window_end,
             )
-            (eligible if candidate.eligible else excluded).append(candidate)
+            (preliminary_eligible if candidate.eligible else excluded).append(candidate)
 
+        eligible, route_excluded = await self._route_and_score_candidates(
+            candidates=preliminary_eligible,
+            destination=site.location,
+            destination_id=site.site_id,
+            departure_time=window_start,
+        )
+        excluded.extend(route_excluded)
         eligible.sort(
             key=lambda item: (
                 -(item.score or 0),
-                item.distance_km if item.distance_km is not None else float("inf"),
+                item.travel_duration_minutes
+                if item.travel_duration_minutes is not None
+                else float("inf"),
                 item.technician_id,
             )
         )
@@ -110,6 +129,8 @@ class DispatchService:
             service_window_start=window_start,
             service_window_end=window_end,
             maximum_distance_km=self._policy.maximum_distance_km,
+            maximum_travel_minutes=self._policy.maximum_travel_minutes,
+            maps_provider=self._maps_provider.name,
             required_certification_ids=ticket.required_certification_ids,
             recommended_technician_id=(ranked[0].technician_id if ranked else None),
             eligible_candidates=ranked,
@@ -163,56 +184,155 @@ class DispatchService:
         ):
             reasons.append(DispatchExclusionReason.SCHEDULE_CONFLICT)
 
-        distance_km: float | None = None
+        straight_line_distance_km: float | None = None
         if site_location is None:
             reasons.append(DispatchExclusionReason.SITE_LOCATION_UNAVAILABLE)
         else:
-            distance_km = round(self._haversine_km(technician.current_location, site_location), 1)
-            if distance_km > self._policy.maximum_distance_km:
+            straight_line_distance_km = round(
+                self._haversine_km(technician.current_location, site_location), 1
+            )
+            if straight_line_distance_km > self._policy.maximum_distance_km:
                 reasons.append(DispatchExclusionReason.OUTSIDE_SERVICE_RADIUS)
 
         active_assignment_count = sum(
             assignment.scheduled_end > window_start for assignment in relevant_assignments
         )
-        if reasons:
-            return DispatchCandidate(
-                technician_id=technician.technician_id,
-                technician_name=technician.name,
-                status=technician.status,
-                eligible=False,
-                exclusion_reasons=reasons,
-                distance_km=distance_km,
-                active_assignment_count=active_assignment_count,
-                matched_certification_ids=matched,
-            )
-
-        assert distance_km is not None
-        breakdown = DispatchScoreBreakdown(
-            certification=25.0,
-            proximity=round(30 * (1 - distance_km / self._policy.maximum_distance_km), 2),
-            workload=round(20 * max(0, 1 - active_assignment_count / 3), 2),
-            performance=round(15 * technician.average_rating / 5, 2),
-            experience=round(10 * min(technician.completed_jobs / 200, 1), 2),
-        )
-        score = round(
-            breakdown.certification
-            + breakdown.proximity
-            + breakdown.workload
-            + breakdown.performance
-            + breakdown.experience,
-            2,
-        )
         return DispatchCandidate(
             technician_id=technician.technician_id,
             technician_name=technician.name,
             status=technician.status,
-            eligible=True,
-            exclusion_reasons=[],
-            distance_km=distance_km,
+            eligible=not reasons,
+            exclusion_reasons=reasons,
+            straight_line_distance_km=straight_line_distance_km,
             active_assignment_count=active_assignment_count,
             matched_certification_ids=matched,
-            score=score,
-            score_breakdown=breakdown,
+        )
+
+    async def _route_and_score_candidates(
+        self,
+        *,
+        candidates: list[DispatchCandidate],
+        destination: GeoPoint | None,
+        destination_id: str,
+        departure_time: datetime,
+    ) -> tuple[list[DispatchCandidate], list[DispatchCandidate]]:
+        if not candidates or destination is None:
+            return candidates, []
+        technicians = {
+            technician.technician_id: technician
+            for technician in self._repository.dataset.technicians
+        }
+        origins = [
+            RouteWaypoint(
+                waypoint_id=candidate.technician_id,
+                location=technicians[candidate.technician_id].current_location,
+            )
+            for candidate in candidates
+        ]
+        route_is_estimate: bool | None = None
+        try:
+            matrix = await self._maps_provider.compute_route_matrix(
+                origins,
+                [RouteWaypoint(waypoint_id=destination_id, location=destination)],
+                departure_time=departure_time,
+            )
+            route_is_estimate = matrix.is_estimate
+            elements = {item.origin_id: item for item in matrix.elements}
+        except MapsProviderError:
+            elements = {}
+
+        eligible: list[DispatchCandidate] = []
+        excluded: list[DispatchCandidate] = []
+        for candidate in candidates:
+            element = elements.get(candidate.technician_id)
+            if not self._route_succeeded(element):
+                excluded.append(
+                    candidate.model_copy(
+                        update={
+                            "eligible": False,
+                            "exclusion_reasons": [DispatchExclusionReason.ROUTE_UNAVAILABLE],
+                            "route_provider": self._maps_provider.name,
+                            "route_is_estimate": route_is_estimate,
+                        }
+                    )
+                )
+                continue
+            assert element is not None
+            assert element.distance_km is not None
+            assert element.duration_minutes is not None
+            route_values = {
+                "distance_km": element.distance_km,
+                "travel_duration_minutes": element.duration_minutes,
+                "route_provider": self._maps_provider.name,
+                "route_is_estimate": route_is_estimate,
+            }
+            if element.duration_minutes > self._policy.maximum_travel_minutes:
+                excluded.append(
+                    candidate.model_copy(
+                        update={
+                            **route_values,
+                            "eligible": False,
+                            "exclusion_reasons": [
+                                DispatchExclusionReason.EXCEEDS_MAXIMUM_TRAVEL_TIME
+                            ],
+                        }
+                    )
+                )
+                continue
+            technician = technicians[candidate.technician_id]
+            breakdown = self._score_candidate(
+                technician=technician,
+                active_assignment_count=candidate.active_assignment_count,
+                travel_duration_minutes=element.duration_minutes,
+            )
+            score = round(
+                breakdown.certification
+                + breakdown.travel_time
+                + breakdown.workload
+                + breakdown.performance
+                + breakdown.experience,
+                2,
+            )
+            eligible.append(
+                candidate.model_copy(
+                    update={
+                        **route_values,
+                        "score": score,
+                        "score_breakdown": breakdown,
+                    }
+                )
+            )
+        return eligible, excluded
+
+    def _score_candidate(
+        self,
+        *,
+        technician: Technician,
+        active_assignment_count: int,
+        travel_duration_minutes: float,
+    ) -> DispatchScoreBreakdown:
+        return DispatchScoreBreakdown(
+            certification=25.0,
+            travel_time=round(
+                30
+                * max(
+                    0,
+                    1 - travel_duration_minutes / self._policy.maximum_travel_minutes,
+                ),
+                2,
+            ),
+            workload=round(20 * max(0, 1 - active_assignment_count / 3), 2),
+            performance=round(15 * technician.average_rating / 5, 2),
+            experience=round(10 * min(technician.completed_jobs / 200, 1), 2),
+        )
+
+    @staticmethod
+    def _route_succeeded(element: RouteMatrixElement | None) -> bool:
+        return (
+            element is not None
+            and element.status == RouteElementStatus.OK
+            and element.distance_km is not None
+            and element.duration_minutes is not None
         )
 
     def _certifications_by_technician(self) -> dict[str, list[TechnicianCertification]]:

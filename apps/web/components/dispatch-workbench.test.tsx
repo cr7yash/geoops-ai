@@ -24,11 +24,13 @@ const recommendation = {
   ticket_title: "Compressor pressure loss",
   priority: "critical",
   sla_state: "at_risk",
-  policy_version: "dispatch-v1",
+  policy_version: "dispatch-v2-routes",
   evaluated_at: "2026-10-06T12:00:00Z",
   service_window_start: "2026-10-06T13:00:00Z",
   service_window_end: "2026-10-06T17:00:00Z",
   maximum_distance_km: 65,
+  maximum_travel_minutes: 120,
+  maps_provider: "mock",
   required_certification_ids: ["CERT-REFRIG"],
   recommended_technician_id: "T-001",
   total_evaluated: 15,
@@ -40,13 +42,17 @@ const recommendation = {
       status: "available",
       eligible: true,
       exclusion_reasons: [],
-      distance_km: 64,
+      straight_line_distance_km: 64,
+      distance_km: 78.1,
+      travel_duration_minutes: 97.6,
+      route_provider: "mock",
+      route_is_estimate: true,
       active_assignment_count: 0,
       matched_certification_ids: ["CERT-REFRIG"],
       score: 62.39,
       score_breakdown: {
         certification: 25,
-        proximity: 0.46,
+        travel_time: 0.6,
         workload: 20,
         performance: 14.4,
         experience: 9.2,
@@ -61,7 +67,11 @@ const recommendation = {
       status: "unavailable",
       eligible: false,
       exclusion_reasons: ["unavailable", "missing_required_certification"],
+      straight_line_distance_km: 41.2,
       distance_km: 41.2,
+      travel_duration_minutes: null,
+      route_provider: null,
+      route_is_estimate: null,
       active_assignment_count: 0,
       matched_certification_ids: [],
       score: null,
@@ -99,7 +109,9 @@ describe("DispatchWorkbench", () => {
     ).toBeInTheDocument();
     expect(screen.getAllByText("James Chen")).toHaveLength(2);
     expect(screen.getAllByText("62.4")).toHaveLength(2);
-    expect(screen.getByText("dispatch-v1")).toBeInTheDocument();
+    expect(screen.getByText("dispatch-v2-routes")).toBeInTheDocument();
+    expect(screen.getByText("97.6 min route")).toBeInTheDocument();
+    expect(screen.getByText("Mock provider · estimate")).toBeInTheDocument();
     expect(
       screen.getByText("Why 1 technicians were excluded"),
     ).toBeInTheDocument();

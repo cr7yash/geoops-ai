@@ -108,11 +108,13 @@ export type DispatchExclusionReason =
   | "expired_required_certification"
   | "schedule_conflict"
   | "site_location_unavailable"
-  | "outside_service_radius";
+  | "outside_service_radius"
+  | "route_unavailable"
+  | "exceeds_maximum_travel_time";
 
 export type DispatchScoreBreakdown = {
   certification: number;
-  proximity: number;
+  travel_time: number;
   workload: number;
   performance: number;
   experience: number;
@@ -125,7 +127,11 @@ export type DispatchCandidate = {
   status: TechnicianStatus;
   eligible: boolean;
   exclusion_reasons: DispatchExclusionReason[];
+  straight_line_distance_km: number | null;
   distance_km: number | null;
+  travel_duration_minutes: number | null;
+  route_provider: string | null;
+  route_is_estimate: boolean | null;
   active_assignment_count: number;
   matched_certification_ids: string[];
   score: number | null;
@@ -142,6 +148,8 @@ export type DispatchRecommendation = {
   service_window_start: string;
   service_window_end: string;
   maximum_distance_km: number;
+  maximum_travel_minutes: number;
+  maps_provider: string;
   required_certification_ids: string[];
   recommended_technician_id: string | null;
   eligible_candidates: DispatchCandidate[];
