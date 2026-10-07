@@ -10,7 +10,12 @@ const foundationItems = [
   },
   {
     label: "Dispatch engine",
-    detail: "Eligibility gates · Explainable scoring",
+    detail: "Route-aware · Explainable scoring",
+    ready: true,
+  },
+  {
+    label: "Maps provider",
+    detail: "Mock local · Google adapter",
     ready: true,
   },
 ] as const;
@@ -28,7 +33,8 @@ export default function Home() {
             Explore service demand and technician capacity across a
             deterministic Bay Area dataset. Every record comes from the typed
             operational API. Deterministic policy checks now rank qualified
-            technicians without allowing AI to bypass business rules.
+            technicians using route duration without allowing AI to bypass
+            business rules.
           </p>
         </div>
         <div className="coordinate-card" aria-label="Dataset coverage">
@@ -53,7 +59,7 @@ export default function Home() {
               <p className="panel-kicker">Build sequence</p>
               <h2>Platform foundation</h2>
             </div>
-            <span className="phase-badge">Phase 3</span>
+            <span className="phase-badge">Phase 4</span>
           </div>
 
           <ul className="foundation-list">

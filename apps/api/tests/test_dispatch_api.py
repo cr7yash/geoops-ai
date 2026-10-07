@@ -16,13 +16,19 @@ def test_recommendation_ranks_only_eligible_candidates() -> None:
 
     assert response.status_code == 200
     payload = response.json()
-    assert payload["policy_version"] == "dispatch-v1"
+    assert payload["policy_version"] == "dispatch-v2-routes"
+    assert payload["maps_provider"] == "mock"
+    assert payload["maximum_travel_minutes"] == 120.0
     assert payload["total_evaluated"] == 15
     assert payload["recommended_technician_id"] == "T-001"
     assert payload["eligible_candidates"][0]["rank"] == 1
     assert payload["eligible_candidates"][0]["score"] == sum(
         payload["eligible_candidates"][0]["score_breakdown"].values()
     )
+    assert payload["eligible_candidates"][0]["route_provider"] == "mock"
+    assert payload["eligible_candidates"][0]["route_is_estimate"] is True
+    assert payload["eligible_candidates"][0]["travel_duration_minutes"] > 0
+    assert "travel_time" in payload["eligible_candidates"][0]["score_breakdown"]
     assert all(candidate["eligible"] for candidate in payload["eligible_candidates"])
     assert all(not candidate["eligible"] for candidate in payload["excluded_candidates"])
 
@@ -85,6 +91,21 @@ def test_schedule_conflict_is_reported_as_a_hard_gate() -> None:
         item for item in response.json()["excluded_candidates"] if item["technician_id"] == "T-003"
     )
     assert "schedule_conflict" in candidate["exclusion_reasons"]
+
+
+def test_route_provider_failure_excludes_prequalified_candidates() -> None:
+    with make_client() as client:
+        response = client.get("/api/dispatch/recommendations/220")
+
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["recommended_technician_id"] is None
+    assert payload["eligible_candidates"] == []
+    assert any(
+        candidate["exclusion_reasons"] == ["route_unavailable"]
+        and candidate["route_provider"] == "mock"
+        for candidate in payload["excluded_candidates"]
+    )
 
 
 def test_closed_and_unknown_tickets_return_explicit_errors() -> None:

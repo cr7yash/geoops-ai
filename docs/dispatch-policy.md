@@ -1,6 +1,6 @@
 # Deterministic dispatch policy
 
-Phase 3 ranks technicians only after mandatory eligibility checks succeed. It is a read-only decision-support workflow: it does not create or change assignments.
+The dispatch service ranks technicians only after mandatory eligibility and routing checks succeed. It is a read-only decision-support workflow: it does not create or change assignments.
 
 ## Evaluation sequence
 
@@ -9,7 +9,9 @@ flowchart LR
     TICKET[Service ticket] --> GATES{Eligibility gates}
     TECH[Technician catalog] --> GATES
     GATES -->|Rejected| AUDIT[Exclusion reasons]
-    GATES -->|Eligible| SCORE[Weighted score]
+    GATES -->|Prequalified| ROUTES[Route matrix]
+    ROUTES -->|No route or over 120 min| AUDIT
+    ROUTES -->|Eligible| SCORE[Weighted score]
     SCORE --> RANK[Stable ranking]
     RANK --> API[Recommendation API]
     AUDIT --> API
@@ -26,7 +28,9 @@ A technician is excluded when any of these conditions apply:
 - a required certification expires before the proposed service window;
 - an active or scheduled assignment overlaps the proposed window;
 - the site does not have valid coordinates;
-- straight-line distance exceeds the 65 km local service radius.
+- straight-line distance exceeds the 65 km matrix prefilter;
+- the configured provider cannot return a route; or
+- route duration exceeds 120 minutes.
 
 All applicable reasons are returned. The policy never relaxes a hard gate to manufacture a recommendation.
 
@@ -37,15 +41,15 @@ Only eligible candidates receive a score. The maximum is 100 points:
 | Factor | Maximum | Calculation |
 | --- | ---: | --- |
 | Required certification | 25 | Full credit after the certification gate passes |
-| Proximity | 30 | Linear decay from 0 km to the 65 km service radius |
+| Travel time | 30 | Linear decay from 0 to the 120-minute route limit |
 | Current workload | 20 | Linear penalty through three active/future assignments |
 | Historical rating | 15 | Rating normalized against 5.0 |
 | Experience | 10 | Completed jobs normalized at 200 jobs |
 
-Candidates are ordered by score descending, then distance ascending, then technician ID. This makes ties stable and auditable.
+Candidates are ordered by score descending, then route duration ascending, then technician ID. This makes ties stable and auditable.
 
 ## Current boundary
 
-Distance is calculated with the Haversine formula and is clearly labeled as a straight-line estimate. Phase 4 will introduce mock and Google Maps provider adapters for route time and route-matrix evidence without changing the hard certification, availability, or schedule gates.
+The default mock provider multiplies Haversine distance by a fixed road factor and applies a fixed average speed. Its output is deterministic and explicitly marked as an estimate. The Google adapter uses Geocoding v4 and Routes v2 only when configured with a server-side API key. Provider failure produces an auditable `route_unavailable` exclusion rather than silently falling back to straight-line scoring.
 
 Assignment mutations remain out of scope until the approval workflow is implemented.

@@ -12,6 +12,9 @@ services:
       CORS_ORIGINS: ${CORS_ORIGINS:-["http://localhost:3000","http://127.0.0.1:3000"]}
       HOST: 0.0.0.0
       PORT: 8000
+      MAPS_PROVIDER: ${MAPS_PROVIDER:-mock}
+      GOOGLE_MAPS_API_KEY: ${GOOGLE_MAPS_API_KEY:-}
+      MAPS_TIMEOUT_SECONDS: ${MAPS_TIMEOUT_SECONDS:-10}
     ports:
       - "8000:8000"
     volumes:
@@ -50,4 +53,3 @@ services:
 volumes:
   web-app-node-modules:
   web-next-cache:
-

@@ -1407,7 +1407,7 @@ a {
   }
 }
 
-/* Phase 3 dispatch workbench */
+/* Route-aware dispatch workbench */
 .dispatch-page {
   padding-top: 44px;
 }
@@ -1871,14 +1871,14 @@ a {
   }
 
   .policy-strip {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .policy-strip > div:nth-child(2n) {
     border-right: 1px solid var(--line);
   }
 
-  .policy-strip > div:last-child {
+  .policy-strip > div:nth-child(3n) {
     border-right: 0;
   }
 

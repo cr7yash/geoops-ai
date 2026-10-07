@@ -99,8 +99,8 @@ export function DispatchWorkbench({
           <p className="section-kicker">Deterministic policy</p>
           <h1>Dispatch recommendations</h1>
           <p>
-            Hard eligibility rules run before ranking. Every outcome exposes the
-            evidence used to include or reject a technician.
+            Hard eligibility rules and route evidence run before ranking. Every
+            outcome exposes why a technician was included or rejected.
           </p>
         </div>
         <span className="read-only-badge">Read only</span>
@@ -184,7 +184,18 @@ function RecommendationResult({ result }: { result: DispatchRecommendation }) {
         </div>
         <div>
           <span>Radius</span>
-          <strong>{result.maximum_distance_km} km</strong>
+          <strong>{result.maximum_distance_km} km prefilter</strong>
+        </div>
+        <div>
+          <span>Travel cap</span>
+          <strong>{result.maximum_travel_minutes} min</strong>
+        </div>
+        <div>
+          <span>Routes</span>
+          <strong>
+            {formatLabel(result.maps_provider)}
+            {result.maps_provider === "mock" ? " estimates" : ""}
+          </strong>
         </div>
         <div>
           <span>Evaluated</span>
@@ -201,11 +212,16 @@ function RecommendationResult({ result }: { result: DispatchRecommendation }) {
             <p className="panel-kicker">Recommended technician</p>
             <h2>{recommended.technician_name}</h2>
             <p>
-              Passed availability, certification, schedule, location, and
-              service-radius gates.
+              Passed availability, certification, schedule, location, radius,
+              and maximum travel-time gates.
             </p>
             <div className="recommendation-facts">
-              <span>{recommended.distance_km} km straight-line estimate</span>
+              <span>{recommended.travel_duration_minutes} min route</span>
+              <span>{recommended.distance_km} km route distance</span>
+              <span>
+                {formatLabel(recommended.route_provider ?? "unknown")} provider
+                {recommended.route_is_estimate ? " · estimate" : ""}
+              </span>
               <span>{recommended.active_assignment_count} active jobs</span>
               <span>{recommended.matched_certification_ids.join(", ")}</span>
             </div>
@@ -229,8 +245,9 @@ function RecommendationResult({ result }: { result: DispatchRecommendation }) {
             <h2>No technician passed every eligibility gate.</h2>
             <p>
               The policy does not relax certifications, availability, schedule,
-              valid location, or the {result.maximum_distance_km} km service
-              radius to force a result.
+              valid location, the {result.maximum_distance_km} km radius
+              prefilter, or the {result.maximum_travel_minutes} minute route cap
+              to force a result.
             </p>
           </div>
         </section>
@@ -259,7 +276,8 @@ function RecommendationResult({ result }: { result: DispatchRecommendation }) {
                 <span>
                   <strong>{candidate.technician_name}</strong>
                   <small>
-                    {candidate.distance_km} km ·{" "}
+                    {candidate.travel_duration_minutes} min ·{" "}
+                    {candidate.distance_km} km route ·{" "}
                     {candidate.active_assignment_count} active jobs
                   </small>
                 </span>
@@ -293,9 +311,11 @@ function RecommendationResult({ result }: { result: DispatchRecommendation }) {
                 ))}
               </span>
               <span className="mono-cell">
-                {candidate.distance_km === null
-                  ? "No distance"
-                  : `${candidate.distance_km} km`}
+                {candidate.travel_duration_minutes !== null
+                  ? `${candidate.travel_duration_minutes} min`
+                  : candidate.straight_line_distance_km === null
+                    ? "No location"
+                    : `${candidate.straight_line_distance_km} km direct`}
               </span>
             </div>
           ))}
@@ -310,7 +330,7 @@ function ScoreBreakdown({ candidate }: { candidate: DispatchCandidate }) {
   if (!breakdown) return null;
   const items = [
     ["Certification", breakdown.certification, 25],
-    ["Proximity", breakdown.proximity, 30],
+    ["Travel time", breakdown.travel_time, 30],
     ["Workload", breakdown.workload, 20],
     ["Performance", breakdown.performance, 15],
     ["Experience", breakdown.experience, 10],

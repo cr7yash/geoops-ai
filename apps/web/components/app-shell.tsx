@@ -68,11 +68,11 @@ export function AppShell({ children }: { children: ReactNode }) {
 
         <div className="sidebar-note">
           <span className="sidebar-note-icon" aria-hidden="true">
-            03
+            04
           </span>
           <div>
-            <p>Dispatch policy</p>
-            <span>Explainable local scoring</span>
+            <p>Maps routing</p>
+            <span>Mock provider active</span>
           </div>
         </div>
       </aside>
@@ -119,7 +119,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </header>
         {children}
         <footer className="footer">
-          <span>GeoOps AI · Phase 3</span>
+          <span>GeoOps AI · Phase 4</span>
           <span>Operational data is synthetic and deterministic</span>
         </footer>
       </main>
