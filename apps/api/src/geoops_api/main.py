@@ -7,6 +7,7 @@ from geoops_api.config import Settings, get_settings
 from geoops_api.container import ApplicationContainer, build_container
 from geoops_api.logging import configure_logging
 from geoops_api.middleware import RequestTelemetryMiddleware
+from geoops_api.routers.agent import router as agent_router
 from geoops_api.routers.dispatch import router as dispatch_router
 from geoops_api.routers.health import router as health_router
 from geoops_api.routers.knowledge import router as knowledge_router
@@ -46,6 +47,7 @@ def create_app(
     application.include_router(dispatch_router)
     application.include_router(maps_router)
     application.include_router(knowledge_router)
+    application.include_router(agent_router)
     return application
 
 

@@ -22,7 +22,7 @@ const navigation = [
     href: "/knowledge",
     enabled: true,
   },
-  { label: "Agent workspace", icon: "agent", href: "/agent", enabled: false },
+  { label: "Agent workspace", icon: "agent", href: "/agent", enabled: true },
   { label: "Approvals", icon: "approvals", href: "/approvals", enabled: false },
 ] as const;
 
@@ -74,11 +74,11 @@ export function AppShell({ children }: { children: ReactNode }) {
 
         <div className="sidebar-note">
           <span className="sidebar-note-icon" aria-hidden="true">
-            05
+            06
           </span>
           <div>
-            <p>Knowledge retrieval</p>
-            <span>Cited local index active</span>
+            <p>Agent orchestration</p>
+            <span>Typed read-only tools active</span>
           </div>
         </div>
       </aside>
@@ -125,6 +125,12 @@ export function AppShell({ children }: { children: ReactNode }) {
             >
               Knowledge
             </Link>
+            <Link
+              aria-current={pathname.startsWith("/agent") ? "page" : undefined}
+              href="/agent"
+            >
+              Agent
+            </Link>
           </nav>
           <div className="environment-pill">
             <span className="environment-pulse" />
@@ -133,7 +139,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </header>
         {children}
         <footer className="footer">
-          <span>GeoOps AI · Phase 5</span>
+          <span>GeoOps AI · Phase 6</span>
           <span>Operational data is synthetic and deterministic</span>
         </footer>
       </main>
