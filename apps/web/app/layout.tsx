@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import type { ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
+
+import { AppShell } from "@/components/app-shell";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,7 +19,13 @@ export default function RootLayout({
 }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Suspense
+          fallback={<div className="shell-loading">Loading GeoOps…</div>}
+        >
+          <AppShell>{children}</AppShell>
+        </Suspense>
+      </body>
     </html>
   );
 }

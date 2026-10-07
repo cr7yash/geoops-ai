@@ -4,12 +4,18 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from geoops_api.config import Settings, get_settings
+from geoops_api.container import ApplicationContainer, build_container
 from geoops_api.logging import configure_logging
 from geoops_api.middleware import RequestTelemetryMiddleware
 from geoops_api.routers.health import router as health_router
+from geoops_api.routers.technicians import router as technicians_router
+from geoops_api.routers.tickets import router as tickets_router
 
 
-def create_app(settings: Settings | None = None) -> FastAPI:
+def create_app(
+    settings: Settings | None = None,
+    container: ApplicationContainer | None = None,
+) -> FastAPI:
     """Construct the API with explicit, testable dependencies."""
 
     resolved_settings = settings or get_settings()
@@ -21,6 +27,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         version=resolved_settings.version,
     )
     application.state.settings = resolved_settings
+    application.state.container = container or build_container(resolved_settings)
 
     application.add_middleware(RequestTelemetryMiddleware)
     application.add_middleware(
@@ -31,6 +38,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         allow_headers=["*"],
     )
     application.include_router(health_router)
+    application.include_router(tickets_router)
+    application.include_router(technicians_router)
     return application
 
 

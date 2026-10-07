@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { API_BASE_URL } from "@/lib/api";
+
 type HealthResponse = {
   status: "ok";
   service: string;
@@ -13,10 +15,6 @@ type HealthState =
   | { kind: "checking" }
   | { kind: "healthy"; data: HealthResponse; checkedAt: Date }
   | { kind: "unavailable"; message: string };
-
-const API_BASE_URL = (
-  process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000"
-).replace(/\/$/, "");
 
 function isHealthResponse(value: unknown): value is HealthResponse {
   if (typeof value !== "object" || value === null) return false;
