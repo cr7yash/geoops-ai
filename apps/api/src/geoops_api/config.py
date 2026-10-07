@@ -41,6 +41,9 @@ class Settings(BaseSettings):
     gemini_api_key: SecretStr | None = None
     google_cloud_project: str | None = None
     google_cloud_location: str = "us-central1"
+    approval_store: Literal["memory", "firestore"] = "memory"
+    approval_ttl_minutes: int = Field(default=30, ge=5, le=1440)
+    firestore_approvals_collection: str = "approval_requests"
 
     service_name: str = "geoops-api"
     version: str = "0.1.0"
@@ -53,16 +56,13 @@ class Settings(BaseSettings):
         ):
             raise ValueError("GOOGLE_MAPS_API_KEY is required when MAPS_PROVIDER=google")
         if self.model_provider == "gemini_api" and (
-            self.gemini_api_key is None
-            or not self.gemini_api_key.get_secret_value().strip()
+            self.gemini_api_key is None or not self.gemini_api_key.get_secret_value().strip()
         ):
             raise ValueError("GEMINI_API_KEY is required when MODEL_PROVIDER=gemini_api")
-        if self.model_provider == "vertex_ai" and not (
+        if (self.model_provider == "vertex_ai" or self.approval_store == "firestore") and not (
             self.google_cloud_project and self.google_cloud_project.strip()
         ):
-            raise ValueError(
-                "GOOGLE_CLOUD_PROJECT is required when MODEL_PROVIDER=vertex_ai"
-            )
+            raise ValueError("GOOGLE_CLOUD_PROJECT is required for Vertex AI or Firestore")
         return self
 
 

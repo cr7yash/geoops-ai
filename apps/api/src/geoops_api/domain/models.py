@@ -169,16 +169,6 @@ class EvaluationResult(DomainModel):
     metrics: dict[str, float] = Field(default_factory=dict)
 
 
-class ApprovalRequest(DomainModel):
-    approval_id: str
-    action: str
-    ticket_id: str
-    requested_at: datetime
-    expires_at: datetime
-    status: ApprovalStatus
-    payload: dict[str, Any]
-
-
 class KnowledgeDocument(DomainModel):
     document_id: str
     customer_id: str | None = None

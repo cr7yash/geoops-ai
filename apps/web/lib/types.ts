@@ -216,10 +216,53 @@ export type AgentToolUse = {
 };
 
 export type AgentRecommendedAction = {
-  kind: "review_dispatch_recommendation";
+  kind: "review_dispatch_recommendation" | "review_approval_request";
   label: string;
   ticket_id: string;
   technician_id: string | null;
+  approval_id: string | null;
+};
+
+export type ApprovalStatus =
+  "pending" | "approved" | "rejected" | "expired" | "executed" | "failed";
+
+export type ApprovalRequest = {
+  approval_id: string;
+  action: "assign_technician";
+  ticket_id: string;
+  ticket_title: string;
+  from_technician_id: string | null;
+  from_technician_name: string | null;
+  to_technician_id: string;
+  to_technician_name: string;
+  reason: string;
+  status: ApprovalStatus;
+  requested_by: string;
+  requested_at: string;
+  expires_at: string;
+  decided_by: string | null;
+  decided_at: string | null;
+  decision_comment: string | null;
+  evidence: {
+    policy_version: string;
+    score: number;
+    distance_km: number | null;
+    travel_duration_minutes: number | null;
+    route_provider: string | null;
+    route_is_estimate: boolean | null;
+    matched_certification_ids: string[];
+  };
+  version: number;
+};
+
+export type ApprovalListResponse = {
+  items: ApprovalRequest[];
+  total: number;
+};
+
+export type ApprovalDecisionRequest = {
+  decided_by: string;
+  comment?: string;
 };
 
 export type AgentChatRequest = {

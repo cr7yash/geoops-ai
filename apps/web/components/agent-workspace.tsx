@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import Link from "next/link";
 
 import { askAgent, formatLabel } from "@/lib/api";
 import type { AgentChatResponse } from "@/lib/types";
@@ -15,6 +16,7 @@ const examplePrompts = [
   "Who is the best technician for ticket 184?",
   "What procedure should I use to troubleshoot ticket 184?",
   "Show open critical tickets",
+  "Assign James Chen to ticket 184",
 ];
 
 export function AgentWorkspace() {
@@ -50,12 +52,12 @@ export function AgentWorkspace() {
           <p className="section-kicker">Evidence-led assistance</p>
           <h1>Agent workspace</h1>
           <p>
-            Ask about tickets, technician eligibility, route-aware dispatch,
-            and operational source documents. Every fact passes through a
-            typed, read-only tool.
+            Ask about tickets, technician eligibility, route-aware dispatch, and
+            operational source documents. Every fact passes through a typed,
+            read-only tool.
           </p>
         </div>
-        <span className="read-only-badge">No mutations</span>
+        <span className="read-only-badge">Approval gated</span>
       </header>
 
       <div className="agent-layout">
@@ -95,8 +97,8 @@ export function AgentWorkspace() {
                 <div>
                   <strong>Start with an operational question.</strong>
                   <p>
-                    Recommendations are read-only. Assignments and other
-                    changes remain unavailable until the approval phase.
+                    Recommendations are read-only. Assignment requests create a
+                    proposal for a human decision; they never execute here.
                   </p>
                 </div>
               </div>
@@ -112,25 +114,27 @@ export function AgentWorkspace() {
                 <span>{state.message}</span>
               </div>
             )}
-            {state.kind === "ready" && (
-              <AgentResult response={state.data} />
-            )}
+            {state.kind === "ready" && <AgentResult response={state.data} />}
           </div>
         </section>
 
-        <aside className="agent-boundary panel" aria-labelledby="boundary-title">
+        <aside
+          className="agent-boundary panel"
+          aria-labelledby="boundary-title"
+        >
           <p className="panel-kicker">Control boundary</p>
-          <h2 id="boundary-title">Read-only by design</h2>
+          <h2 id="boundary-title">Approval before action</h2>
           <ul>
             <li>Strict tool inputs</li>
             <li>Application-service access only</li>
             <li>Cited document passages</li>
             <li>Route estimates labeled</li>
-            <li>No assignment mutation tool</li>
+            <li>No assignment execution tool</li>
           </ul>
           <p>
-            A request to change operations is stopped and marked as requiring
-            approval. Phase 6 cannot create or execute that approval.
+            A mutation request can create a validated proposal. Human approval
+            records authorization, while assignment execution remains outside
+            this phase.
           </p>
         </aside>
       </div>
@@ -146,7 +150,11 @@ function AgentResult({ response }: { response: AgentChatResponse }) {
           <p className="panel-kicker">Agent response</p>
           <h2>Operational answer</h2>
         </div>
-        <span className={response.requires_approval ? "approval-needed" : "read-only-badge"}>
+        <span
+          className={
+            response.requires_approval ? "approval-needed" : "read-only-badge"
+          }
+        >
           {response.requires_approval ? "Approval required" : "Read only"}
         </span>
       </div>
@@ -157,11 +165,17 @@ function AgentResult({ response }: { response: AgentChatResponse }) {
           <span>Recommended next review</span>
           <strong>{response.recommended_action.label}</strong>
           <small>No assignment has been changed.</small>
+          {response.recommended_action.approval_id && (
+            <Link href="/approvals">Open approval queue →</Link>
+          )}
         </div>
       )}
 
       {response.sources.length > 0 && (
-        <section className="agent-evidence-section" aria-labelledby="agent-sources">
+        <section
+          className="agent-evidence-section"
+          aria-labelledby="agent-sources"
+        >
           <h3 id="agent-sources">Cited sources</h3>
           <ol className="agent-source-list">
             {response.sources.map((source) => (

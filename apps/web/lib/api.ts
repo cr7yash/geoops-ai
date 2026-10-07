@@ -1,6 +1,9 @@
 import type {
   AgentChatRequest,
   AgentChatResponse,
+  ApprovalDecisionRequest,
+  ApprovalListResponse,
+  ApprovalRequest,
   DispatchRecommendation,
   KnowledgeDocumentList,
   KnowledgeSearchRequest,
@@ -100,6 +103,23 @@ export function searchKnowledge(
 
 export function askAgent(request: AgentChatRequest, signal?: AbortSignal) {
   return postJson<AgentChatResponse>("/api/chat", request, signal);
+}
+
+export function getApprovals(signal?: AbortSignal) {
+  return getJson<ApprovalListResponse>("/api/approvals", signal);
+}
+
+export function decideApproval(
+  approvalId: string,
+  decision: "approve" | "reject",
+  request: ApprovalDecisionRequest,
+  signal?: AbortSignal,
+) {
+  return postJson<ApprovalRequest>(
+    `/api/approvals/${encodeURIComponent(approvalId)}/${decision}`,
+    request,
+    signal,
+  );
 }
 
 export function formatLabel(value: string) {
