@@ -1,5 +1,5 @@
 type NavIconName =
-  "overview" | "tickets" | "technicians" | "agent" | "approvals";
+  "overview" | "tickets" | "technicians" | "dispatch" | "agent" | "approvals";
 
 export function MarkIcon() {
   return (
@@ -26,6 +26,7 @@ export function NavIcon({ name }: { name: NavIconName }) {
     technicians: (
       <path d="M16 19v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2M9.5 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM17 8v6M14 11h6" />
     ),
+    dispatch: <path d="M4 18 9 5h6l5 13M7 14h10M9 18h6M12 5v13M4 21h16" />,
     agent: (
       <path d="M12 2v3M5 8l-2-2M19 6l-2 2M4 14H2M22 14h-2M7 14a5 5 0 1 1 10 0c0 2-1 3-2 4H9c-1-1-2-2-2-4ZM9 22h6" />
     ),

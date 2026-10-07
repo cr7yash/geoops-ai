@@ -2,7 +2,7 @@
 
 GeoOps AI is a geospatial AI operations platform for field-service teams. The planned system combines structured operational data, geospatial reasoning, enterprise knowledge retrieval, typed agent tools, human approval, asynchronous dispatch, and reproducible evaluation.
 
-The current implementation includes the platform foundation and the Phase 2 domain/data slice: a tested Next.js operations console, a typed FastAPI gateway, deterministic operational records, repository abstractions, and BigQuery schema definitions. It does not display invented performance metrics.
+The current implementation includes the platform foundation, domain/data catalog, and Phase 3 deterministic dispatch slice: a tested Next.js operations console, typed FastAPI gateway, reproducible operational records, explainable eligibility rules, candidate scoring, repository abstractions, and BigQuery schema definitions. It does not display invented performance metrics.
 
 ## Current capabilities
 
@@ -13,6 +13,7 @@ The current implementation includes the platform foundation and the Phase 2 doma
 - Deterministic seed data with dispatch edge cases and referential-integrity tests
 - Storage-neutral repository boundary with a local JSON implementation
 - BigQuery DDL with practical partitioning and clustering
+- Deterministic dispatch eligibility gates with ranked, inspectable score breakdowns
 - Typed, deterministic `GET /health` API contract and generated OpenAPI documentation
 - Validated environment configuration with safe local defaults
 - Configurable CORS for local browser access
@@ -28,6 +29,7 @@ flowchart LR
     USER[Operations user]
     WEB[Next.js console<br/>localhost:3000]
     API[FastAPI gateway<br/>localhost:8000]
+    DISPATCH[Dispatch policy<br/>eligibility + scoring]
     LOCAL[Deterministic JSON data]
     LOGS[Structured JSON logs]
     BQ[BigQuery schema<br/>cloud adapter planned]
@@ -35,10 +37,12 @@ flowchart LR
     USER --> WEB
     WEB -->|Health + catalog APIs| API
     API --> LOCAL
+    API --> DISPATCH
+    DISPATCH --> LOCAL
     API --> LOGS
     API -. repository port .-> BQ
 
-    FUTURE[Phase 3+ services]
+    FUTURE[Phase 4+ services]
     API -. typed boundaries .-> FUTURE
 ```
 
@@ -147,8 +151,9 @@ The local dataset is anchored to a fixed reference time so SLA and certification
 | `GET /api/tickets/{id}` | Ticket, customer, site, SLA, and assignment detail |
 | `GET /api/technicians` | Technician search with availability and certification filters |
 | `GET /api/technicians/{id}` | Technician qualifications, performance, and schedule detail |
+| `GET /api/dispatch/recommendations/{ticket_id}` | Eligible candidates, ranking evidence, and exclusion reasons |
 
-See [the data model](docs/data-model.md) for relationships, edge cases, and storage responsibilities.
+See [the data model](docs/data-model.md) for relationships and storage responsibilities, and [the dispatch policy](docs/dispatch-policy.md) for gates, scoring, and limitations.
 
 ## Containers
 
@@ -189,6 +194,8 @@ Every response includes `X-Request-ID`. A caller-supplied ID is propagated; othe
 - **Application factory:** FastAPI construction accepts explicit settings, keeping tests deterministic and future dependency injection straightforward.
 - **Repository ports:** application services consume provider-neutral interfaces; JSON is a local adapter rather than a business-logic dependency.
 - **Fixed seed clock:** synthetic SLA and certification scenarios remain stable across machines and CI runs.
+- **Hard gates before ranking:** an ineligible technician never receives a score, and the API exposes every rejection reason.
+- **Distance proxy is explicit:** Phase 3 uses straight-line distance only; route time remains reserved for the Maps provider phase.
 - **No empty architecture:** services and cloud resources arrive in the phase that needs them, avoiding unused abstractions.
 - **No fake dashboard metrics:** the console reports service state and records derived from the deterministic operational dataset.
 - **Local-first:** no cloud project, credentials, model key, or hosted deployment is required for the current implementation.
@@ -197,7 +204,7 @@ Every response includes `X-Request-ID`. A caller-supplied ID is propagated; othe
 
 1. **Foundation — complete:** web, API, configuration, tests, containers, local workflow.
 2. **Domain and data — complete:** typed entities, repository boundaries, deterministic seed data, BigQuery DDL, ticket and technician browsing.
-3. **Deterministic dispatch:** eligibility rules and explainable candidate scoring.
+3. **Deterministic dispatch — complete:** eligibility rules, explainable candidate scoring, API, and operator workbench.
 4. **Maps:** mock and Google Maps provider adapters with route matrices.
 5. **Knowledge retrieval:** ingestion, chunking, embeddings, BigQuery vector search, citations.
 6. **Agent orchestration:** typed tools and provider-neutral Gemini/ADK integration.

@@ -8,7 +8,11 @@ const foundationItems = [
     detail: "55 deterministic tickets",
     ready: true,
   },
-  { label: "Dispatch engine", detail: "Scheduled for Phase 3", ready: false },
+  {
+    label: "Dispatch engine",
+    detail: "Eligibility gates · Explainable scoring",
+    ready: true,
+  },
 ] as const;
 
 export default function Home() {
@@ -23,8 +27,8 @@ export default function Home() {
           <p className="hero-description">
             Explore service demand and technician capacity across a
             deterministic Bay Area dataset. Every record comes from the typed
-            operational API and is ready for dispatch reasoning in the next
-            phase.
+            operational API. Deterministic policy checks now rank qualified
+            technicians without allowing AI to bypass business rules.
           </p>
         </div>
         <div className="coordinate-card" aria-label="Dataset coverage">
@@ -49,7 +53,7 @@ export default function Home() {
               <p className="panel-kicker">Build sequence</p>
               <h2>Platform foundation</h2>
             </div>
-            <span className="phase-badge">Phase 2</span>
+            <span className="phase-badge">Phase 3</span>
           </div>
 
           <ul className="foundation-list">
@@ -72,7 +76,7 @@ export default function Home() {
         <div className="principles-heading">
           <p className="section-kicker">Data posture</p>
           <h2 id="principles-title">
-            Operationally useful before AI enters the loop.
+            Explainable decisions before AI enters the loop.
           </h2>
         </div>
         <div className="principle-grid">
@@ -94,10 +98,10 @@ export default function Home() {
           </article>
           <article>
             <span>03</span>
-            <h3>Storage-neutral access</h3>
+            <h3>Auditable ranking</h3>
             <p>
-              Repository ports isolate application behavior from local JSON and
-              BigQuery.
+              Every accepted score and rejected candidate exposes the policy
+              evidence behind the result.
             </p>
           </article>
         </div>

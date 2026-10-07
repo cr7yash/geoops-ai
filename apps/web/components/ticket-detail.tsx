@@ -82,6 +82,18 @@ export function TicketDetailView({ ticketId }: { ticketId: string }) {
         </div>
       </header>
 
+      {ticket.status !== "completed" && ticket.status !== "cancelled" && (
+        <div className="detail-action-row">
+          <Link
+            className="primary-action"
+            href={`/dispatch?ticket=${encodeURIComponent(ticket.ticket_id)}`}
+          >
+            Evaluate dispatch candidates →
+          </Link>
+          <span>Read-only policy evaluation; no assignment is changed.</span>
+        </div>
+      )}
+
       <div className="detail-grid">
         <section className="panel detail-panel">
           <p className="panel-kicker">Service context</p>

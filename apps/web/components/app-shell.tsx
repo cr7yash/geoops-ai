@@ -15,6 +15,7 @@ const navigation = [
     href: "/technicians",
     enabled: true,
   },
+  { label: "Dispatch", icon: "dispatch", href: "/dispatch", enabled: true },
   { label: "Agent workspace", icon: "agent", href: "/agent", enabled: false },
   { label: "Approvals", icon: "approvals", href: "/approvals", enabled: false },
 ] as const;
@@ -67,11 +68,11 @@ export function AppShell({ children }: { children: ReactNode }) {
 
         <div className="sidebar-note">
           <span className="sidebar-note-icon" aria-hidden="true">
-            02
+            03
           </span>
           <div>
-            <p>Domain + data</p>
-            <span>Deterministic local mode</span>
+            <p>Dispatch policy</p>
+            <span>Explainable local scoring</span>
           </div>
         </div>
       </aside>
@@ -102,6 +103,14 @@ export function AppShell({ children }: { children: ReactNode }) {
             >
               Techs
             </Link>
+            <Link
+              aria-current={
+                pathname.startsWith("/dispatch") ? "page" : undefined
+              }
+              href="/dispatch"
+            >
+              Dispatch
+            </Link>
           </nav>
           <div className="environment-pill">
             <span className="environment-pulse" />
@@ -110,7 +119,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </header>
         {children}
         <footer className="footer">
-          <span>GeoOps AI · Phase 2</span>
+          <span>GeoOps AI · Phase 3</span>
           <span>Operational data is synthetic and deterministic</span>
         </footer>
       </main>
