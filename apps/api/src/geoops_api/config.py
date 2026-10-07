@@ -36,6 +36,11 @@ class Settings(BaseSettings):
     embedding_dimensions: int = Field(default=256, ge=16, le=1024)
     knowledge_chunk_size: int = Field(default=900, ge=200, le=4000)
     knowledge_chunk_overlap: int = Field(default=120, ge=0, le=500)
+    model_provider: Literal["local", "gemini_api", "vertex_ai"] = "local"
+    model_name: str = "geoops-local-planner-v1"
+    gemini_api_key: SecretStr | None = None
+    google_cloud_project: str | None = None
+    google_cloud_location: str = "us-central1"
 
     service_name: str = "geoops-api"
     version: str = "0.1.0"
@@ -47,6 +52,17 @@ class Settings(BaseSettings):
             or not self.google_maps_api_key.get_secret_value().strip()
         ):
             raise ValueError("GOOGLE_MAPS_API_KEY is required when MAPS_PROVIDER=google")
+        if self.model_provider == "gemini_api" and (
+            self.gemini_api_key is None
+            or not self.gemini_api_key.get_secret_value().strip()
+        ):
+            raise ValueError("GEMINI_API_KEY is required when MODEL_PROVIDER=gemini_api")
+        if self.model_provider == "vertex_ai" and not (
+            self.google_cloud_project and self.google_cloud_project.strip()
+        ):
+            raise ValueError(
+                "GOOGLE_CLOUD_PROJECT is required when MODEL_PROVIDER=vertex_ai"
+            )
         return self
 
 

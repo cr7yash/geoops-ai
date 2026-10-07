@@ -2,6 +2,9 @@
 
 from dataclasses import dataclass
 
+from geoops_api.agent.factory import build_agent_runtime
+from geoops_api.agent.runtime import AgentRuntime
+from geoops_api.agent.tools import AgentToolRegistry
 from geoops_api.config import Settings
 from geoops_api.knowledge.chunking import MarkdownChunker
 from geoops_api.knowledge.embeddings import DeterministicEmbeddingProvider
@@ -22,6 +25,7 @@ class ApplicationContainer:
     dispatch_service: DispatchService
     maps_provider: MapsProvider
     knowledge_service: KnowledgeService
+    agent_runtime: AgentRuntime
 
 
 def build_container(settings: Settings) -> ApplicationContainer:
@@ -36,10 +40,18 @@ def build_container(settings: Settings) -> ApplicationContainer:
             overlap_characters=settings.knowledge_chunk_overlap,
         ),
     )
+    catalog_service = CatalogService(repository)
+    dispatch_service = DispatchService(repository, maps_provider)
+    agent_registry = AgentToolRegistry(
+        catalog_service=catalog_service,
+        dispatch_service=dispatch_service,
+        knowledge_service=knowledge_service,
+    )
     return ApplicationContainer(
         catalog_repository=repository,
-        catalog_service=CatalogService(repository),
-        dispatch_service=DispatchService(repository, maps_provider),
+        catalog_service=catalog_service,
+        dispatch_service=dispatch_service,
         maps_provider=maps_provider,
         knowledge_service=knowledge_service,
+        agent_runtime=build_agent_runtime(settings, agent_registry),
     )

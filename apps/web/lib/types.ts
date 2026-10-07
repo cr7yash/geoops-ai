@@ -206,3 +206,37 @@ export type KnowledgeSearchResponse = {
   result_count: number;
   sources: KnowledgeSource[];
 };
+
+export type AgentToolUse = {
+  tool: string;
+  status: "success" | "error";
+  latency_ms: number;
+  summary: string;
+  retrieval_count: number | null;
+};
+
+export type AgentRecommendedAction = {
+  kind: "review_dispatch_recommendation";
+  label: string;
+  ticket_id: string;
+  technician_id: string | null;
+};
+
+export type AgentChatRequest = {
+  message: string;
+  session_id?: string;
+};
+
+export type AgentChatResponse = {
+  answer: string;
+  recommended_action: AgentRecommendedAction | null;
+  sources: KnowledgeSource[];
+  tools_used: AgentToolUse[];
+  confidence: number;
+  requires_approval: boolean;
+  trace_id: string;
+  session_id: string;
+  agent_run_id: string;
+  model_provider: string;
+  model_name: string;
+};

@@ -1,4 +1,6 @@
 import type {
+  AgentChatRequest,
+  AgentChatResponse,
   DispatchRecommendation,
   KnowledgeDocumentList,
   KnowledgeSearchRequest,
@@ -94,6 +96,10 @@ export function searchKnowledge(
     request,
     signal,
   );
+}
+
+export function askAgent(request: AgentChatRequest, signal?: AbortSignal) {
+  return postJson<AgentChatResponse>("/api/chat", request, signal);
 }
 
 export function formatLabel(value: string) {
