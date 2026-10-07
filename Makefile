@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := help
 
-.PHONY: help setup dev web api test lint format typecheck build docker
+.PHONY: help setup dev web api test lint format typecheck build docker seed
 
 help: ## Show available commands
 	@awk 'BEGIN {FS = ":.*##"; printf "GeoOps AI commands:\n"} /^[a-zA-Z_-]+:.*?##/ {printf "  %-12s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -17,6 +17,9 @@ web: ## Run the Next.js development server
 
 api: ## Run the FastAPI development server
 	pnpm api
+
+seed: ## Regenerate the deterministic local dataset
+	UV_CACHE_DIR=$${UV_CACHE_DIR:-/tmp/geoops-ai-uv-cache} uv run --package geoops-api python -m geoops_api.seed
 
 test: ## Run all unit tests
 	pnpm test
@@ -35,4 +38,3 @@ build: ## Build the web app and Python package
 
 docker: ## Build and start the local Docker Compose stack
 	docker compose up --build
-

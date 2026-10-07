@@ -1,0 +1,3582 @@
+{
+  "assignments": [
+    {
+      "assignment_id": "A-0001",
+      "created_at": "2026-10-06T07:20:00Z",
+      "scheduled_end": "2026-10-06T13:00:00Z",
+      "scheduled_start": "2026-10-06T09:00:00Z",
+      "status": "active",
+      "technician_id": "T-002",
+      "ticket_id": "185"
+    },
+    {
+      "assignment_id": "A-0002",
+      "created_at": "2026-10-06T04:20:00Z",
+      "scheduled_end": "2026-10-06T10:00:00Z",
+      "scheduled_start": "2026-10-06T06:00:00Z",
+      "status": "active",
+      "technician_id": "T-003",
+      "ticket_id": "186"
+    },
+    {
+      "assignment_id": "A-0003",
+      "created_at": "2026-10-05T22:20:00Z",
+      "scheduled_end": "2026-10-06T04:00:00Z",
+      "scheduled_start": "2026-10-06T00:00:00Z",
+      "status": "completed",
+      "technician_id": "T-005",
+      "ticket_id": "188"
+    },
+    {
+      "assignment_id": "A-0004",
+      "created_at": "2026-10-05T16:20:00Z",
+      "scheduled_end": "2026-10-05T22:00:00Z",
+      "scheduled_start": "2026-10-05T18:00:00Z",
+      "status": "active",
+      "technician_id": "T-007",
+      "ticket_id": "190"
+    },
+    {
+      "assignment_id": "A-0005",
+      "created_at": "2026-10-05T07:20:00Z",
+      "scheduled_end": "2026-10-05T13:00:00Z",
+      "scheduled_start": "2026-10-05T09:00:00Z",
+      "status": "completed",
+      "technician_id": "T-010",
+      "ticket_id": "193"
+    },
+    {
+      "assignment_id": "A-0006",
+      "created_at": "2026-10-05T01:20:00Z",
+      "scheduled_end": "2026-10-05T07:00:00Z",
+      "scheduled_start": "2026-10-05T03:00:00Z",
+      "status": "active",
+      "technician_id": "T-012",
+      "ticket_id": "195"
+    },
+    {
+      "assignment_id": "A-0007",
+      "created_at": "2026-10-04T22:20:00Z",
+      "scheduled_end": "2026-10-05T04:00:00Z",
+      "scheduled_start": "2026-10-05T00:00:00Z",
+      "status": "active",
+      "technician_id": "T-013",
+      "ticket_id": "196"
+    },
+    {
+      "assignment_id": "A-0008",
+      "created_at": "2026-10-04T16:20:00Z",
+      "scheduled_end": "2026-10-04T22:00:00Z",
+      "scheduled_start": "2026-10-04T18:00:00Z",
+      "status": "completed",
+      "technician_id": "T-001",
+      "ticket_id": "198"
+    },
+    {
+      "assignment_id": "A-0009",
+      "created_at": "2026-10-04T10:20:00Z",
+      "scheduled_end": "2026-10-04T16:00:00Z",
+      "scheduled_start": "2026-10-04T12:00:00Z",
+      "status": "active",
+      "technician_id": "T-003",
+      "ticket_id": "200"
+    },
+    {
+      "assignment_id": "A-0010",
+      "created_at": "2026-10-04T07:20:00Z",
+      "scheduled_end": "2026-10-04T13:00:00Z",
+      "scheduled_start": "2026-10-04T09:00:00Z",
+      "status": "active",
+      "technician_id": "T-004",
+      "ticket_id": "201"
+    },
+    {
+      "assignment_id": "A-0011",
+      "created_at": "2026-10-04T01:20:00Z",
+      "scheduled_end": "2026-10-04T07:00:00Z",
+      "scheduled_start": "2026-10-04T03:00:00Z",
+      "status": "completed",
+      "technician_id": "T-006",
+      "ticket_id": "203"
+    },
+    {
+      "assignment_id": "A-0012",
+      "created_at": "2026-10-03T19:20:00Z",
+      "scheduled_end": "2026-10-04T01:00:00Z",
+      "scheduled_start": "2026-10-03T21:00:00Z",
+      "status": "active",
+      "technician_id": "T-008",
+      "ticket_id": "205"
+    },
+    {
+      "assignment_id": "A-0013",
+      "created_at": "2026-10-03T16:20:00Z",
+      "scheduled_end": "2026-10-03T22:00:00Z",
+      "scheduled_start": "2026-10-03T18:00:00Z",
+      "status": "active",
+      "technician_id": "T-009",
+      "ticket_id": "206"
+    },
+    {
+      "assignment_id": "A-0014",
+      "created_at": "2026-10-03T10:20:00Z",
+      "scheduled_end": "2026-10-03T16:00:00Z",
+      "scheduled_start": "2026-10-03T12:00:00Z",
+      "status": "completed",
+      "technician_id": "T-011",
+      "ticket_id": "208"
+    },
+    {
+      "assignment_id": "A-0015",
+      "created_at": "2026-10-03T04:20:00Z",
+      "scheduled_end": "2026-10-03T10:00:00Z",
+      "scheduled_start": "2026-10-03T06:00:00Z",
+      "status": "active",
+      "technician_id": "T-013",
+      "ticket_id": "210"
+    },
+    {
+      "assignment_id": "A-0016",
+      "created_at": "2026-10-03T01:20:00Z",
+      "scheduled_end": "2026-10-03T07:00:00Z",
+      "scheduled_start": "2026-10-03T03:00:00Z",
+      "status": "active",
+      "technician_id": "T-014",
+      "ticket_id": "211"
+    },
+    {
+      "assignment_id": "A-0017",
+      "created_at": "2026-10-02T19:20:00Z",
+      "scheduled_end": "2026-10-03T01:00:00Z",
+      "scheduled_start": "2026-10-02T21:00:00Z",
+      "status": "completed",
+      "technician_id": "T-002",
+      "ticket_id": "213"
+    },
+    {
+      "assignment_id": "A-0018",
+      "created_at": "2026-10-02T13:20:00Z",
+      "scheduled_end": "2026-10-02T19:00:00Z",
+      "scheduled_start": "2026-10-02T15:00:00Z",
+      "status": "active",
+      "technician_id": "T-004",
+      "ticket_id": "215"
+    },
+    {
+      "assignment_id": "A-0019",
+      "created_at": "2026-10-02T10:20:00Z",
+      "scheduled_end": "2026-10-02T16:00:00Z",
+      "scheduled_start": "2026-10-02T12:00:00Z",
+      "status": "active",
+      "technician_id": "T-005",
+      "ticket_id": "216"
+    },
+    {
+      "assignment_id": "A-0020",
+      "created_at": "2026-10-02T04:20:00Z",
+      "scheduled_end": "2026-10-02T10:00:00Z",
+      "scheduled_start": "2026-10-02T06:00:00Z",
+      "status": "completed",
+      "technician_id": "T-007",
+      "ticket_id": "218"
+    },
+    {
+      "assignment_id": "A-0021",
+      "created_at": "2026-10-01T22:20:00Z",
+      "scheduled_end": "2026-10-02T04:00:00Z",
+      "scheduled_start": "2026-10-02T00:00:00Z",
+      "status": "active",
+      "technician_id": "T-009",
+      "ticket_id": "220"
+    },
+    {
+      "assignment_id": "A-0022",
+      "created_at": "2026-10-01T19:20:00Z",
+      "scheduled_end": "2026-10-02T01:00:00Z",
+      "scheduled_start": "2026-10-01T21:00:00Z",
+      "status": "active",
+      "technician_id": "T-010",
+      "ticket_id": "221"
+    },
+    {
+      "assignment_id": "A-0023",
+      "created_at": "2026-10-01T13:20:00Z",
+      "scheduled_end": "2026-10-01T19:00:00Z",
+      "scheduled_start": "2026-10-01T15:00:00Z",
+      "status": "completed",
+      "technician_id": "T-012",
+      "ticket_id": "223"
+    },
+    {
+      "assignment_id": "A-0024",
+      "created_at": "2026-10-01T07:20:00Z",
+      "scheduled_end": "2026-10-01T13:00:00Z",
+      "scheduled_start": "2026-10-01T09:00:00Z",
+      "status": "active",
+      "technician_id": "T-014",
+      "ticket_id": "225"
+    },
+    {
+      "assignment_id": "A-0025",
+      "created_at": "2026-10-01T04:20:00Z",
+      "scheduled_end": "2026-10-01T10:00:00Z",
+      "scheduled_start": "2026-10-01T06:00:00Z",
+      "status": "active",
+      "technician_id": "T-001",
+      "ticket_id": "226"
+    },
+    {
+      "assignment_id": "A-0026",
+      "created_at": "2026-09-30T22:20:00Z",
+      "scheduled_end": "2026-10-01T04:00:00Z",
+      "scheduled_start": "2026-10-01T00:00:00Z",
+      "status": "completed",
+      "technician_id": "T-003",
+      "ticket_id": "228"
+    },
+    {
+      "assignment_id": "A-0027",
+      "created_at": "2026-09-30T16:20:00Z",
+      "scheduled_end": "2026-09-30T22:00:00Z",
+      "scheduled_start": "2026-09-30T18:00:00Z",
+      "status": "active",
+      "technician_id": "T-005",
+      "ticket_id": "230"
+    },
+    {
+      "assignment_id": "A-0028",
+      "created_at": "2026-09-30T13:20:00Z",
+      "scheduled_end": "2026-09-30T19:00:00Z",
+      "scheduled_start": "2026-09-30T15:00:00Z",
+      "status": "active",
+      "technician_id": "T-006",
+      "ticket_id": "231"
+    },
+    {
+      "assignment_id": "A-0029",
+      "created_at": "2026-09-30T07:20:00Z",
+      "scheduled_end": "2026-09-30T13:00:00Z",
+      "scheduled_start": "2026-09-30T09:00:00Z",
+      "status": "completed",
+      "technician_id": "T-008",
+      "ticket_id": "233"
+    },
+    {
+      "assignment_id": "A-0030",
+      "created_at": "2026-09-30T01:20:00Z",
+      "scheduled_end": "2026-09-30T07:00:00Z",
+      "scheduled_start": "2026-09-30T03:00:00Z",
+      "status": "active",
+      "technician_id": "T-010",
+      "ticket_id": "235"
+    },
+    {
+      "assignment_id": "A-0031",
+      "created_at": "2026-09-29T22:20:00Z",
+      "scheduled_end": "2026-09-30T04:00:00Z",
+      "scheduled_start": "2026-09-30T00:00:00Z",
+      "status": "active",
+      "technician_id": "T-011",
+      "ticket_id": "236"
+    },
+    {
+      "assignment_id": "A-0032",
+      "created_at": "2026-09-29T16:20:00Z",
+      "scheduled_end": "2026-09-29T22:00:00Z",
+      "scheduled_start": "2026-09-29T18:00:00Z",
+      "status": "completed",
+      "technician_id": "T-013",
+      "ticket_id": "238"
+    },
+    {
+      "assignment_id": "A-0033",
+      "created_at": "2026-10-06T11:00:00Z",
+      "scheduled_end": "2026-10-06T16:00:00Z",
+      "scheduled_start": "2026-10-06T13:00:00Z",
+      "status": "active",
+      "technician_id": "T-003",
+      "ticket_id": "186"
+    },
+    {
+      "assignment_id": "A-0034",
+      "created_at": "2026-10-06T11:00:00Z",
+      "scheduled_end": "2026-10-06T16:00:00Z",
+      "scheduled_start": "2026-10-06T13:00:00Z",
+      "status": "active",
+      "technician_id": "T-003",
+      "ticket_id": "187"
+    }
+  ],
+  "certifications": [
+    {
+      "certification_id": "CERT-HVAC-1",
+      "equipment_types": [
+        "hvac",
+        "compressor"
+      ],
+      "issuing_body": "NATE",
+      "name": "Commercial HVAC I"
+    },
+    {
+      "certification_id": "CERT-REFRIG",
+      "equipment_types": [
+        "compressor",
+        "refrigeration"
+      ],
+      "issuing_body": "EPA",
+      "name": "EPA Refrigerant 608"
+    },
+    {
+      "certification_id": "CERT-GEN-2",
+      "equipment_types": [
+        "generator"
+      ],
+      "issuing_body": "EGSA",
+      "name": "Generator Systems II"
+    },
+    {
+      "certification_id": "CERT-HV",
+      "equipment_types": [
+        "electrical",
+        "solar_inverter"
+      ],
+      "issuing_body": "NFPA",
+      "name": "High Voltage Electrical"
+    },
+    {
+      "certification_id": "CERT-FIRE",
+      "equipment_types": [
+        "fire_suppression"
+      ],
+      "issuing_body": "NFPA",
+      "name": "Fire Suppression Systems"
+    },
+    {
+      "certification_id": "CERT-NET",
+      "equipment_types": [
+        "network",
+        "controls"
+      ],
+      "issuing_body": "BICSI",
+      "name": "Low Voltage Network"
+    },
+    {
+      "certification_id": "CERT-BOILER",
+      "equipment_types": [
+        "boiler"
+      ],
+      "issuing_body": "ASME",
+      "name": "Commercial Boiler"
+    },
+    {
+      "certification_id": "CERT-PUMP",
+      "equipment_types": [
+        "pump"
+      ],
+      "issuing_body": "HI",
+      "name": "Industrial Pump Service"
+    },
+    {
+      "certification_id": "CERT-ELEVATOR",
+      "equipment_types": [
+        "elevator"
+      ],
+      "issuing_body": "NAEC",
+      "name": "Elevator Drive Systems"
+    },
+    {
+      "certification_id": "CERT-OSHA",
+      "equipment_types": [
+        "safety"
+      ],
+      "issuing_body": "OSHA",
+      "name": "OSHA 30"
+    }
+  ],
+  "customers": [
+    {
+      "active": true,
+      "customer_id": "C-001",
+      "industry": "Retail",
+      "name": "Northstar Grocers",
+      "service_tier": "gold"
+    },
+    {
+      "active": true,
+      "customer_id": "C-002",
+      "industry": "Healthcare",
+      "name": "Redwood Health Network",
+      "service_tier": "platinum"
+    },
+    {
+      "active": true,
+      "customer_id": "C-003",
+      "industry": "Logistics",
+      "name": "Pacific Cold Chain",
+      "service_tier": "platinum"
+    },
+    {
+      "active": true,
+      "customer_id": "C-004",
+      "industry": "Education",
+      "name": "Summit Learning Group",
+      "service_tier": "standard"
+    },
+    {
+      "active": true,
+      "customer_id": "C-005",
+      "industry": "Manufacturing",
+      "name": "Aperture Manufacturing",
+      "service_tier": "gold"
+    },
+    {
+      "active": true,
+      "customer_id": "C-006",
+      "industry": "Hospitality",
+      "name": "Harbor Hospitality",
+      "service_tier": "gold"
+    },
+    {
+      "active": true,
+      "customer_id": "C-007",
+      "industry": "Government",
+      "name": "Civic Data Services",
+      "service_tier": "platinum"
+    },
+    {
+      "active": true,
+      "customer_id": "C-008",
+      "industry": "Property Management",
+      "name": "Evergreen Property Co.",
+      "service_tier": "standard"
+    },
+    {
+      "active": true,
+      "customer_id": "C-009",
+      "industry": "Life Sciences",
+      "name": "Atlas BioLabs",
+      "service_tier": "platinum"
+    },
+    {
+      "active": true,
+      "customer_id": "C-010",
+      "industry": "Energy",
+      "name": "Mesa Energy Partners",
+      "service_tier": "gold"
+    }
+  ],
+  "reference_time": "2026-10-06T12:00:00Z",
+  "seed_version": "2026.10.phase2",
+  "service_tickets": [
+    {
+      "created_at": "2026-10-06T10:00:00Z",
+      "customer_id": "C-002",
+      "description": "Automated monitoring and site staff reported compressor pressure loss.",
+      "equipment_id": "EQ-012-01",
+      "equipment_type": "compressor",
+      "priority": "critical",
+      "required_certification_ids": [
+        "CERT-REFRIG"
+      ],
+      "resolution_due_at": "2026-10-06T18:00:00Z",
+      "response_due_at": "2026-10-06T12:00:00Z",
+      "site_id": "S-012",
+      "status": "open",
+      "ticket_id": "184",
+      "title": "Compressor pressure loss"
+    },
+    {
+      "created_at": "2026-10-06T07:00:00Z",
+      "customer_id": "C-003",
+      "description": "Automated monitoring and site staff reported rooftop unit airflow fault.",
+      "equipment_id": "EQ-013-02",
+      "equipment_type": "hvac",
+      "priority": "high",
+      "required_certification_ids": [
+        "CERT-HVAC-1"
+      ],
+      "resolution_due_at": "2026-10-06T23:00:00Z",
+      "response_due_at": "2026-10-06T11:00:00Z",
+      "site_id": "S-013",
+      "status": "assigned",
+      "ticket_id": "185",
+      "title": "Rooftop unit airflow fault"
+    },
+    {
+      "created_at": "2026-10-06T04:00:00Z",
+      "customer_id": "C-004",
+      "description": "Automated monitoring and site staff reported backup generator start failure.",
+      "equipment_id": "EQ-014-03",
+      "equipment_type": "generator",
+      "priority": "medium",
+      "required_certification_ids": [
+        "CERT-GEN-2"
+      ],
+      "resolution_due_at": "2026-10-07T04:00:00Z",
+      "response_due_at": "2026-10-06T10:00:00Z",
+      "site_id": "S-014",
+      "status": "in_progress",
+      "ticket_id": "186",
+      "title": "Backup generator start failure"
+    },
+    {
+      "created_at": "2026-10-06T01:00:00Z",
+      "customer_id": "C-005",
+      "description": "Automated monitoring and site staff reported main switchgear alarm.",
+      "equipment_id": "EQ-015-04",
+      "equipment_type": "electrical",
+      "priority": "low",
+      "required_certification_ids": [
+        "CERT-HV"
+      ],
+      "resolution_due_at": "2026-10-07T09:00:00Z",
+      "response_due_at": "2026-10-06T03:00:00Z",
+      "site_id": "S-015",
+      "status": "on_hold",
+      "ticket_id": "187",
+      "title": "Main switchgear alarm"
+    },
+    {
+      "created_at": "2026-10-05T22:00:00Z",
+      "customer_id": "C-006",
+      "description": "Automated monitoring and site staff reported suppression panel trouble signal.",
+      "equipment_id": "EQ-016-01",
+      "equipment_type": "fire_suppression",
+      "priority": "critical",
+      "required_certification_ids": [
+        "CERT-FIRE"
+      ],
+      "resolution_due_at": "2026-10-06T06:00:00Z",
+      "response_due_at": "2026-10-06T02:00:00Z",
+      "site_id": "S-016",
+      "status": "completed",
+      "ticket_id": "188",
+      "title": "Suppression panel trouble signal"
+    },
+    {
+      "created_at": "2026-10-05T19:00:00Z",
+      "customer_id": "C-007",
+      "description": "Automated monitoring and site staff reported building controller offline.",
+      "equipment_id": "EQ-017-02",
+      "equipment_type": "network",
+      "priority": "high",
+      "required_certification_ids": [
+        "CERT-NET"
+      ],
+      "resolution_due_at": "2026-10-06T11:00:00Z",
+      "response_due_at": "2026-10-06T01:00:00Z",
+      "site_id": "S-017",
+      "status": "open",
+      "ticket_id": "189",
+      "title": "Building controller offline"
+    },
+    {
+      "created_at": "2026-10-05T16:00:00Z",
+      "customer_id": "C-005",
+      "description": "Automated monitoring and site staff reported remote generator fuel-control fault.",
+      "equipment_id": "EQ-025-03",
+      "equipment_type": "generator",
+      "priority": "medium",
+      "required_certification_ids": [
+        "CERT-GEN-2"
+      ],
+      "resolution_due_at": "2026-10-06T16:00:00Z",
+      "response_due_at": "2026-10-05T18:00:00Z",
+      "site_id": "S-025",
+      "status": "assigned",
+      "ticket_id": "190",
+      "title": "Remote generator fuel-control fault"
+    },
+    {
+      "created_at": "2026-10-05T13:00:00Z",
+      "customer_id": "C-009",
+      "description": "Automated monitoring and site staff reported elevator drive fault.",
+      "equipment_id": "EQ-019-04",
+      "equipment_type": "elevator",
+      "priority": "low",
+      "required_certification_ids": [
+        "CERT-ELEVATOR"
+      ],
+      "resolution_due_at": "2026-10-06T21:00:00Z",
+      "response_due_at": "2026-10-05T17:00:00Z",
+      "site_id": "S-019",
+      "status": "open",
+      "ticket_id": "191",
+      "title": "Elevator drive fault"
+    },
+    {
+      "created_at": "2026-10-05T10:00:00Z",
+      "customer_id": "C-010",
+      "description": "Automated monitoring and site staff reported compressor pressure loss.",
+      "equipment_id": "EQ-020-01",
+      "equipment_type": "compressor",
+      "priority": "critical",
+      "required_certification_ids": [
+        "CERT-REFRIG"
+      ],
+      "resolution_due_at": "2026-10-05T18:00:00Z",
+      "response_due_at": "2026-10-05T16:00:00Z",
+      "site_id": "S-020",
+      "status": "on_hold",
+      "ticket_id": "192",
+      "title": "Compressor pressure loss"
+    },
+    {
+      "created_at": "2026-10-05T07:00:00Z",
+      "customer_id": "C-001",
+      "description": "Automated monitoring and site staff reported rooftop unit airflow fault.",
+      "equipment_id": "EQ-021-02",
+      "equipment_type": "hvac",
+      "priority": "high",
+      "required_certification_ids": [
+        "CERT-HVAC-1"
+      ],
+      "resolution_due_at": "2026-10-05T23:00:00Z",
+      "response_due_at": "2026-10-05T09:00:00Z",
+      "site_id": "S-021",
+      "status": "completed",
+      "ticket_id": "193",
+      "title": "Rooftop unit airflow fault"
+    },
+    {
+      "created_at": "2026-10-05T04:00:00Z",
+      "customer_id": "C-002",
+      "description": "Automated monitoring and site staff reported backup generator start failure.",
+      "equipment_id": "EQ-022-03",
+      "equipment_type": "generator",
+      "priority": "medium",
+      "required_certification_ids": [
+        "CERT-GEN-2"
+      ],
+      "resolution_due_at": "2026-10-06T04:00:00Z",
+      "response_due_at": "2026-10-05T08:00:00Z",
+      "site_id": "S-022",
+      "status": "open",
+      "ticket_id": "194",
+      "title": "Backup generator start failure"
+    },
+    {
+      "created_at": "2026-10-05T01:00:00Z",
+      "customer_id": "C-003",
+      "description": "Automated monitoring and site staff reported main switchgear alarm.",
+      "equipment_id": "EQ-023-04",
+      "equipment_type": "electrical",
+      "priority": "low",
+      "required_certification_ids": [
+        "CERT-HV"
+      ],
+      "resolution_due_at": "2026-10-06T09:00:00Z",
+      "response_due_at": "2026-10-05T07:00:00Z",
+      "site_id": "S-023",
+      "status": "assigned",
+      "ticket_id": "195",
+      "title": "Main switchgear alarm"
+    },
+    {
+      "created_at": "2026-10-04T22:00:00Z",
+      "customer_id": "C-004",
+      "description": "Automated monitoring and site staff reported suppression panel trouble signal.",
+      "equipment_id": "EQ-024-01",
+      "equipment_type": "fire_suppression",
+      "priority": "critical",
+      "required_certification_ids": [
+        "CERT-FIRE"
+      ],
+      "resolution_due_at": "2026-10-05T06:00:00Z",
+      "response_due_at": "2026-10-05T00:00:00Z",
+      "site_id": "S-024",
+      "status": "in_progress",
+      "ticket_id": "196",
+      "title": "Suppression panel trouble signal"
+    },
+    {
+      "created_at": "2026-10-04T19:00:00Z",
+      "customer_id": "C-005",
+      "description": "Automated monitoring and site staff reported building controller offline.",
+      "equipment_id": "EQ-025-02",
+      "equipment_type": "network",
+      "priority": "high",
+      "required_certification_ids": [
+        "CERT-NET"
+      ],
+      "resolution_due_at": "2026-10-05T11:00:00Z",
+      "response_due_at": "2026-10-04T23:00:00Z",
+      "site_id": "S-025",
+      "status": "on_hold",
+      "ticket_id": "197",
+      "title": "Building controller offline"
+    },
+    {
+      "created_at": "2026-10-04T16:00:00Z",
+      "customer_id": "C-001",
+      "description": "Automated monitoring and site staff reported boiler ignition lockout.",
+      "equipment_id": "EQ-001-03",
+      "equipment_type": "boiler",
+      "priority": "medium",
+      "required_certification_ids": [
+        "CERT-BOILER"
+      ],
+      "resolution_due_at": "2026-10-05T16:00:00Z",
+      "response_due_at": "2026-10-04T22:00:00Z",
+      "site_id": "S-001",
+      "status": "completed",
+      "ticket_id": "198",
+      "title": "Boiler ignition lockout"
+    },
+    {
+      "created_at": "2026-10-04T13:00:00Z",
+      "customer_id": "C-002",
+      "description": "Automated monitoring and site staff reported circulation pump vibration.",
+      "equipment_id": "EQ-002-04",
+      "equipment_type": "pump",
+      "priority": "low",
+      "required_certification_ids": [
+        "CERT-PUMP"
+      ],
+      "resolution_due_at": "2026-10-05T21:00:00Z",
+      "response_due_at": "2026-10-04T15:00:00Z",
+      "site_id": "S-002",
+      "status": "open",
+      "ticket_id": "199",
+      "title": "Circulation pump vibration"
+    },
+    {
+      "created_at": "2026-10-04T10:00:00Z",
+      "customer_id": "C-003",
+      "description": "Automated monitoring and site staff reported compressor pressure loss.",
+      "equipment_id": "EQ-003-01",
+      "equipment_type": "compressor",
+      "priority": "critical",
+      "required_certification_ids": [
+        "CERT-REFRIG"
+      ],
+      "resolution_due_at": "2026-10-04T18:00:00Z",
+      "response_due_at": "2026-10-04T14:00:00Z",
+      "site_id": "S-003",
+      "status": "assigned",
+      "ticket_id": "200",
+      "title": "Compressor pressure loss"
+    },
+    {
+      "created_at": "2026-10-04T07:00:00Z",
+      "customer_id": "C-004",
+      "description": "Automated monitoring and site staff reported rooftop unit airflow fault.",
+      "equipment_id": "EQ-004-02",
+      "equipment_type": "hvac",
+      "priority": "high",
+      "required_certification_ids": [
+        "CERT-HVAC-1"
+      ],
+      "resolution_due_at": "2026-10-04T23:00:00Z",
+      "response_due_at": "2026-10-04T13:00:00Z",
+      "site_id": "S-004",
+      "status": "in_progress",
+      "ticket_id": "201",
+      "title": "Rooftop unit airflow fault"
+    },
+    {
+      "created_at": "2026-10-04T04:00:00Z",
+      "customer_id": "C-005",
+      "description": "Automated monitoring and site staff reported backup generator start failure.",
+      "equipment_id": "EQ-005-03",
+      "equipment_type": "generator",
+      "priority": "medium",
+      "required_certification_ids": [
+        "CERT-GEN-2"
+      ],
+      "resolution_due_at": "2026-10-05T04:00:00Z",
+      "response_due_at": "2026-10-04T06:00:00Z",
+      "site_id": "S-005",
+      "status": "on_hold",
+      "ticket_id": "202",
+      "title": "Backup generator start failure"
+    },
+    {
+      "created_at": "2026-10-04T01:00:00Z",
+      "customer_id": "C-006",
+      "description": "Automated monitoring and site staff reported main switchgear alarm.",
+      "equipment_id": "EQ-006-04",
+      "equipment_type": "electrical",
+      "priority": "low",
+      "required_certification_ids": [
+        "CERT-HV"
+      ],
+      "resolution_due_at": "2026-10-05T09:00:00Z",
+      "response_due_at": "2026-10-04T05:00:00Z",
+      "site_id": "S-006",
+      "status": "completed",
+      "ticket_id": "203",
+      "title": "Main switchgear alarm"
+    },
+    {
+      "created_at": "2026-10-03T22:00:00Z",
+      "customer_id": "C-007",
+      "description": "Automated monitoring and site staff reported suppression panel trouble signal.",
+      "equipment_id": "EQ-007-01",
+      "equipment_type": "fire_suppression",
+      "priority": "critical",
+      "required_certification_ids": [
+        "CERT-FIRE"
+      ],
+      "resolution_due_at": "2026-10-04T06:00:00Z",
+      "response_due_at": "2026-10-04T04:00:00Z",
+      "site_id": "S-007",
+      "status": "open",
+      "ticket_id": "204",
+      "title": "Suppression panel trouble signal"
+    },
+    {
+      "created_at": "2026-10-03T19:00:00Z",
+      "customer_id": "C-008",
+      "description": "Automated monitoring and site staff reported building controller offline.",
+      "equipment_id": "EQ-008-02",
+      "equipment_type": "network",
+      "priority": "high",
+      "required_certification_ids": [
+        "CERT-NET"
+      ],
+      "resolution_due_at": "2026-10-04T11:00:00Z",
+      "response_due_at": "2026-10-03T21:00:00Z",
+      "site_id": "S-008",
+      "status": "assigned",
+      "ticket_id": "205",
+      "title": "Building controller offline"
+    },
+    {
+      "created_at": "2026-10-03T16:00:00Z",
+      "customer_id": "C-009",
+      "description": "Automated monitoring and site staff reported boiler ignition lockout.",
+      "equipment_id": "EQ-009-03",
+      "equipment_type": "boiler",
+      "priority": "medium",
+      "required_certification_ids": [
+        "CERT-BOILER"
+      ],
+      "resolution_due_at": "2026-10-04T16:00:00Z",
+      "response_due_at": "2026-10-03T20:00:00Z",
+      "site_id": "S-009",
+      "status": "in_progress",
+      "ticket_id": "206",
+      "title": "Boiler ignition lockout"
+    },
+    {
+      "created_at": "2026-10-03T13:00:00Z",
+      "customer_id": "C-010",
+      "description": "Automated monitoring and site staff reported circulation pump vibration.",
+      "equipment_id": "EQ-010-04",
+      "equipment_type": "pump",
+      "priority": "low",
+      "required_certification_ids": [
+        "CERT-PUMP"
+      ],
+      "resolution_due_at": "2026-10-04T21:00:00Z",
+      "response_due_at": "2026-10-03T19:00:00Z",
+      "site_id": "S-010",
+      "status": "on_hold",
+      "ticket_id": "207",
+      "title": "Circulation pump vibration"
+    },
+    {
+      "created_at": "2026-10-03T10:00:00Z",
+      "customer_id": "C-001",
+      "description": "Automated monitoring and site staff reported compressor pressure loss.",
+      "equipment_id": "EQ-011-01",
+      "equipment_type": "compressor",
+      "priority": "critical",
+      "required_certification_ids": [
+        "CERT-REFRIG"
+      ],
+      "resolution_due_at": "2026-10-03T18:00:00Z",
+      "response_due_at": "2026-10-03T12:00:00Z",
+      "site_id": "S-011",
+      "status": "completed",
+      "ticket_id": "208",
+      "title": "Compressor pressure loss"
+    },
+    {
+      "created_at": "2026-10-03T07:00:00Z",
+      "customer_id": "C-002",
+      "description": "Automated monitoring and site staff reported rooftop unit airflow fault.",
+      "equipment_id": "EQ-012-02",
+      "equipment_type": "hvac",
+      "priority": "high",
+      "required_certification_ids": [
+        "CERT-HVAC-1"
+      ],
+      "resolution_due_at": "2026-10-03T23:00:00Z",
+      "response_due_at": "2026-10-03T11:00:00Z",
+      "site_id": "S-012",
+      "status": "open",
+      "ticket_id": "209",
+      "title": "Rooftop unit airflow fault"
+    },
+    {
+      "created_at": "2026-10-03T04:00:00Z",
+      "customer_id": "C-003",
+      "description": "Automated monitoring and site staff reported backup generator start failure.",
+      "equipment_id": "EQ-013-03",
+      "equipment_type": "generator",
+      "priority": "medium",
+      "required_certification_ids": [
+        "CERT-GEN-2"
+      ],
+      "resolution_due_at": "2026-10-04T04:00:00Z",
+      "response_due_at": "2026-10-03T10:00:00Z",
+      "site_id": "S-013",
+      "status": "assigned",
+      "ticket_id": "210",
+      "title": "Backup generator start failure"
+    },
+    {
+      "created_at": "2026-10-03T01:00:00Z",
+      "customer_id": "C-004",
+      "description": "Automated monitoring and site staff reported main switchgear alarm.",
+      "equipment_id": "EQ-014-04",
+      "equipment_type": "electrical",
+      "priority": "low",
+      "required_certification_ids": [
+        "CERT-HV"
+      ],
+      "resolution_due_at": "2026-10-04T09:00:00Z",
+      "response_due_at": "2026-10-03T03:00:00Z",
+      "site_id": "S-014",
+      "status": "in_progress",
+      "ticket_id": "211",
+      "title": "Main switchgear alarm"
+    },
+    {
+      "created_at": "2026-10-02T22:00:00Z",
+      "customer_id": "C-005",
+      "description": "Automated monitoring and site staff reported suppression panel trouble signal.",
+      "equipment_id": "EQ-015-01",
+      "equipment_type": "fire_suppression",
+      "priority": "critical",
+      "required_certification_ids": [
+        "CERT-FIRE"
+      ],
+      "resolution_due_at": "2026-10-03T06:00:00Z",
+      "response_due_at": "2026-10-03T02:00:00Z",
+      "site_id": "S-015",
+      "status": "on_hold",
+      "ticket_id": "212",
+      "title": "Suppression panel trouble signal"
+    },
+    {
+      "created_at": "2026-10-02T19:00:00Z",
+      "customer_id": "C-006",
+      "description": "Automated monitoring and site staff reported building controller offline.",
+      "equipment_id": "EQ-016-02",
+      "equipment_type": "network",
+      "priority": "high",
+      "required_certification_ids": [
+        "CERT-NET"
+      ],
+      "resolution_due_at": "2026-10-03T11:00:00Z",
+      "response_due_at": "2026-10-03T01:00:00Z",
+      "site_id": "S-016",
+      "status": "completed",
+      "ticket_id": "213",
+      "title": "Building controller offline"
+    },
+    {
+      "created_at": "2026-10-02T16:00:00Z",
+      "customer_id": "C-007",
+      "description": "Automated monitoring and site staff reported boiler ignition lockout.",
+      "equipment_id": "EQ-017-03",
+      "equipment_type": "boiler",
+      "priority": "medium",
+      "required_certification_ids": [
+        "CERT-BOILER"
+      ],
+      "resolution_due_at": "2026-10-03T16:00:00Z",
+      "response_due_at": "2026-10-02T18:00:00Z",
+      "site_id": "S-017",
+      "status": "open",
+      "ticket_id": "214",
+      "title": "Boiler ignition lockout"
+    },
+    {
+      "created_at": "2026-10-02T13:00:00Z",
+      "customer_id": "C-008",
+      "description": "Automated monitoring and site staff reported circulation pump vibration.",
+      "equipment_id": "EQ-018-04",
+      "equipment_type": "pump",
+      "priority": "low",
+      "required_certification_ids": [
+        "CERT-PUMP"
+      ],
+      "resolution_due_at": "2026-10-03T21:00:00Z",
+      "response_due_at": "2026-10-02T17:00:00Z",
+      "site_id": "S-018",
+      "status": "assigned",
+      "ticket_id": "215",
+      "title": "Circulation pump vibration"
+    },
+    {
+      "created_at": "2026-10-02T10:00:00Z",
+      "customer_id": "C-009",
+      "description": "Automated monitoring and site staff reported compressor pressure loss.",
+      "equipment_id": "EQ-019-01",
+      "equipment_type": "compressor",
+      "priority": "critical",
+      "required_certification_ids": [
+        "CERT-REFRIG"
+      ],
+      "resolution_due_at": "2026-10-02T18:00:00Z",
+      "response_due_at": "2026-10-02T16:00:00Z",
+      "site_id": "S-019",
+      "status": "in_progress",
+      "ticket_id": "216",
+      "title": "Compressor pressure loss"
+    },
+    {
+      "created_at": "2026-10-02T07:00:00Z",
+      "customer_id": "C-010",
+      "description": "Automated monitoring and site staff reported rooftop unit airflow fault.",
+      "equipment_id": "EQ-020-02",
+      "equipment_type": "hvac",
+      "priority": "high",
+      "required_certification_ids": [
+        "CERT-HVAC-1"
+      ],
+      "resolution_due_at": "2026-10-02T23:00:00Z",
+      "response_due_at": "2026-10-02T09:00:00Z",
+      "site_id": "S-020",
+      "status": "on_hold",
+      "ticket_id": "217",
+      "title": "Rooftop unit airflow fault"
+    },
+    {
+      "created_at": "2026-10-02T04:00:00Z",
+      "customer_id": "C-001",
+      "description": "Automated monitoring and site staff reported backup generator start failure.",
+      "equipment_id": "EQ-021-03",
+      "equipment_type": "generator",
+      "priority": "medium",
+      "required_certification_ids": [
+        "CERT-GEN-2"
+      ],
+      "resolution_due_at": "2026-10-03T04:00:00Z",
+      "response_due_at": "2026-10-02T08:00:00Z",
+      "site_id": "S-021",
+      "status": "completed",
+      "ticket_id": "218",
+      "title": "Backup generator start failure"
+    },
+    {
+      "created_at": "2026-10-02T01:00:00Z",
+      "customer_id": "C-002",
+      "description": "Automated monitoring and site staff reported main switchgear alarm.",
+      "equipment_id": "EQ-022-04",
+      "equipment_type": "electrical",
+      "priority": "low",
+      "required_certification_ids": [
+        "CERT-HV"
+      ],
+      "resolution_due_at": "2026-10-03T09:00:00Z",
+      "response_due_at": "2026-10-02T07:00:00Z",
+      "site_id": "S-022",
+      "status": "open",
+      "ticket_id": "219",
+      "title": "Main switchgear alarm"
+    },
+    {
+      "created_at": "2026-10-01T22:00:00Z",
+      "customer_id": "C-003",
+      "description": "Automated monitoring and site staff reported suppression panel trouble signal.",
+      "equipment_id": "EQ-023-01",
+      "equipment_type": "fire_suppression",
+      "priority": "critical",
+      "required_certification_ids": [
+        "CERT-FIRE"
+      ],
+      "resolution_due_at": "2026-10-02T06:00:00Z",
+      "response_due_at": "2026-10-02T00:00:00Z",
+      "site_id": "S-023",
+      "status": "assigned",
+      "ticket_id": "220",
+      "title": "Suppression panel trouble signal"
+    },
+    {
+      "created_at": "2026-10-01T19:00:00Z",
+      "customer_id": "C-004",
+      "description": "Automated monitoring and site staff reported building controller offline.",
+      "equipment_id": "EQ-024-02",
+      "equipment_type": "network",
+      "priority": "high",
+      "required_certification_ids": [
+        "CERT-NET"
+      ],
+      "resolution_due_at": "2026-10-02T11:00:00Z",
+      "response_due_at": "2026-10-01T23:00:00Z",
+      "site_id": "S-024",
+      "status": "in_progress",
+      "ticket_id": "221",
+      "title": "Building controller offline"
+    },
+    {
+      "created_at": "2026-10-01T16:00:00Z",
+      "customer_id": "C-005",
+      "description": "Automated monitoring and site staff reported boiler ignition lockout.",
+      "equipment_id": "EQ-025-03",
+      "equipment_type": "boiler",
+      "priority": "medium",
+      "required_certification_ids": [
+        "CERT-BOILER"
+      ],
+      "resolution_due_at": "2026-10-02T16:00:00Z",
+      "response_due_at": "2026-10-01T22:00:00Z",
+      "site_id": "S-025",
+      "status": "on_hold",
+      "ticket_id": "222",
+      "title": "Boiler ignition lockout"
+    },
+    {
+      "created_at": "2026-10-01T13:00:00Z",
+      "customer_id": "C-001",
+      "description": "Automated monitoring and site staff reported circulation pump vibration.",
+      "equipment_id": "EQ-001-04",
+      "equipment_type": "pump",
+      "priority": "low",
+      "required_certification_ids": [
+        "CERT-PUMP"
+      ],
+      "resolution_due_at": "2026-10-02T21:00:00Z",
+      "response_due_at": "2026-10-01T15:00:00Z",
+      "site_id": "S-001",
+      "status": "completed",
+      "ticket_id": "223",
+      "title": "Circulation pump vibration"
+    },
+    {
+      "created_at": "2026-10-01T10:00:00Z",
+      "customer_id": "C-002",
+      "description": "Automated monitoring and site staff reported compressor pressure loss.",
+      "equipment_id": "EQ-002-01",
+      "equipment_type": "compressor",
+      "priority": "critical",
+      "required_certification_ids": [
+        "CERT-REFRIG"
+      ],
+      "resolution_due_at": "2026-10-01T18:00:00Z",
+      "response_due_at": "2026-10-01T14:00:00Z",
+      "site_id": "S-002",
+      "status": "open",
+      "ticket_id": "224",
+      "title": "Compressor pressure loss"
+    },
+    {
+      "created_at": "2026-10-01T07:00:00Z",
+      "customer_id": "C-003",
+      "description": "Automated monitoring and site staff reported rooftop unit airflow fault.",
+      "equipment_id": "EQ-003-02",
+      "equipment_type": "hvac",
+      "priority": "high",
+      "required_certification_ids": [
+        "CERT-HVAC-1"
+      ],
+      "resolution_due_at": "2026-10-01T23:00:00Z",
+      "response_due_at": "2026-10-01T13:00:00Z",
+      "site_id": "S-003",
+      "status": "assigned",
+      "ticket_id": "225",
+      "title": "Rooftop unit airflow fault"
+    },
+    {
+      "created_at": "2026-10-01T04:00:00Z",
+      "customer_id": "C-004",
+      "description": "Automated monitoring and site staff reported backup generator start failure.",
+      "equipment_id": "EQ-004-03",
+      "equipment_type": "generator",
+      "priority": "medium",
+      "required_certification_ids": [
+        "CERT-GEN-2"
+      ],
+      "resolution_due_at": "2026-10-02T04:00:00Z",
+      "response_due_at": "2026-10-01T06:00:00Z",
+      "site_id": "S-004",
+      "status": "in_progress",
+      "ticket_id": "226",
+      "title": "Backup generator start failure"
+    },
+    {
+      "created_at": "2026-10-01T01:00:00Z",
+      "customer_id": "C-005",
+      "description": "Automated monitoring and site staff reported main switchgear alarm.",
+      "equipment_id": "EQ-005-04",
+      "equipment_type": "electrical",
+      "priority": "low",
+      "required_certification_ids": [
+        "CERT-HV"
+      ],
+      "resolution_due_at": "2026-10-02T09:00:00Z",
+      "response_due_at": "2026-10-01T05:00:00Z",
+      "site_id": "S-005",
+      "status": "on_hold",
+      "ticket_id": "227",
+      "title": "Main switchgear alarm"
+    },
+    {
+      "created_at": "2026-09-30T22:00:00Z",
+      "customer_id": "C-006",
+      "description": "Automated monitoring and site staff reported suppression panel trouble signal.",
+      "equipment_id": "EQ-006-01",
+      "equipment_type": "fire_suppression",
+      "priority": "critical",
+      "required_certification_ids": [
+        "CERT-FIRE"
+      ],
+      "resolution_due_at": "2026-10-01T06:00:00Z",
+      "response_due_at": "2026-10-01T04:00:00Z",
+      "site_id": "S-006",
+      "status": "completed",
+      "ticket_id": "228",
+      "title": "Suppression panel trouble signal"
+    },
+    {
+      "created_at": "2026-09-30T19:00:00Z",
+      "customer_id": "C-007",
+      "description": "Automated monitoring and site staff reported building controller offline.",
+      "equipment_id": "EQ-007-02",
+      "equipment_type": "network",
+      "priority": "high",
+      "required_certification_ids": [
+        "CERT-NET"
+      ],
+      "resolution_due_at": "2026-10-01T11:00:00Z",
+      "response_due_at": "2026-09-30T21:00:00Z",
+      "site_id": "S-007",
+      "status": "open",
+      "ticket_id": "229",
+      "title": "Building controller offline"
+    },
+    {
+      "created_at": "2026-09-30T16:00:00Z",
+      "customer_id": "C-008",
+      "description": "Automated monitoring and site staff reported boiler ignition lockout.",
+      "equipment_id": "EQ-008-03",
+      "equipment_type": "boiler",
+      "priority": "medium",
+      "required_certification_ids": [
+        "CERT-BOILER"
+      ],
+      "resolution_due_at": "2026-10-01T16:00:00Z",
+      "response_due_at": "2026-09-30T20:00:00Z",
+      "site_id": "S-008",
+      "status": "assigned",
+      "ticket_id": "230",
+      "title": "Boiler ignition lockout"
+    },
+    {
+      "created_at": "2026-09-30T13:00:00Z",
+      "customer_id": "C-009",
+      "description": "Automated monitoring and site staff reported circulation pump vibration.",
+      "equipment_id": "EQ-009-04",
+      "equipment_type": "pump",
+      "priority": "low",
+      "required_certification_ids": [
+        "CERT-PUMP"
+      ],
+      "resolution_due_at": "2026-10-01T21:00:00Z",
+      "response_due_at": "2026-09-30T19:00:00Z",
+      "site_id": "S-009",
+      "status": "in_progress",
+      "ticket_id": "231",
+      "title": "Circulation pump vibration"
+    },
+    {
+      "created_at": "2026-09-30T10:00:00Z",
+      "customer_id": "C-010",
+      "description": "Automated monitoring and site staff reported compressor pressure loss.",
+      "equipment_id": "EQ-010-01",
+      "equipment_type": "compressor",
+      "priority": "critical",
+      "required_certification_ids": [
+        "CERT-REFRIG"
+      ],
+      "resolution_due_at": "2026-09-30T18:00:00Z",
+      "response_due_at": "2026-09-30T12:00:00Z",
+      "site_id": "S-010",
+      "status": "on_hold",
+      "ticket_id": "232",
+      "title": "Compressor pressure loss"
+    },
+    {
+      "created_at": "2026-09-30T07:00:00Z",
+      "customer_id": "C-001",
+      "description": "Automated monitoring and site staff reported rooftop unit airflow fault.",
+      "equipment_id": "EQ-011-02",
+      "equipment_type": "hvac",
+      "priority": "high",
+      "required_certification_ids": [
+        "CERT-HVAC-1"
+      ],
+      "resolution_due_at": "2026-09-30T23:00:00Z",
+      "response_due_at": "2026-09-30T11:00:00Z",
+      "site_id": "S-011",
+      "status": "completed",
+      "ticket_id": "233",
+      "title": "Rooftop unit airflow fault"
+    },
+    {
+      "created_at": "2026-09-30T04:00:00Z",
+      "customer_id": "C-002",
+      "description": "Automated monitoring and site staff reported backup generator start failure.",
+      "equipment_id": "EQ-012-03",
+      "equipment_type": "generator",
+      "priority": "medium",
+      "required_certification_ids": [
+        "CERT-GEN-2"
+      ],
+      "resolution_due_at": "2026-10-01T04:00:00Z",
+      "response_due_at": "2026-09-30T10:00:00Z",
+      "site_id": "S-012",
+      "status": "open",
+      "ticket_id": "234",
+      "title": "Backup generator start failure"
+    },
+    {
+      "created_at": "2026-09-30T01:00:00Z",
+      "customer_id": "C-003",
+      "description": "Automated monitoring and site staff reported main switchgear alarm.",
+      "equipment_id": "EQ-013-04",
+      "equipment_type": "electrical",
+      "priority": "low",
+      "required_certification_ids": [
+        "CERT-HV"
+      ],
+      "resolution_due_at": "2026-10-01T09:00:00Z",
+      "response_due_at": "2026-09-30T03:00:00Z",
+      "site_id": "S-013",
+      "status": "assigned",
+      "ticket_id": "235",
+      "title": "Main switchgear alarm"
+    },
+    {
+      "created_at": "2026-09-29T22:00:00Z",
+      "customer_id": "C-004",
+      "description": "Automated monitoring and site staff reported suppression panel trouble signal.",
+      "equipment_id": "EQ-014-01",
+      "equipment_type": "fire_suppression",
+      "priority": "critical",
+      "required_certification_ids": [
+        "CERT-FIRE"
+      ],
+      "resolution_due_at": "2026-09-30T06:00:00Z",
+      "response_due_at": "2026-09-30T02:00:00Z",
+      "site_id": "S-014",
+      "status": "in_progress",
+      "ticket_id": "236",
+      "title": "Suppression panel trouble signal"
+    },
+    {
+      "created_at": "2026-09-29T19:00:00Z",
+      "customer_id": "C-005",
+      "description": "Automated monitoring and site staff reported building controller offline.",
+      "equipment_id": "EQ-015-02",
+      "equipment_type": "network",
+      "priority": "high",
+      "required_certification_ids": [
+        "CERT-NET"
+      ],
+      "resolution_due_at": "2026-09-30T11:00:00Z",
+      "response_due_at": "2026-09-30T01:00:00Z",
+      "site_id": "S-015",
+      "status": "on_hold",
+      "ticket_id": "237",
+      "title": "Building controller offline"
+    },
+    {
+      "created_at": "2026-09-29T16:00:00Z",
+      "customer_id": "C-006",
+      "description": "Automated monitoring and site staff reported boiler ignition lockout.",
+      "equipment_id": "EQ-016-03",
+      "equipment_type": "boiler",
+      "priority": "medium",
+      "required_certification_ids": [
+        "CERT-BOILER"
+      ],
+      "resolution_due_at": "2026-09-30T16:00:00Z",
+      "response_due_at": "2026-09-29T18:00:00Z",
+      "site_id": "S-016",
+      "status": "completed",
+      "ticket_id": "238",
+      "title": "Boiler ignition lockout"
+    }
+  ],
+  "sites": [
+    {
+      "address": "100 Market St",
+      "city": "San Francisco",
+      "customer_id": "C-001",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 37.7936,
+        "longitude": -122.3958
+      },
+      "name": "San Francisco Market",
+      "postal_code": "94105",
+      "routing_mode": "normal",
+      "site_id": "S-001",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "2050 Bryant St",
+      "city": "San Francisco",
+      "customer_id": "C-002",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 37.7598,
+        "longitude": -122.4092
+      },
+      "name": "Mission Distribution",
+      "postal_code": "94110",
+      "routing_mode": "normal",
+      "site_id": "S-002",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "3100 Broadway",
+      "city": "Oakland",
+      "customer_id": "C-003",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 37.8202,
+        "longitude": -122.2678
+      },
+      "name": "Oakland Medical Center",
+      "postal_code": "94611",
+      "routing_mode": "normal",
+      "site_id": "S-003",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "2120 University Ave",
+      "city": "Berkeley",
+      "customer_id": "C-004",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 37.8722,
+        "longitude": -122.268
+      },
+      "name": "Berkeley Clinic",
+      "postal_code": "94704",
+      "routing_mode": "normal",
+      "site_id": "S-004",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "2700 Regatta Blvd",
+      "city": "Richmond",
+      "customer_id": "C-005",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 37.9173,
+        "longitude": -122.3467
+      },
+      "name": "Richmond Cold Storage",
+      "postal_code": "94804",
+      "routing_mode": "normal",
+      "site_id": "S-005",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "2400 Clawiter Rd",
+      "city": "Hayward",
+      "customer_id": "C-006",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 37.6287,
+        "longitude": -122.1214
+      },
+      "name": "Hayward Crossdock",
+      "postal_code": "94545",
+      "routing_mode": "normal",
+      "site_id": "S-006",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "50 Embarcadero Rd",
+      "city": "Palo Alto",
+      "customer_id": "C-007",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 37.4419,
+        "longitude": -122.143
+      },
+      "name": "Palo Alto Campus",
+      "postal_code": "94301",
+      "routing_mode": "normal",
+      "site_id": "S-007",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "400 Mounds Rd",
+      "city": "San Mateo",
+      "customer_id": "C-008",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 37.5661,
+        "longitude": -122.3329
+      },
+      "name": "San Mateo Academy",
+      "postal_code": "94402",
+      "routing_mode": "normal",
+      "site_id": "S-008",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "47500 Kato Rd",
+      "city": "Fremont",
+      "customer_id": "C-009",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 37.4818,
+        "longitude": -121.9368
+      },
+      "name": "Fremont Plant",
+      "postal_code": "94538",
+      "routing_mode": "normal",
+      "site_id": "S-009",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "1750 Automation Pkwy",
+      "city": "San Jose",
+      "customer_id": "C-010",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 37.3871,
+        "longitude": -121.9018
+      },
+      "name": "San Jose Assembly",
+      "postal_code": "95131",
+      "routing_mode": "normal",
+      "site_id": "S-010",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "5 Embarcadero Center",
+      "city": "San Francisco",
+      "customer_id": "C-001",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 37.7955,
+        "longitude": -122.3972
+      },
+      "name": "Embarcadero Hotel",
+      "postal_code": "94111",
+      "routing_mode": "normal",
+      "site_id": "S-011",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "1600 Atlas Peak Rd",
+      "city": "Napa",
+      "customer_id": "C-002",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 38.3446,
+        "longitude": -122.2628
+      },
+      "name": "Napa Resort",
+      "postal_code": "94558",
+      "routing_mode": "normal",
+      "site_id": "S-012",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "1 Frank H Ogawa Plaza",
+      "city": "Oakland",
+      "customer_id": "C-003",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 37.8053,
+        "longitude": -122.2725
+      },
+      "name": "Civic Operations Center",
+      "postal_code": "94612",
+      "routing_mode": "normal",
+      "site_id": "S-013",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "2001 Broadway",
+      "city": "Oakland",
+      "customer_id": "C-004",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 37.8098,
+        "longitude": -122.2685
+      },
+      "name": "Data Archive",
+      "postal_code": "94612",
+      "routing_mode": "normal",
+      "site_id": "S-014",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "1350 Franklin St",
+      "city": "San Francisco",
+      "customer_id": "C-005",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 37.7873,
+        "longitude": -122.4233
+      },
+      "name": "Marina Towers",
+      "postal_code": "94109",
+      "routing_mode": "normal",
+      "site_id": "S-015",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "1350 Treat Blvd",
+      "city": "Walnut Creek",
+      "customer_id": "C-006",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 37.9259,
+        "longitude": -122.0575
+      },
+      "name": "Walnut Creek Offices",
+      "postal_code": "94597",
+      "routing_mode": "normal",
+      "site_id": "S-016",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "3333 Scott Blvd",
+      "city": "Santa Clara",
+      "customer_id": "C-007",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 37.3797,
+        "longitude": -121.9829
+      },
+      "name": "South Bay Laboratory",
+      "postal_code": "95054",
+      "routing_mode": "normal",
+      "site_id": "S-017",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "7000 Shoreline Ct",
+      "city": "South San Francisco",
+      "customer_id": "C-008",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 37.6688,
+        "longitude": -122.3877
+      },
+      "name": "Genomics Annex",
+      "postal_code": "94080",
+      "routing_mode": "normal",
+      "site_id": "S-018",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "2300 Stanwell Dr",
+      "city": "Concord",
+      "customer_id": "C-009",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 37.9808,
+        "longitude": -122.0516
+      },
+      "name": "Concord Solar Depot",
+      "postal_code": "94520",
+      "routing_mode": "normal",
+      "site_id": "S-019",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "300 G St",
+      "city": "Antioch",
+      "customer_id": "C-010",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 38.0166,
+        "longitude": -121.8155
+      },
+      "name": "Antioch Field Office",
+      "postal_code": "94509",
+      "routing_mode": "normal",
+      "site_id": "S-020",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "1901 Junipero Serra Blvd",
+      "city": "Daly City",
+      "customer_id": "C-001",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 37.6787,
+        "longitude": -122.4716
+      },
+      "name": "Daly City Market",
+      "postal_code": "94014",
+      "routing_mode": "normal",
+      "site_id": "S-021",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "1000 Northgate Dr",
+      "city": "San Rafael",
+      "customer_id": "C-002",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 38.008,
+        "longitude": -122.545
+      },
+      "name": "San Rafael Clinic",
+      "postal_code": "94903",
+      "routing_mode": "normal",
+      "site_id": "S-022",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "42 Signal Way",
+      "city": "Mountain View",
+      "customer_id": "C-003",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 37.414,
+        "longitude": -122.078
+      },
+      "name": "Route Failure Lab",
+      "postal_code": "94043",
+      "routing_mode": "simulate_failure",
+      "site_id": "S-023",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "Unknown Service Road",
+      "city": "Brisbane",
+      "customer_id": "C-004",
+      "geocode_status": "invalid",
+      "location": null,
+      "name": "Legacy Address Site",
+      "postal_code": "94005",
+      "routing_mode": "normal",
+      "site_id": "S-024",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "address": "8800 Tesla Rd",
+      "city": "Livermore",
+      "customer_id": "C-005",
+      "geocode_status": "valid",
+      "location": {
+        "latitude": 37.625,
+        "longitude": -121.65
+      },
+      "name": "Remote Pump Station",
+      "postal_code": "94550",
+      "routing_mode": "normal",
+      "site_id": "S-025",
+      "state": "CA",
+      "timezone": "America/Los_Angeles"
+    }
+  ],
+  "sla_events": [
+    {
+      "deadline_at": null,
+      "event_id": "SLA-001-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-06T10:00:00Z",
+      "ticket_id": "184"
+    },
+    {
+      "deadline_at": "2026-10-06T18:00:00Z",
+      "event_id": "SLA-001-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-06T10:00:00Z",
+      "ticket_id": "184"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-002-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-06T07:00:00Z",
+      "ticket_id": "185"
+    },
+    {
+      "deadline_at": "2026-10-06T23:00:00Z",
+      "event_id": "SLA-002-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-06T07:00:00Z",
+      "ticket_id": "185"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-003-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-06T04:00:00Z",
+      "ticket_id": "186"
+    },
+    {
+      "deadline_at": "2026-10-07T04:00:00Z",
+      "event_id": "SLA-003-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-06T04:00:00Z",
+      "ticket_id": "186"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-004-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-06T01:00:00Z",
+      "ticket_id": "187"
+    },
+    {
+      "deadline_at": "2026-10-07T09:00:00Z",
+      "event_id": "SLA-004-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-06T01:00:00Z",
+      "ticket_id": "187"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-005-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-05T22:00:00Z",
+      "ticket_id": "188"
+    },
+    {
+      "deadline_at": "2026-10-06T06:00:00Z",
+      "event_id": "SLA-005-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-05T22:00:00Z",
+      "ticket_id": "188"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-006-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-05T19:00:00Z",
+      "ticket_id": "189"
+    },
+    {
+      "deadline_at": "2026-10-06T11:00:00Z",
+      "event_id": "SLA-006-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-05T19:00:00Z",
+      "ticket_id": "189"
+    },
+    {
+      "deadline_at": "2026-10-06T11:00:00Z",
+      "event_id": "SLA-006-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-06T11:00:00Z",
+      "ticket_id": "189"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-007-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-05T16:00:00Z",
+      "ticket_id": "190"
+    },
+    {
+      "deadline_at": "2026-10-06T16:00:00Z",
+      "event_id": "SLA-007-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-05T16:00:00Z",
+      "ticket_id": "190"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-008-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-05T13:00:00Z",
+      "ticket_id": "191"
+    },
+    {
+      "deadline_at": "2026-10-06T21:00:00Z",
+      "event_id": "SLA-008-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-05T13:00:00Z",
+      "ticket_id": "191"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-009-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-05T10:00:00Z",
+      "ticket_id": "192"
+    },
+    {
+      "deadline_at": "2026-10-05T18:00:00Z",
+      "event_id": "SLA-009-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-05T10:00:00Z",
+      "ticket_id": "192"
+    },
+    {
+      "deadline_at": "2026-10-05T18:00:00Z",
+      "event_id": "SLA-009-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-05T18:00:00Z",
+      "ticket_id": "192"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-010-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-05T07:00:00Z",
+      "ticket_id": "193"
+    },
+    {
+      "deadline_at": "2026-10-05T23:00:00Z",
+      "event_id": "SLA-010-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-05T07:00:00Z",
+      "ticket_id": "193"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-011-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-05T04:00:00Z",
+      "ticket_id": "194"
+    },
+    {
+      "deadline_at": "2026-10-06T04:00:00Z",
+      "event_id": "SLA-011-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-05T04:00:00Z",
+      "ticket_id": "194"
+    },
+    {
+      "deadline_at": "2026-10-06T04:00:00Z",
+      "event_id": "SLA-011-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-06T04:00:00Z",
+      "ticket_id": "194"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-012-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-05T01:00:00Z",
+      "ticket_id": "195"
+    },
+    {
+      "deadline_at": "2026-10-06T09:00:00Z",
+      "event_id": "SLA-012-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-05T01:00:00Z",
+      "ticket_id": "195"
+    },
+    {
+      "deadline_at": "2026-10-06T09:00:00Z",
+      "event_id": "SLA-012-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-06T09:00:00Z",
+      "ticket_id": "195"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-013-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-04T22:00:00Z",
+      "ticket_id": "196"
+    },
+    {
+      "deadline_at": "2026-10-05T06:00:00Z",
+      "event_id": "SLA-013-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-04T22:00:00Z",
+      "ticket_id": "196"
+    },
+    {
+      "deadline_at": "2026-10-05T06:00:00Z",
+      "event_id": "SLA-013-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-05T06:00:00Z",
+      "ticket_id": "196"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-014-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-04T19:00:00Z",
+      "ticket_id": "197"
+    },
+    {
+      "deadline_at": "2026-10-05T11:00:00Z",
+      "event_id": "SLA-014-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-04T19:00:00Z",
+      "ticket_id": "197"
+    },
+    {
+      "deadline_at": "2026-10-05T11:00:00Z",
+      "event_id": "SLA-014-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-05T11:00:00Z",
+      "ticket_id": "197"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-015-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-04T16:00:00Z",
+      "ticket_id": "198"
+    },
+    {
+      "deadline_at": "2026-10-05T16:00:00Z",
+      "event_id": "SLA-015-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-04T16:00:00Z",
+      "ticket_id": "198"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-016-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-04T13:00:00Z",
+      "ticket_id": "199"
+    },
+    {
+      "deadline_at": "2026-10-05T21:00:00Z",
+      "event_id": "SLA-016-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-04T13:00:00Z",
+      "ticket_id": "199"
+    },
+    {
+      "deadline_at": "2026-10-05T21:00:00Z",
+      "event_id": "SLA-016-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-05T21:00:00Z",
+      "ticket_id": "199"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-017-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-04T10:00:00Z",
+      "ticket_id": "200"
+    },
+    {
+      "deadline_at": "2026-10-04T18:00:00Z",
+      "event_id": "SLA-017-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-04T10:00:00Z",
+      "ticket_id": "200"
+    },
+    {
+      "deadline_at": "2026-10-04T18:00:00Z",
+      "event_id": "SLA-017-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-04T18:00:00Z",
+      "ticket_id": "200"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-018-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-04T07:00:00Z",
+      "ticket_id": "201"
+    },
+    {
+      "deadline_at": "2026-10-04T23:00:00Z",
+      "event_id": "SLA-018-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-04T07:00:00Z",
+      "ticket_id": "201"
+    },
+    {
+      "deadline_at": "2026-10-04T23:00:00Z",
+      "event_id": "SLA-018-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-04T23:00:00Z",
+      "ticket_id": "201"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-019-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-04T04:00:00Z",
+      "ticket_id": "202"
+    },
+    {
+      "deadline_at": "2026-10-05T04:00:00Z",
+      "event_id": "SLA-019-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-04T04:00:00Z",
+      "ticket_id": "202"
+    },
+    {
+      "deadline_at": "2026-10-05T04:00:00Z",
+      "event_id": "SLA-019-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-05T04:00:00Z",
+      "ticket_id": "202"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-020-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-04T01:00:00Z",
+      "ticket_id": "203"
+    },
+    {
+      "deadline_at": "2026-10-05T09:00:00Z",
+      "event_id": "SLA-020-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-04T01:00:00Z",
+      "ticket_id": "203"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-021-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-03T22:00:00Z",
+      "ticket_id": "204"
+    },
+    {
+      "deadline_at": "2026-10-04T06:00:00Z",
+      "event_id": "SLA-021-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-03T22:00:00Z",
+      "ticket_id": "204"
+    },
+    {
+      "deadline_at": "2026-10-04T06:00:00Z",
+      "event_id": "SLA-021-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-04T06:00:00Z",
+      "ticket_id": "204"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-022-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-03T19:00:00Z",
+      "ticket_id": "205"
+    },
+    {
+      "deadline_at": "2026-10-04T11:00:00Z",
+      "event_id": "SLA-022-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-03T19:00:00Z",
+      "ticket_id": "205"
+    },
+    {
+      "deadline_at": "2026-10-04T11:00:00Z",
+      "event_id": "SLA-022-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-04T11:00:00Z",
+      "ticket_id": "205"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-023-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-03T16:00:00Z",
+      "ticket_id": "206"
+    },
+    {
+      "deadline_at": "2026-10-04T16:00:00Z",
+      "event_id": "SLA-023-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-03T16:00:00Z",
+      "ticket_id": "206"
+    },
+    {
+      "deadline_at": "2026-10-04T16:00:00Z",
+      "event_id": "SLA-023-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-04T16:00:00Z",
+      "ticket_id": "206"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-024-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-03T13:00:00Z",
+      "ticket_id": "207"
+    },
+    {
+      "deadline_at": "2026-10-04T21:00:00Z",
+      "event_id": "SLA-024-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-03T13:00:00Z",
+      "ticket_id": "207"
+    },
+    {
+      "deadline_at": "2026-10-04T21:00:00Z",
+      "event_id": "SLA-024-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-04T21:00:00Z",
+      "ticket_id": "207"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-025-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-03T10:00:00Z",
+      "ticket_id": "208"
+    },
+    {
+      "deadline_at": "2026-10-03T18:00:00Z",
+      "event_id": "SLA-025-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-03T10:00:00Z",
+      "ticket_id": "208"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-026-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-03T07:00:00Z",
+      "ticket_id": "209"
+    },
+    {
+      "deadline_at": "2026-10-03T23:00:00Z",
+      "event_id": "SLA-026-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-03T07:00:00Z",
+      "ticket_id": "209"
+    },
+    {
+      "deadline_at": "2026-10-03T23:00:00Z",
+      "event_id": "SLA-026-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-03T23:00:00Z",
+      "ticket_id": "209"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-027-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-03T04:00:00Z",
+      "ticket_id": "210"
+    },
+    {
+      "deadline_at": "2026-10-04T04:00:00Z",
+      "event_id": "SLA-027-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-03T04:00:00Z",
+      "ticket_id": "210"
+    },
+    {
+      "deadline_at": "2026-10-04T04:00:00Z",
+      "event_id": "SLA-027-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-04T04:00:00Z",
+      "ticket_id": "210"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-028-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-03T01:00:00Z",
+      "ticket_id": "211"
+    },
+    {
+      "deadline_at": "2026-10-04T09:00:00Z",
+      "event_id": "SLA-028-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-03T01:00:00Z",
+      "ticket_id": "211"
+    },
+    {
+      "deadline_at": "2026-10-04T09:00:00Z",
+      "event_id": "SLA-028-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-04T09:00:00Z",
+      "ticket_id": "211"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-029-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-02T22:00:00Z",
+      "ticket_id": "212"
+    },
+    {
+      "deadline_at": "2026-10-03T06:00:00Z",
+      "event_id": "SLA-029-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-02T22:00:00Z",
+      "ticket_id": "212"
+    },
+    {
+      "deadline_at": "2026-10-03T06:00:00Z",
+      "event_id": "SLA-029-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-03T06:00:00Z",
+      "ticket_id": "212"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-030-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-02T19:00:00Z",
+      "ticket_id": "213"
+    },
+    {
+      "deadline_at": "2026-10-03T11:00:00Z",
+      "event_id": "SLA-030-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-02T19:00:00Z",
+      "ticket_id": "213"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-031-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-02T16:00:00Z",
+      "ticket_id": "214"
+    },
+    {
+      "deadline_at": "2026-10-03T16:00:00Z",
+      "event_id": "SLA-031-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-02T16:00:00Z",
+      "ticket_id": "214"
+    },
+    {
+      "deadline_at": "2026-10-03T16:00:00Z",
+      "event_id": "SLA-031-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-03T16:00:00Z",
+      "ticket_id": "214"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-032-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-02T13:00:00Z",
+      "ticket_id": "215"
+    },
+    {
+      "deadline_at": "2026-10-03T21:00:00Z",
+      "event_id": "SLA-032-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-02T13:00:00Z",
+      "ticket_id": "215"
+    },
+    {
+      "deadline_at": "2026-10-03T21:00:00Z",
+      "event_id": "SLA-032-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-03T21:00:00Z",
+      "ticket_id": "215"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-033-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-02T10:00:00Z",
+      "ticket_id": "216"
+    },
+    {
+      "deadline_at": "2026-10-02T18:00:00Z",
+      "event_id": "SLA-033-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-02T10:00:00Z",
+      "ticket_id": "216"
+    },
+    {
+      "deadline_at": "2026-10-02T18:00:00Z",
+      "event_id": "SLA-033-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-02T18:00:00Z",
+      "ticket_id": "216"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-034-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-02T07:00:00Z",
+      "ticket_id": "217"
+    },
+    {
+      "deadline_at": "2026-10-02T23:00:00Z",
+      "event_id": "SLA-034-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-02T07:00:00Z",
+      "ticket_id": "217"
+    },
+    {
+      "deadline_at": "2026-10-02T23:00:00Z",
+      "event_id": "SLA-034-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-02T23:00:00Z",
+      "ticket_id": "217"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-035-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-02T04:00:00Z",
+      "ticket_id": "218"
+    },
+    {
+      "deadline_at": "2026-10-03T04:00:00Z",
+      "event_id": "SLA-035-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-02T04:00:00Z",
+      "ticket_id": "218"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-036-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-02T01:00:00Z",
+      "ticket_id": "219"
+    },
+    {
+      "deadline_at": "2026-10-03T09:00:00Z",
+      "event_id": "SLA-036-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-02T01:00:00Z",
+      "ticket_id": "219"
+    },
+    {
+      "deadline_at": "2026-10-03T09:00:00Z",
+      "event_id": "SLA-036-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-03T09:00:00Z",
+      "ticket_id": "219"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-037-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-01T22:00:00Z",
+      "ticket_id": "220"
+    },
+    {
+      "deadline_at": "2026-10-02T06:00:00Z",
+      "event_id": "SLA-037-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-01T22:00:00Z",
+      "ticket_id": "220"
+    },
+    {
+      "deadline_at": "2026-10-02T06:00:00Z",
+      "event_id": "SLA-037-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-02T06:00:00Z",
+      "ticket_id": "220"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-038-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-01T19:00:00Z",
+      "ticket_id": "221"
+    },
+    {
+      "deadline_at": "2026-10-02T11:00:00Z",
+      "event_id": "SLA-038-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-01T19:00:00Z",
+      "ticket_id": "221"
+    },
+    {
+      "deadline_at": "2026-10-02T11:00:00Z",
+      "event_id": "SLA-038-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-02T11:00:00Z",
+      "ticket_id": "221"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-039-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-01T16:00:00Z",
+      "ticket_id": "222"
+    },
+    {
+      "deadline_at": "2026-10-02T16:00:00Z",
+      "event_id": "SLA-039-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-01T16:00:00Z",
+      "ticket_id": "222"
+    },
+    {
+      "deadline_at": "2026-10-02T16:00:00Z",
+      "event_id": "SLA-039-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-02T16:00:00Z",
+      "ticket_id": "222"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-040-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-01T13:00:00Z",
+      "ticket_id": "223"
+    },
+    {
+      "deadline_at": "2026-10-02T21:00:00Z",
+      "event_id": "SLA-040-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-01T13:00:00Z",
+      "ticket_id": "223"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-041-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-01T10:00:00Z",
+      "ticket_id": "224"
+    },
+    {
+      "deadline_at": "2026-10-01T18:00:00Z",
+      "event_id": "SLA-041-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-01T10:00:00Z",
+      "ticket_id": "224"
+    },
+    {
+      "deadline_at": "2026-10-01T18:00:00Z",
+      "event_id": "SLA-041-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-01T18:00:00Z",
+      "ticket_id": "224"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-042-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-01T07:00:00Z",
+      "ticket_id": "225"
+    },
+    {
+      "deadline_at": "2026-10-01T23:00:00Z",
+      "event_id": "SLA-042-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-01T07:00:00Z",
+      "ticket_id": "225"
+    },
+    {
+      "deadline_at": "2026-10-01T23:00:00Z",
+      "event_id": "SLA-042-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-01T23:00:00Z",
+      "ticket_id": "225"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-043-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-01T04:00:00Z",
+      "ticket_id": "226"
+    },
+    {
+      "deadline_at": "2026-10-02T04:00:00Z",
+      "event_id": "SLA-043-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-01T04:00:00Z",
+      "ticket_id": "226"
+    },
+    {
+      "deadline_at": "2026-10-02T04:00:00Z",
+      "event_id": "SLA-043-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-02T04:00:00Z",
+      "ticket_id": "226"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-044-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-10-01T01:00:00Z",
+      "ticket_id": "227"
+    },
+    {
+      "deadline_at": "2026-10-02T09:00:00Z",
+      "event_id": "SLA-044-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-10-01T01:00:00Z",
+      "ticket_id": "227"
+    },
+    {
+      "deadline_at": "2026-10-02T09:00:00Z",
+      "event_id": "SLA-044-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-02T09:00:00Z",
+      "ticket_id": "227"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-045-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-09-30T22:00:00Z",
+      "ticket_id": "228"
+    },
+    {
+      "deadline_at": "2026-10-01T06:00:00Z",
+      "event_id": "SLA-045-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-09-30T22:00:00Z",
+      "ticket_id": "228"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-046-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-09-30T19:00:00Z",
+      "ticket_id": "229"
+    },
+    {
+      "deadline_at": "2026-10-01T11:00:00Z",
+      "event_id": "SLA-046-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-09-30T19:00:00Z",
+      "ticket_id": "229"
+    },
+    {
+      "deadline_at": "2026-10-01T11:00:00Z",
+      "event_id": "SLA-046-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-01T11:00:00Z",
+      "ticket_id": "229"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-047-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-09-30T16:00:00Z",
+      "ticket_id": "230"
+    },
+    {
+      "deadline_at": "2026-10-01T16:00:00Z",
+      "event_id": "SLA-047-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-09-30T16:00:00Z",
+      "ticket_id": "230"
+    },
+    {
+      "deadline_at": "2026-10-01T16:00:00Z",
+      "event_id": "SLA-047-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-01T16:00:00Z",
+      "ticket_id": "230"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-048-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-09-30T13:00:00Z",
+      "ticket_id": "231"
+    },
+    {
+      "deadline_at": "2026-10-01T21:00:00Z",
+      "event_id": "SLA-048-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-09-30T13:00:00Z",
+      "ticket_id": "231"
+    },
+    {
+      "deadline_at": "2026-10-01T21:00:00Z",
+      "event_id": "SLA-048-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-01T21:00:00Z",
+      "ticket_id": "231"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-049-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-09-30T10:00:00Z",
+      "ticket_id": "232"
+    },
+    {
+      "deadline_at": "2026-09-30T18:00:00Z",
+      "event_id": "SLA-049-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-09-30T10:00:00Z",
+      "ticket_id": "232"
+    },
+    {
+      "deadline_at": "2026-09-30T18:00:00Z",
+      "event_id": "SLA-049-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-09-30T18:00:00Z",
+      "ticket_id": "232"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-050-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-09-30T07:00:00Z",
+      "ticket_id": "233"
+    },
+    {
+      "deadline_at": "2026-09-30T23:00:00Z",
+      "event_id": "SLA-050-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-09-30T07:00:00Z",
+      "ticket_id": "233"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-051-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-09-30T04:00:00Z",
+      "ticket_id": "234"
+    },
+    {
+      "deadline_at": "2026-10-01T04:00:00Z",
+      "event_id": "SLA-051-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-09-30T04:00:00Z",
+      "ticket_id": "234"
+    },
+    {
+      "deadline_at": "2026-10-01T04:00:00Z",
+      "event_id": "SLA-051-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-01T04:00:00Z",
+      "ticket_id": "234"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-052-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-09-30T01:00:00Z",
+      "ticket_id": "235"
+    },
+    {
+      "deadline_at": "2026-10-01T09:00:00Z",
+      "event_id": "SLA-052-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-09-30T01:00:00Z",
+      "ticket_id": "235"
+    },
+    {
+      "deadline_at": "2026-10-01T09:00:00Z",
+      "event_id": "SLA-052-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-10-01T09:00:00Z",
+      "ticket_id": "235"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-053-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-09-29T22:00:00Z",
+      "ticket_id": "236"
+    },
+    {
+      "deadline_at": "2026-09-30T06:00:00Z",
+      "event_id": "SLA-053-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-09-29T22:00:00Z",
+      "ticket_id": "236"
+    },
+    {
+      "deadline_at": "2026-09-30T06:00:00Z",
+      "event_id": "SLA-053-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-09-30T06:00:00Z",
+      "ticket_id": "236"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-054-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-09-29T19:00:00Z",
+      "ticket_id": "237"
+    },
+    {
+      "deadline_at": "2026-09-30T11:00:00Z",
+      "event_id": "SLA-054-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-09-29T19:00:00Z",
+      "ticket_id": "237"
+    },
+    {
+      "deadline_at": "2026-09-30T11:00:00Z",
+      "event_id": "SLA-054-03",
+      "event_type": "breached",
+      "metadata": {
+        "reason": "resolution_deadline_exceeded"
+      },
+      "occurred_at": "2026-09-30T11:00:00Z",
+      "ticket_id": "237"
+    },
+    {
+      "deadline_at": null,
+      "event_id": "SLA-055-01",
+      "event_type": "created",
+      "metadata": {},
+      "occurred_at": "2026-09-29T16:00:00Z",
+      "ticket_id": "238"
+    },
+    {
+      "deadline_at": "2026-09-30T16:00:00Z",
+      "event_id": "SLA-055-02",
+      "event_type": "resolution_due",
+      "metadata": {},
+      "occurred_at": "2026-09-29T16:00:00Z",
+      "ticket_id": "238"
+    }
+  ],
+  "technician_certifications": [
+    {
+      "certification_id": "CERT-HVAC-1",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-001"
+    },
+    {
+      "certification_id": "CERT-REFRIG",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-001"
+    },
+    {
+      "certification_id": "CERT-NET",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-001"
+    },
+    {
+      "certification_id": "CERT-OSHA",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-001"
+    },
+    {
+      "certification_id": "CERT-GEN-2",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-002"
+    },
+    {
+      "certification_id": "CERT-HV",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-002"
+    },
+    {
+      "certification_id": "CERT-OSHA",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-002"
+    },
+    {
+      "certification_id": "CERT-HVAC-1",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-003"
+    },
+    {
+      "certification_id": "CERT-REFRIG",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-003"
+    },
+    {
+      "certification_id": "CERT-OSHA",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-003"
+    },
+    {
+      "certification_id": "CERT-NET",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-004"
+    },
+    {
+      "certification_id": "CERT-OSHA",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-004"
+    },
+    {
+      "certification_id": "CERT-BOILER",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-005"
+    },
+    {
+      "certification_id": "CERT-PUMP",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-005"
+    },
+    {
+      "certification_id": "CERT-OSHA",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-005"
+    },
+    {
+      "certification_id": "CERT-FIRE",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-006"
+    },
+    {
+      "certification_id": "CERT-OSHA",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-006"
+    },
+    {
+      "certification_id": "CERT-HVAC-1",
+      "expires_on": "2026-10-15",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-007"
+    },
+    {
+      "certification_id": "CERT-REFRIG",
+      "expires_on": "2026-10-15",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-007"
+    },
+    {
+      "certification_id": "CERT-HV",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-008"
+    },
+    {
+      "certification_id": "CERT-OSHA",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-008"
+    },
+    {
+      "certification_id": "CERT-GEN-2",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-009"
+    },
+    {
+      "certification_id": "CERT-PUMP",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-009"
+    },
+    {
+      "certification_id": "CERT-OSHA",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-009"
+    },
+    {
+      "certification_id": "CERT-BOILER",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-010"
+    },
+    {
+      "certification_id": "CERT-HVAC-1",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-010"
+    },
+    {
+      "certification_id": "CERT-OSHA",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-010"
+    },
+    {
+      "certification_id": "CERT-NET",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-011"
+    },
+    {
+      "certification_id": "CERT-OSHA",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-011"
+    },
+    {
+      "certification_id": "CERT-GEN-2",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-012"
+    },
+    {
+      "certification_id": "CERT-HV",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-012"
+    },
+    {
+      "certification_id": "CERT-OSHA",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-012"
+    },
+    {
+      "certification_id": "CERT-FIRE",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-013"
+    },
+    {
+      "certification_id": "CERT-OSHA",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-013"
+    },
+    {
+      "certification_id": "CERT-PUMP",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-014"
+    },
+    {
+      "certification_id": "CERT-BOILER",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-014"
+    },
+    {
+      "certification_id": "CERT-OSHA",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-014"
+    },
+    {
+      "certification_id": "CERT-HVAC-1",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-015"
+    },
+    {
+      "certification_id": "CERT-GEN-2",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-015"
+    },
+    {
+      "certification_id": "CERT-OSHA",
+      "expires_on": "2028-06-30",
+      "issued_on": "2024-07-01",
+      "technician_id": "T-015"
+    }
+  ],
+  "technicians": [
+    {
+      "average_rating": 4.8,
+      "completed_jobs": 184,
+      "current_location": {
+        "latitude": 37.781,
+        "longitude": -122.411
+      },
+      "email": "james.chen@geoops.example",
+      "home_city": "San Francisco",
+      "name": "James Chen",
+      "phone": "+1-415-555-1001",
+      "skill_tags": [
+        "hvac",
+        "controls"
+      ],
+      "status": "available",
+      "technician_id": "T-001"
+    },
+    {
+      "average_rating": 4.9,
+      "completed_jobs": 156,
+      "current_location": {
+        "latitude": 37.8044,
+        "longitude": -122.2712
+      },
+      "email": "maya.patel@geoops.example",
+      "home_city": "Oakland",
+      "name": "Maya Patel",
+      "phone": "+1-415-555-1002",
+      "skill_tags": [
+        "generator",
+        "electrical"
+      ],
+      "status": "dispatched",
+      "technician_id": "T-002"
+    },
+    {
+      "average_rating": 4.7,
+      "completed_jobs": 211,
+      "current_location": {
+        "latitude": 37.3382,
+        "longitude": -121.8863
+      },
+      "email": "luis.romero@geoops.example",
+      "home_city": "San Jose",
+      "name": "Luis Romero",
+      "phone": "+1-415-555-1003",
+      "skill_tags": [
+        "hvac",
+        "refrigeration"
+      ],
+      "status": "dispatched",
+      "technician_id": "T-003"
+    },
+    {
+      "average_rating": 4.6,
+      "completed_jobs": 98,
+      "current_location": {
+        "latitude": 37.8715,
+        "longitude": -122.273
+      },
+      "email": "avery.brooks@geoops.example",
+      "home_city": "Berkeley",
+      "name": "Avery Brooks",
+      "phone": "+1-415-555-1004",
+      "skill_tags": [
+        "network",
+        "controls"
+      ],
+      "status": "available",
+      "technician_id": "T-004"
+    },
+    {
+      "average_rating": 4.8,
+      "completed_jobs": 143,
+      "current_location": {
+        "latitude": 37.5485,
+        "longitude": -121.9886
+      },
+      "email": "priya.nair@geoops.example",
+      "home_city": "Fremont",
+      "name": "Priya Nair",
+      "phone": "+1-415-555-1005",
+      "skill_tags": [
+        "boiler",
+        "pump"
+      ],
+      "status": "available",
+      "technician_id": "T-005"
+    },
+    {
+      "average_rating": 4.5,
+      "completed_jobs": 121,
+      "current_location": {
+        "latitude": 38.2975,
+        "longitude": -122.2869
+      },
+      "email": "noah.williams@geoops.example",
+      "home_city": "Napa",
+      "name": "Noah Williams",
+      "phone": "+1-415-555-1006",
+      "skill_tags": [
+        "fire_suppression",
+        "safety"
+      ],
+      "status": "off_duty",
+      "technician_id": "T-006"
+    },
+    {
+      "average_rating": 4.9,
+      "completed_jobs": 177,
+      "current_location": {
+        "latitude": 37.563,
+        "longitude": -122.3255
+      },
+      "email": "sofia.martinez@geoops.example",
+      "home_city": "San Mateo",
+      "name": "Sofia Martinez",
+      "phone": "+1-415-555-1007",
+      "skill_tags": [
+        "hvac",
+        "refrigeration"
+      ],
+      "status": "available",
+      "technician_id": "T-007"
+    },
+    {
+      "average_rating": 4.7,
+      "completed_jobs": 165,
+      "current_location": {
+        "latitude": 37.3541,
+        "longitude": -121.9552
+      },
+      "email": "ethan.kim@geoops.example",
+      "home_city": "Santa Clara",
+      "name": "Ethan Kim",
+      "phone": "+1-415-555-1008",
+      "skill_tags": [
+        "electrical",
+        "solar_inverter"
+      ],
+      "status": "dispatched",
+      "technician_id": "T-008"
+    },
+    {
+      "average_rating": 4.6,
+      "completed_jobs": 132,
+      "current_location": {
+        "latitude": 37.9358,
+        "longitude": -122.3477
+      },
+      "email": "zoe.thompson@geoops.example",
+      "home_city": "Richmond",
+      "name": "Zoe Thompson",
+      "phone": "+1-415-555-1009",
+      "skill_tags": [
+        "generator",
+        "pump"
+      ],
+      "status": "available",
+      "technician_id": "T-009"
+    },
+    {
+      "average_rating": 4.8,
+      "completed_jobs": 201,
+      "current_location": {
+        "latitude": 37.9101,
+        "longitude": -122.0652
+      },
+      "email": "marcus.reed@geoops.example",
+      "home_city": "Walnut Creek",
+      "name": "Marcus Reed",
+      "phone": "+1-415-555-1010",
+      "skill_tags": [
+        "boiler",
+        "hvac"
+      ],
+      "status": "available",
+      "technician_id": "T-010"
+    },
+    {
+      "average_rating": 4.7,
+      "completed_jobs": 89,
+      "current_location": {
+        "latitude": 37.6879,
+        "longitude": -122.4702
+      },
+      "email": "hannah.lee@geoops.example",
+      "home_city": "Daly City",
+      "name": "Hannah Lee",
+      "phone": "+1-415-555-1011",
+      "skill_tags": [
+        "network",
+        "controls"
+      ],
+      "status": "available",
+      "technician_id": "T-011"
+    },
+    {
+      "average_rating": 4.6,
+      "completed_jobs": 148,
+      "current_location": {
+        "latitude": 37.978,
+        "longitude": -122.0311
+      },
+      "email": "owen.garcia@geoops.example",
+      "home_city": "Concord",
+      "name": "Owen Garcia",
+      "phone": "+1-415-555-1012",
+      "skill_tags": [
+        "generator",
+        "electrical"
+      ],
+      "status": "dispatched",
+      "technician_id": "T-012"
+    },
+    {
+      "average_rating": 4.8,
+      "completed_jobs": 102,
+      "current_location": {
+        "latitude": 37.4419,
+        "longitude": -122.143
+      },
+      "email": "nina.shah@geoops.example",
+      "home_city": "Palo Alto",
+      "name": "Nina Shah",
+      "phone": "+1-415-555-1013",
+      "skill_tags": [
+        "fire_suppression",
+        "safety"
+      ],
+      "status": "available",
+      "technician_id": "T-013"
+    },
+    {
+      "average_rating": 4.5,
+      "completed_jobs": 119,
+      "current_location": {
+        "latitude": 37.6688,
+        "longitude": -122.0808
+      },
+      "email": "caleb.foster@geoops.example",
+      "home_city": "Hayward",
+      "name": "Caleb Foster",
+      "phone": "+1-415-555-1014",
+      "skill_tags": [
+        "pump",
+        "boiler"
+      ],
+      "status": "available",
+      "technician_id": "T-014"
+    },
+    {
+      "average_rating": 4.7,
+      "completed_jobs": 172,
+      "current_location": {
+        "latitude": 37.9735,
+        "longitude": -122.5311
+      },
+      "email": "riley.morgan@geoops.example",
+      "home_city": "San Rafael",
+      "name": "Riley Morgan",
+      "phone": "+1-415-555-1015",
+      "skill_tags": [
+        "hvac",
+        "generator"
+      ],
+      "status": "unavailable",
+      "technician_id": "T-015"
+    }
+  ]
+}

@@ -22,6 +22,7 @@ FROM base AS development
 RUN uv sync --frozen --all-groups --no-install-workspace --package geoops-api
 COPY apps/api/src ./apps/api/src
 COPY apps/api/tests ./apps/api/tests
+COPY data/seed ./data/seed
 RUN uv sync --frozen --all-groups --package geoops-api
 
 EXPOSE 8000
@@ -30,6 +31,7 @@ CMD ["/app/.venv/bin/uvicorn", "geoops_api.main:app", "--app-dir", "apps/api/src
 FROM base AS production-builder
 
 COPY apps/api/src ./apps/api/src
+COPY data/seed ./data/seed
 RUN uv sync --frozen --no-dev --package geoops-api
 
 FROM python:3.13-slim AS production
@@ -41,6 +43,7 @@ ENV PATH=/app/.venv/bin:$PATH \
 WORKDIR /app
 COPY --from=production-builder /app/.venv /app/.venv
 COPY --from=production-builder /app/apps/api/src /app/apps/api/src
+COPY --from=production-builder /app/data/seed /app/data/seed
 
 RUN addgroup --system --gid 10001 geoops \
     && adduser --system --uid 10001 --ingroup geoops geoops
