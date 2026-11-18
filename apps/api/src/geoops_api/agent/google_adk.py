@@ -6,6 +6,7 @@ from uuid import uuid4
 
 from google import genai
 from google.adk.agents import Agent
+from google.adk.agents.run_config import RunConfig
 from google.adk.apps import App
 from google.adk.models import Gemini
 from google.adk.runners import InMemoryRunner
@@ -219,9 +220,17 @@ class GoogleAdkRuntime:
         )
         content = types.Content(role="user", parts=[types.Part(text=request.message)])
         answer_parts: list[str] = []
+        tokens_in: int | None = None
+        tokens_out: int | None = None
         async for event in runner.run_async(
-            user_id="operator", session_id=session_id, new_message=content
+            user_id="operator",
+            session_id=session_id,
+            new_message=content,
+            run_config=RunConfig(max_llm_calls=8),
         ):
+            if event.usage_metadata:
+                tokens_in = (tokens_in or 0) + (event.usage_metadata.prompt_token_count or 0)
+                tokens_out = (tokens_out or 0) + (event.usage_metadata.candidates_token_count or 0)
             if event.is_final_response() and event.content:
                 answer_parts.extend(part.text for part in event.content.parts or [] if part.text)
         answer = "\n".join(answer_parts).strip()
@@ -238,6 +247,8 @@ class GoogleAdkRuntime:
             agent_run_id=agent_run_id,
             model_provider=self._provider,
             model_name=self._model_name,
+            tokens_in=tokens_in,
+            tokens_out=tokens_out,
         )
 
     def describe(self) -> str:

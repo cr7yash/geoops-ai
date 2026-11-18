@@ -24,6 +24,7 @@ class DispatchEvent(BaseModel):
     published: bool = False
     attempts: int = Field(default=0, ge=0)
     error_type: str | None = None
+    next_attempt_at: datetime | None = None
 
 
 class WorkflowRepository:
@@ -101,6 +102,27 @@ class WorkflowRepository:
             return {key: current.model_copy(update={"published": True}).model_dump(mode="json")}
 
         await self.store.transact([key], mark)
+
+    async def delivery_failed(self, event: DispatchEvent, error: Exception) -> None:
+        from datetime import timedelta
+
+        key = f"events/{event.event_id}"
+
+        def failed(documents: dict[str, Any]) -> dict[str, Any]:
+            current = DispatchEvent.model_validate(documents[key])
+            attempts = current.attempts + 1
+            return {
+                key: current.model_copy(
+                    update={
+                        "attempts": attempts,
+                        "error_type": type(error).__name__,
+                        "next_attempt_at": datetime.now(UTC)
+                        + timedelta(seconds=min(600, 2**attempts)),
+                    }
+                ).model_dump(mode="json")
+            }
+
+        await self.store.transact([key], failed)
 
     async def assignments(self) -> builtins.list[Assignment]:
         return [Assignment.model_validate(item) for item in await self.store.scan("assignments")]

@@ -21,7 +21,7 @@ class RequestTelemetryMiddleware(BaseHTTPMiddleware):
         try:
             response = await call_next(request)
         except Exception as exc:
-            logger.exception(
+            logger.error(
                 "request_failed",
                 extra={
                     "request_id": request_id,

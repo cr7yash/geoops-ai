@@ -9,6 +9,7 @@ from geoops_api.approvals.interfaces import ApprovalConflictError
 from geoops_api.config import Settings
 from geoops_api.container import build_container
 from geoops_api.domain.models import ApprovalStatus
+from geoops_api.worker import OutboxRelay
 
 
 @pytest.mark.anyio
@@ -81,4 +82,35 @@ async def test_concurrent_opposite_decisions_have_one_winner() -> None:
     assert len(await container.approval_repository.events()) == (
         final.status == ApprovalStatus.APPROVED
     )
+    await container.approval_repository.store.close()
+
+
+@pytest.mark.anyio
+async def test_transient_publish_failure_preserves_outbox_and_backs_off() -> None:
+    container = build_container(Settings(_env_file=None))
+    approval = await container.approval_service.request_assignment(
+        ticket_id="184", technician_id="T-001", reason="Reviewed", requested_by="operator"
+    )
+    await container.approval_service.decide(
+        approval.approval_id,
+        decision=ApprovalStatus.APPROVED,
+        decided_by="supervisor",
+        comment=None,
+    )
+
+    class UnavailableBus:
+        async def publish(self, event):
+            raise OSError("transport unavailable")
+
+        async def close(self):
+            return None
+
+    relay = OutboxRelay(container.approval_repository, UnavailableBus())
+    assert await relay.run_once() == 0
+    event = (await container.approval_repository.events())[0]
+    assert not event.published and event.attempts == 1
+    assert event.error_type == "OSError" and event.next_attempt_at is not None
+    assert await relay.run_once() == 0
+    assert (await container.approval_repository.events())[0].attempts == 1
+    assert await container.approval_repository.assignments() == []
     await container.approval_repository.store.close()

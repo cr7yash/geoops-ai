@@ -41,4 +41,7 @@ async def consume(payload: PushEnvelope) -> Response:
 
 @app.post("/relay")
 async def relay() -> dict[str, int]:
-    return {"published": await container.outbox_relay.run_once()}
+    return {
+        "published": await container.outbox_relay.run_once(),
+        "archived": await container.analytics_relay.run_once(),
+    }

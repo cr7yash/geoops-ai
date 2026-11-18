@@ -133,8 +133,8 @@ export function AgentWorkspace() {
           </ul>
           <p>
             A mutation request can create a validated proposal. Human approval
-            records authorization, while assignment execution remains outside
-            this phase.
+            queues the work for a dispatch worker, which checks eligibility
+            again before applying the assignment.
           </p>
         </aside>
       </div>

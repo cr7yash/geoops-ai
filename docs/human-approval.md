@@ -1,6 +1,6 @@
 # Human approval
 
-Phase 7 introduces an explicit control boundary between an agent recommendation and an operational assignment change. It creates and decides proposals only. Approved proposals are not executed until the Phase 8 event and worker path exists.
+The approval service validates assignment proposals and records explicit human decisions. Approval queues an event. A separate dispatch worker checks the current eligibility and assignee before changing the assignment.
 
 ## State machine
 
@@ -10,11 +10,11 @@ stateDiagram-v2
     pending --> approved: supervisor approves
     pending --> rejected: supervisor rejects
     pending --> expired: TTL passes
-    approved --> executed: Phase 8 worker (not implemented)
-    approved --> failed: Phase 8 worker (not implemented)
+    approved --> executed: validated worker transaction
+    approved --> failed: eligibility or assignment changed
 ```
 
-Only `pending` proposals can transition in Phase 7. Repeating the same approve or reject decision is idempotent. Attempting the opposite decision or deciding an expired proposal returns a conflict. Repository compare-and-set operations keep this rule atomic across concurrent requests.
+Human decisions apply only to `pending` proposals. Repeating the same decision before execution is idempotent. An opposite decision, an expired proposal, or a terminal execution returns a conflict. Repository compare-and-set operations keep these transitions atomic across concurrent requests.
 
 ## Proposal validation
 
@@ -30,7 +30,7 @@ The stored evidence snapshots the dispatch policy version, score, matched certif
 
 ## Storage
 
-`APPROVAL_STORE=memory` is the key-free local default and persists for the API process lifetime. `APPROVAL_STORE=firestore` selects the asynchronous Firestore adapter and requires `GOOGLE_CLOUD_PROJECT` plus Application Default Credentials. Firestore holds short-lived operational state; historical dispatch events remain a BigQuery responsibility in later phases.
+`APPROVAL_STORE=sqlite` in `.env.example` persists local state across restarts. Tests use isolated memory databases. `APPROVAL_STORE=firestore` requires `GOOGLE_CLOUD_PROJECT` and Application Default Credentials. The workflow stores approval, outbox, and assignment state transactionally. The analytical relay exports historical events to BigQuery.
 
 Firestore decisions use a transaction that reads the current document and writes only when its status is still `pending`. This is the persistent equivalent of the lock-protected compare-and-set used by the local repository.
 

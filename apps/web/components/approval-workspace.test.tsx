@@ -78,7 +78,7 @@ describe("ApprovalWorkspace", () => {
     fireEvent.click(screen.getByRole("button", { name: "Approve" }));
 
     expect(
-      await screen.findByText("Authorized only · execution awaits Phase 8"),
+      await screen.findByText("Approved · queued for dispatch"),
     ).toBeInTheDocument();
     const decisionCall = fetchMock.mock.calls[1];
     expect(decisionCall[0]).toContain("/api/approvals/APR-TEST184/approve");

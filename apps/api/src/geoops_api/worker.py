@@ -7,6 +7,7 @@ from datetime import UTC, datetime
 from geoops_api.approvals.interfaces import ApprovalConflictError
 from geoops_api.domain.models import ApprovalStatus, Assignment, AssignmentStatus
 from geoops_api.events import EventBus
+from geoops_api.schemas.dispatch import DispatchExclusionReason
 from geoops_api.services.catalog import CatalogService
 from geoops_api.services.dispatch import DispatchService, TicketNotDispatchableError
 from geoops_api.workflow import DispatchEvent, WorkflowRepository
@@ -38,6 +39,12 @@ class DispatchWorker:
             recommendation = await self.dispatch.recommend(approval.ticket_id)
         except TicketNotDispatchableError:
             recommendation = None
+        if recommendation and any(
+            item.technician_id == approval.to_technician_id
+            and DispatchExclusionReason.ROUTE_UNAVAILABLE in item.exclusion_reasons
+            for item in recommendation.excluded_candidates
+        ):
+            raise OSError("Route provider unavailable; retry dispatch")
         eligible = recommendation and any(
             item.technician_id == approval.to_technician_id
             for item in recommendation.eligible_candidates
@@ -88,9 +95,20 @@ class OutboxRelay:
     async def run_once(self) -> int:
         delivered = 0
         for event in await self.repository.events(unpublished_only=True):
-            await self.bus.publish(event)
-            await self.repository.published(event)
-            delivered += 1
+            if event.attempts >= 10 or (
+                event.next_attempt_at and event.next_attempt_at > datetime.now(UTC)
+            ):
+                continue
+            try:
+                await self.bus.publish(event)
+                await self.repository.published(event)
+                delivered += 1
+            except Exception as exc:
+                await self.repository.delivery_failed(event, exc)
+                logger.error(
+                    "outbox_delivery_failed",
+                    extra={"event_id": event.event_id, "error_type": type(exc).__name__},
+                )
         return delivered
 
     async def run(self, interval: float) -> None:

@@ -102,6 +102,13 @@ def test_chat_validates_request_contract() -> None:
     assert response.status_code == 422
 
 
+def test_technician_id_is_not_mistaken_for_ticket_id() -> None:
+    with make_client() as client:
+        response = client.post("/api/chat", json={"message": "Assign T-001 to ticket 184"})
+    assert response.status_code == 200
+    assert response.json()["recommended_action"]["ticket_id"] == "184"
+
+
 def test_model_provider_configuration_requires_credentials() -> None:
     with pytest.raises(ValidationError, match="GEMINI_API_KEY"):
         Settings(_env_file=None, model_provider="gemini_api")
@@ -129,7 +136,7 @@ def test_google_adk_runtime_is_selected_without_exposing_credentials() -> None:
         model_name="gemini-test-model",
         gemini_api_key="secret-test-key",
     )
-    runtime = build_container(settings).agent_runtime
+    runtime = build_container(settings).agent_runtime.runtime
 
     assert runtime.__class__.__name__ == "GoogleAdkRuntime"
     assert runtime.describe() == (  # type: ignore[attr-defined]

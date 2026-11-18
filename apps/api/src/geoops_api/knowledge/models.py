@@ -49,6 +49,7 @@ class IndexedKnowledgeChunk(KnowledgeModel):
 
 
 class KnowledgeFilters(KnowledgeModel):
+    include_global: bool = False
     customer_id: str | None = None
     equipment_type: str | None = None
     document_type: DocumentType | None = None

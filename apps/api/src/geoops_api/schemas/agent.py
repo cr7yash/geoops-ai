@@ -1,6 +1,6 @@
 """Public contracts for safe agent orchestration."""
 
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import Field
 
@@ -19,6 +19,7 @@ class AgentToolUse(ApiModel):
     latency_ms: float = Field(ge=0)
     summary: str
     retrieval_count: int | None = Field(default=None, ge=0)
+    arguments: dict[str, Any] = Field(default_factory=dict)
 
 
 class RecommendedAction(ApiModel):
@@ -41,3 +42,6 @@ class ChatResponse(ApiModel):
     agent_run_id: str
     model_provider: str
     model_name: str
+    tokens_in: int | None = Field(default=None, ge=0)
+    tokens_out: int | None = Field(default=None, ge=0)
+    estimated_cost_usd: float | None = Field(default=None, ge=0)

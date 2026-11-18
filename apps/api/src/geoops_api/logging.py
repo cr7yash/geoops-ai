@@ -25,6 +25,13 @@ class JsonFormatter(logging.Formatter):
         "approval_id",
         "ticket_id",
         "approval_status",
+        "event_id",
+        "model",
+        "model_provider",
+        "tokens_in",
+        "tokens_out",
+        "started_at",
+        "completed_at",
     )
 
     def format(self, record: logging.LogRecord) -> str:

@@ -24,7 +24,10 @@ services:
       GEMINI_API_KEY: ${GEMINI_API_KEY:-}
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT:-}
       GOOGLE_CLOUD_LOCATION: ${GOOGLE_CLOUD_LOCATION:-us-central1}
-      APPROVAL_STORE: ${APPROVAL_STORE:-memory}
+      APPROVAL_STORE: ${APPROVAL_STORE:-sqlite}
+      STATE_DATABASE_PATH: /app/data/runtime/state.sqlite3
+      EVENT_BUS: memory
+      WORKER_ENABLED: "true"
       APPROVAL_TTL_MINUTES: ${APPROVAL_TTL_MINUTES:-30}
       FIRESTORE_APPROVALS_COLLECTION: ${FIRESTORE_APPROVALS_COLLECTION:-approval_requests}
     ports:
@@ -33,6 +36,7 @@ services:
       - ./apps/api/src:/app/apps/api/src:ro
       - ./apps/api/tests:/app/apps/api/tests:ro
       - ./data/documents:/app/data/documents:ro
+      - api-runtime:/app/data/runtime
     healthcheck:
       test:
         [
@@ -64,5 +68,6 @@ services:
         condition: service_healthy
 
 volumes:
+  api-runtime:
   web-app-node-modules:
   web-next-cache:

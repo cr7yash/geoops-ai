@@ -1,0 +1,8 @@
+{
+  "task_success": 1.0,
+  "tool_selection_accuracy": 1.0,
+  "tool_argument_accuracy": 1.0,
+  "retrieval_recall": 1.0,
+  "policy_compliance": 1.0,
+  "approval_correctness": 1.0
+}

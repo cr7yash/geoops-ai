@@ -47,6 +47,22 @@ class Settings(BaseSettings):
     pubsub_topic: str = "dispatch-approved"
     worker_enabled: bool = False
     worker_poll_seconds: float = Field(default=1, ge=0.05, le=60)
+    agent_timeout_seconds: float = Field(default=60, ge=1, le=180)
+    evaluation_dataset_path: Path = DEFAULT_SEED_DATA_PATH.parent.parent / "evaluation/cases.json"
+    evaluation_thresholds_path: Path = (
+        DEFAULT_SEED_DATA_PATH.parent.parent / "evaluation/thresholds.json"
+    )
+    analytics_provider: Literal["local", "bigquery"] = "local"
+    document_provider: Literal["local", "gcs"] = "local"
+    vector_provider: Literal["memory", "bigquery"] = "memory"
+    catalog_provider: Literal["json", "bigquery"] = "json"
+    embedding_provider: Literal["local", "google"] = "local"
+    embedding_model: str = "gemini-embedding-001"
+    bigquery_dataset: str = Field(default="geoops", pattern=r"^[A-Za-z_][A-Za-z0-9_]*$")
+    documents_bucket: str | None = None
+    api_token: SecretStr | None = None
+    model_input_usd_per_million: float | None = Field(default=None, ge=0)
+    model_output_usd_per_million: float | None = Field(default=None, ge=0)
     approval_ttl_minutes: int = Field(default=30, ge=5, le=1440)
     firestore_approvals_collection: str = "approval_requests"
 
@@ -55,6 +71,27 @@ class Settings(BaseSettings):
 
     @model_validator(mode="after")
     def validate_maps_configuration(self) -> "Settings":
+        if self.api_token is not None and not self.api_token.get_secret_value().strip():
+            self.api_token = None
+        if self.document_provider == "gcs" and not self.documents_bucket:
+            raise ValueError("DOCUMENTS_BUCKET is required for GCS")
+        if (
+            self.embedding_provider == "google"
+            and self.model_provider != "vertex_ai"
+            and (self.gemini_api_key is None or not self.gemini_api_key.get_secret_value().strip())
+        ):
+            raise ValueError("GEMINI_API_KEY is required for Google embeddings outside Vertex AI")
+        cloud_selected = (
+            self.event_bus == "pubsub"
+            or self.analytics_provider == "bigquery"
+            or self.catalog_provider == "bigquery"
+            or self.vector_provider == "bigquery"
+            or self.document_provider == "gcs"
+        )
+        if cloud_selected and not self.google_cloud_project:
+            raise ValueError("GOOGLE_CLOUD_PROJECT is required for cloud providers")
+        if self.app_env in {"staging", "production"} and self.api_token is None:
+            raise ValueError("API_TOKEN is required outside local development")
         if self.maps_provider == "google" and (
             self.google_maps_api_key is None
             or not self.google_maps_api_key.get_secret_value().strip()

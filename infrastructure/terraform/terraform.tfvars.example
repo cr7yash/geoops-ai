@@ -1,0 +1,7 @@
+project_id = "your-project-id"
+region = "us-central1"
+api_image = "us-central1-docker.pkg.dev/your-project-id/geoops/api:verified-tag"
+web_image = "us-central1-docker.pkg.dev/your-project-id/geoops/web:verified-tag"
+worker_image = "us-central1-docker.pkg.dev/your-project-id/geoops/worker:verified-tag"
+ingestion_image = "us-central1-docker.pkg.dev/your-project-id/geoops/ingestion:verified-tag"
+allowed_web_members = ["user:operator@example.com"]

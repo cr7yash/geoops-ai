@@ -1,4 +1,5 @@
 import { HealthStatus } from "@/components/health-status";
+import { OperationsSummary } from "@/components/operations-summary";
 
 const foundationItems = [
   { label: "Web console", detail: "Next.js · TypeScript", ready: true },
@@ -64,7 +65,7 @@ export default function Home() {
               <p className="panel-kicker">Build sequence</p>
               <h2>Platform foundation</h2>
             </div>
-            <span className="phase-badge">Phase 5</span>
+            <span className="phase-badge">Connected services</span>
           </div>
 
           <ul className="foundation-list">
@@ -82,6 +83,8 @@ export default function Home() {
           </ul>
         </article>
       </section>
+
+      <OperationsSummary />
 
       <section className="principles" aria-labelledby="principles-title">
         <div className="principles-heading">

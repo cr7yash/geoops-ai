@@ -1,0 +1,714 @@
+{
+  "customers": {
+    "fields": [
+      {
+        "name": "customer_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "name",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "industry",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "service_tier",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "active",
+        "type": "BOOL",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "updated_at",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED"
+      }
+    ],
+    "partition": null,
+    "clustering": [
+      "customer_id",
+      "service_tier"
+    ]
+  },
+  "sites": {
+    "fields": [
+      {
+        "name": "site_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "customer_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "name",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "address",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "city",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "state",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "postal_code",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "timezone",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "location",
+        "type": "GEOGRAPHY",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "geocode_status",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "routing_mode",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "updated_at",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED"
+      }
+    ],
+    "partition": null,
+    "clustering": [
+      "customer_id",
+      "state",
+      "city"
+    ]
+  },
+  "certifications": {
+    "fields": [
+      {
+        "name": "certification_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "name",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "issuing_body",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "equipment_types",
+        "type": "STRING",
+        "mode": "REPEATED"
+      },
+      {
+        "name": "updated_at",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED"
+      }
+    ],
+    "partition": null,
+    "clustering": [
+      "certification_id"
+    ]
+  },
+  "technicians": {
+    "fields": [
+      {
+        "name": "technician_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "name",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "email",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "phone",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "status",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "home_city",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "current_location",
+        "type": "GEOGRAPHY",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "skill_tags",
+        "type": "STRING",
+        "mode": "REPEATED"
+      },
+      {
+        "name": "completed_jobs",
+        "type": "INT64",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "average_rating",
+        "type": "FLOAT64",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "updated_at",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED"
+      }
+    ],
+    "partition": null,
+    "clustering": [
+      "status",
+      "home_city"
+    ]
+  },
+  "technician_certifications": {
+    "fields": [
+      {
+        "name": "technician_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "certification_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "issued_on",
+        "type": "DATE",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "expires_on",
+        "type": "DATE",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "updated_at",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED"
+      }
+    ],
+    "partition": null,
+    "clustering": [
+      "technician_id",
+      "certification_id"
+    ]
+  },
+  "service_tickets": {
+    "fields": [
+      {
+        "name": "ticket_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "customer_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "site_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "title",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "description",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "equipment_type",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "equipment_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "required_certification_ids",
+        "type": "STRING",
+        "mode": "REPEATED"
+      },
+      {
+        "name": "priority",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "status",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "created_at",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "response_due_at",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "resolution_due_at",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "updated_at",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED"
+      }
+    ],
+    "partition": "created_at",
+    "clustering": [
+      "status",
+      "priority",
+      "customer_id",
+      "site_id"
+    ]
+  },
+  "assignments": {
+    "fields": [
+      {
+        "name": "assignment_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "ticket_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "technician_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "scheduled_start",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "scheduled_end",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "status",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "created_at",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "updated_at",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED"
+      }
+    ],
+    "partition": "scheduled_start",
+    "clustering": [
+      "technician_id",
+      "ticket_id",
+      "status"
+    ]
+  },
+  "sla_events": {
+    "fields": [
+      {
+        "name": "event_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "ticket_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "event_type",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "occurred_at",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "deadline_at",
+        "type": "TIMESTAMP",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "metadata",
+        "type": "JSON",
+        "mode": "NULLABLE"
+      }
+    ],
+    "partition": "occurred_at",
+    "clustering": [
+      "ticket_id",
+      "event_type"
+    ]
+  },
+  "agent_runs": {
+    "fields": [
+      {
+        "name": "agent_run_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "session_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "started_at",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "completed_at",
+        "type": "TIMESTAMP",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "status",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "model",
+        "type": "STRING",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "tool_names",
+        "type": "STRING",
+        "mode": "REPEATED"
+      },
+      {
+        "name": "tokens_in",
+        "type": "INT64",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "tokens_out",
+        "type": "INT64",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "latency_ms",
+        "type": "FLOAT64",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "success",
+        "type": "BOOL",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "error_type",
+        "type": "STRING",
+        "mode": "NULLABLE"
+      }
+    ],
+    "partition": "started_at",
+    "clustering": [
+      "status",
+      "model"
+    ]
+  },
+  "eval_results": {
+    "fields": [
+      {
+        "name": "evaluation_result_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "evaluation_run_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "case_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "created_at",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "task_success",
+        "type": "BOOL",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "tool_selection_accuracy",
+        "type": "FLOAT64",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "tool_argument_accuracy",
+        "type": "FLOAT64",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "retrieval_recall",
+        "type": "FLOAT64",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "citation_correctness",
+        "type": "FLOAT64",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "policy_compliance",
+        "type": "FLOAT64",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "latency_ms",
+        "type": "FLOAT64",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "token_usage",
+        "type": "INT64",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "estimated_cost_usd",
+        "type": "NUMERIC",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "metrics",
+        "type": "JSON",
+        "mode": "NULLABLE"
+      }
+    ],
+    "partition": "created_at",
+    "clustering": [
+      "evaluation_run_id",
+      "case_id"
+    ]
+  },
+  "dispatch_events": {
+    "fields": [
+      {
+        "name": "event_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "event_type",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "occurred_at",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "ticket_id",
+        "type": "STRING",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "assignment_id",
+        "type": "STRING",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "approval_id",
+        "type": "STRING",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "idempotency_key",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "payload",
+        "type": "JSON",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "success",
+        "type": "BOOL",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "error_type",
+        "type": "STRING",
+        "mode": "NULLABLE"
+      }
+    ],
+    "partition": "occurred_at",
+    "clustering": [
+      "event_type",
+      "ticket_id",
+      "idempotency_key"
+    ]
+  },
+  "knowledge_chunks": {
+    "fields": [
+      {
+        "name": "chunk_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "document_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "customer_id",
+        "type": "STRING",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "equipment_type",
+        "type": "STRING",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "document_type",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "version",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "effective_date",
+        "type": "DATE",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "text",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "embedding",
+        "type": "FLOAT64",
+        "mode": "REPEATED"
+      },
+      {
+        "name": "metadata",
+        "type": "JSON",
+        "mode": "NULLABLE"
+      },
+      {
+        "name": "ingested_at",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED"
+      }
+    ],
+    "partition": "ingested_at",
+    "clustering": [
+      "document_type",
+      "customer_id",
+      "equipment_type"
+    ]
+  },
+  "audit_records": {
+    "fields": [
+      {
+        "name": "collection",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "record_id",
+        "type": "STRING",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "recorded_at",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED"
+      },
+      {
+        "name": "payload",
+        "type": "JSON",
+        "mode": "REQUIRED"
+      }
+    ],
+    "partition": "recorded_at",
+    "clustering": [
+      "collection",
+      "record_id"
+    ]
+  }
+}

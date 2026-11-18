@@ -253,6 +253,28 @@ export type ApprovalRequest = {
     matched_certification_ids: string[];
   };
   version: number;
+  execution_error?: string | null;
+};
+
+export type EvaluationResult = {
+  case_id: string;
+  task_success: boolean;
+  tool_selection_accuracy: number;
+  policy_compliance: number;
+  latency_ms: number;
+  error_type: string | null;
+};
+
+export type EvaluationRun = {
+  run_id: string;
+  created_at: string;
+  provider: string;
+  model: string;
+  dataset_sha256: string;
+  thresholds: Record<string, number>;
+  metrics: Record<string, number | null>;
+  passed: boolean;
+  results: EvaluationResult[];
 };
 
 export type ApprovalListResponse = {

@@ -52,4 +52,4 @@ Candidates are ordered by score descending, then route duration ascending, then 
 
 The default mock provider multiplies Haversine distance by a fixed road factor and applies a fixed average speed. Its output is deterministic and explicitly marked as an estimate. The Google adapter uses Geocoding v4 and Routes v2 only when configured with a server-side API key. Provider failure produces an auditable `route_unavailable` exclusion rather than silently falling back to straight-line scoring.
 
-Phase 7 can snapshot a qualifying recommendation into a human approval proposal. Approval does not mutate the assignment; event publication and execution remain Phase 8 responsibilities.
+The approval service snapshots a qualifying recommendation into a human proposal. An approved proposal enters the transactional outbox. The dispatch worker rechecks eligibility and the current assignment before committing the change.
