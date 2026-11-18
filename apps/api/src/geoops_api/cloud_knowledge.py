@@ -1,7 +1,7 @@
 """GCS documents, Google embeddings, and BigQuery vector retrieval."""
 
 import asyncio
-import json
+from datetime import UTC, datetime
 from pathlib import Path
 
 import google.cloud.storage as storage  # type: ignore[import-untyped]
@@ -79,6 +79,7 @@ class BigQueryKnowledgeRepository:
         self._table = f"{project}.{dataset}.knowledge_chunks"
 
     async def replace_all(self, chunks: list[IndexedKnowledgeChunk]) -> None:
+        ingested_at = datetime.now(UTC).isoformat()
         rows = [
             {
                 "chunk_id": item.chunk_id,
@@ -90,11 +91,16 @@ class BigQueryKnowledgeRepository:
                 "effective_date": str(item.effective_date) if item.effective_date else None,
                 "text": item.text,
                 "embedding": item.embedding,
-                "metadata": json.dumps(item.model_dump(mode="json")),
+                "metadata": item.model_dump(mode="json"),
+                "ingested_at": ingested_at,
             }
             for item in chunks
         ]
-        config = bigquery.LoadJobConfig(write_disposition="WRITE_TRUNCATE")
+        config = bigquery.LoadJobConfig(
+            autodetect=False,
+            create_disposition=bigquery.CreateDisposition.CREATE_NEVER,
+            write_disposition=bigquery.WriteDisposition.WRITE_TRUNCATE_DATA,
+        )
         await asyncio.to_thread(
             lambda: self._client.load_table_from_json(rows, self._table, job_config=config).result(
                 timeout=120
@@ -107,7 +113,7 @@ class BigQueryKnowledgeRepository:
             "ROW_NUMBER() OVER(PARTITION BY document_id ORDER BY chunk_id) = 1"
         )
         rows = await asyncio.to_thread(lambda: list(self._client.query(sql).result(timeout=60)))
-        return [IndexedKnowledgeChunk.model_validate_json(row["metadata"]) for row in rows]
+        return [IndexedKnowledgeChunk.model_validate(row["metadata"]) for row in rows]
 
     async def search(
         self,
@@ -144,7 +150,7 @@ class BigQueryKnowledgeRepository:
         )
         results: list[KnowledgeSearchHit] = []
         for row in rows:
-            chunk = IndexedKnowledgeChunk.model_validate_json(row["metadata"])
+            chunk = IndexedKnowledgeChunk.model_validate(row["metadata"])
             results.append(
                 KnowledgeSearchHit(
                     chunk=chunk,

@@ -49,7 +49,7 @@ gcloud run jobs execute geoops-ingestion --region=us-central1 --wait
 gcloud run services proxy geoops-web --region=us-central1 --port=3000
 ```
 
-Set `GOOGLE_CLOUD_PROJECT` and `BIGQUERY_DATASET` before the bootstrap command. `--replace` explicitly acknowledges replacing the synthetic catalog tables. The ingestion job replaces the dedicated knowledge index atomically. Use matching embedding provider, model, and dimensions for ingestion and search.
+Set `GOOGLE_CLOUD_PROJECT` and `BIGQUERY_DATASET` before the bootstrap command. `--replace` overwrites the synthetic catalog rows using the table definitions in `infrastructure/terraform/tables.json`. If an earlier bootstrap inferred the geography columns as strings, rerun the corrected command against the synthetic catalog to restore the declared types. The ingestion job replaces the knowledge index rows atomically and preserves the table schema and partitioning. Use matching embedding provider, model, and dimensions for ingestion and search.
 
 Open `http://localhost:3000` through the authenticated proxy. The server uses a Cloud Run identity token to invoke the private API. The API also verifies `X-Geoops-Token`, supplied from Secret Manager by the web server. The service token never enters browser assets.
 
