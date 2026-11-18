@@ -71,8 +71,9 @@ class Settings(BaseSettings):
 
     @model_validator(mode="after")
     def validate_maps_configuration(self) -> "Settings":
-        if self.api_token is not None and not self.api_token.get_secret_value().strip():
-            self.api_token = None
+        if self.api_token is not None:
+            token = self.api_token.get_secret_value().strip()
+            self.api_token = SecretStr(token) if token else None
         if self.document_provider == "gcs" and not self.documents_bucket:
             raise ValueError("DOCUMENTS_BUCKET is required for GCS")
         if (
