@@ -42,10 +42,12 @@ The Phase 6 registry exposes these operations:
 - `search_technicians`
 - `recommend_assignment`
 - `search_knowledge`
+- `request_dispatch_approval`
+- `get_approval_status`
 
 Every input is validated with a strict Pydantic model. Tool calls flow through application services instead of raw storage. Each completed call records the trace, session, agent run, tool name, latency, retrieval count, and success state.
 
-There is intentionally no assignment, approval, status-update, or generic query tool. A mutation request is reported as requiring approval, but Phase 6 cannot create or execute an approval.
+There is intentionally no assignment, status-update, or generic query tool. Phase 7 adds a narrowly scoped proposal tool that can create pending approval state after deterministic validation; it cannot execute the assignment. Mutation language uses the deterministic policy path even when Gemini is the configured runtime.
 
 ## Response safety
 

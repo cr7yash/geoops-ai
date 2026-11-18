@@ -23,7 +23,7 @@ const navigation = [
     enabled: true,
   },
   { label: "Agent workspace", icon: "agent", href: "/agent", enabled: true },
-  { label: "Approvals", icon: "approvals", href: "/approvals", enabled: false },
+  { label: "Approvals", icon: "approvals", href: "/approvals", enabled: true },
 ] as const;
 
 function isActivePath(pathname: string, href: string) {
@@ -74,11 +74,11 @@ export function AppShell({ children }: { children: ReactNode }) {
 
         <div className="sidebar-note">
           <span className="sidebar-note-icon" aria-hidden="true">
-            06
+            07
           </span>
           <div>
-            <p>Agent orchestration</p>
-            <span>Typed read-only tools active</span>
+            <p>Human approval</p>
+            <span>Assignment proposals gated</span>
           </div>
         </div>
       </aside>
@@ -131,6 +131,14 @@ export function AppShell({ children }: { children: ReactNode }) {
             >
               Agent
             </Link>
+            <Link
+              aria-current={
+                pathname.startsWith("/approvals") ? "page" : undefined
+              }
+              href="/approvals"
+            >
+              Approvals
+            </Link>
           </nav>
           <div className="environment-pill">
             <span className="environment-pulse" />
@@ -139,7 +147,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </header>
         {children}
         <footer className="footer">
-          <span>GeoOps AI · Phase 6</span>
+          <span>GeoOps AI · Phase 7</span>
           <span>Operational data is synthetic and deterministic</span>
         </footer>
       </main>

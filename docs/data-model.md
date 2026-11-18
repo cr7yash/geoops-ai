@@ -47,7 +47,7 @@ erDiagram
 
 - Local mode reads `data/seed/geoops_seed.json` through `JsonCatalogRepository`.
 - BigQuery is the planned analytical and historical store for structured business data, event history, evaluation results, and knowledge chunks.
-- Firestore is reserved for short-lived sessions, approvals, agent state, and tool execution state; those operational collections arrive with the relevant workflow phases.
+- Firestore stores short-lived approval state through the Phase 7 repository adapter. Sessions, agent state, and tool execution state remain reserved for their relevant phases.
 - The API never exposes a storage SDK. Routes call application services, which call the `CatalogRepository` protocol.
 
 ## Deterministic scenarios
@@ -69,4 +69,3 @@ Regenerate and validate the snapshot with:
 make seed
 make test
 ```
-

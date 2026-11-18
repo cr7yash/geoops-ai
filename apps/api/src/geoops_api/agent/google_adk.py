@@ -11,16 +11,16 @@ from google.adk.models import Gemini
 from google.adk.runners import InMemoryRunner
 from google.genai import types
 
-from geoops_api.agent.runtime import requests_mutation
+from geoops_api.agent.runtime import LocalAgentRuntime, requests_mutation
 from geoops_api.agent.tools import AgentToolRegistry
 from geoops_api.schemas.agent import AgentToolUse, ChatRequest, ChatResponse
 from geoops_api.schemas.knowledge import KnowledgeSource
 
 SYSTEM_INSTRUCTION = """
-You are GeoOps AI, a read-only field-service operations assistant.
+You are GeoOps AI, a field-service operations assistant.
 Use tools for every operational fact. Never invent tickets, technicians, routes,
 eligibility, or source citations. Do not claim that an assignment was changed.
-Mutations require a separate human-approval workflow that is not available.
+Assignment mutations require a human approval proposal and must never execute directly.
 Give concise conclusions and name the evidence that supports them. Never reveal
 hidden chain-of-thought or internal reasoning.
 """.strip()
@@ -53,21 +53,10 @@ class GoogleAdkRuntime:
         sources: list[KnowledgeSource] = []
 
         if requests_mutation(request.message):
-            return ChatResponse(
-                answer=(
-                    "I can inspect operational data and prepare recommendations, but I "
-                    "cannot change an assignment in Phase 6. This action requires the "
-                    "approval workflow introduced in Phase 7."
-                ),
-                tools_used=[],
-                confidence=1.0,
-                requires_approval=True,
-                trace_id=trace_id,
-                session_id=session_id,
-                agent_run_id=agent_run_id,
-                model_provider=self._provider,
-                model_name=self._model_name,
-            )
+            response = await LocalAgentRuntime(
+                self._registry, model_name="geoops-approval-planner-v1"
+            ).run(request, trace_id=trace_id)
+            return response.model_copy(update={"model_provider": "local-policy"})
 
         async def get_ticket(ticket_id: str) -> dict[str, Any]:
             """Get a ticket by ID, including site, SLA, and assignments."""
@@ -189,6 +178,18 @@ class GoogleAdkRuntime:
             sources.extend(output.sources)
             return output.data
 
+        async def get_approval_status(approval_id: str) -> dict[str, Any]:
+            """Read the current state of one human approval request."""
+            output, tool_use = await self._registry.execute(
+                "get_approval_status",
+                {"approval_id": approval_id},
+                trace_id=trace_id,
+                session_id=session_id,
+                agent_run_id=agent_run_id,
+            )
+            evidence.append(tool_use)
+            return output.data
+
         client = (
             genai.Client(api_key=self._api_key)
             if self._provider == "gemini_api"
@@ -209,6 +210,7 @@ class GoogleAdkRuntime:
                 search_technicians,
                 recommend_assignment,
                 search_knowledge,
+                get_approval_status,
             ],
         )
         runner = InMemoryRunner(app=App(name="geoops", root_agent=agent))
@@ -221,9 +223,7 @@ class GoogleAdkRuntime:
             user_id="operator", session_id=session_id, new_message=content
         ):
             if event.is_final_response() and event.content:
-                answer_parts.extend(
-                    part.text for part in event.content.parts or [] if part.text
-                )
+                answer_parts.extend(part.text for part in event.content.parts or [] if part.text)
         answer = "\n".join(answer_parts).strip()
         if not answer:
             answer = "The configured model returned no final response."
@@ -242,6 +242,4 @@ class GoogleAdkRuntime:
 
     def describe(self) -> str:
         """Return a stable diagnostic without exposing credentials."""
-        return json.dumps(
-            {"provider": self._provider, "model": self._model_name}, sort_keys=True
-        )
+        return json.dumps({"provider": self._provider, "model": self._model_name}, sort_keys=True)

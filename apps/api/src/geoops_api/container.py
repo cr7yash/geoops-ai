@@ -1,10 +1,14 @@
 """Dependency container for provider-neutral application services."""
 
 from dataclasses import dataclass
+from datetime import timedelta
 
 from geoops_api.agent.factory import build_agent_runtime
 from geoops_api.agent.runtime import AgentRuntime
 from geoops_api.agent.tools import AgentToolRegistry
+from geoops_api.approvals.factory import build_approval_repository
+from geoops_api.approvals.interfaces import ApprovalRepository
+from geoops_api.approvals.service import ApprovalService
 from geoops_api.config import Settings
 from geoops_api.knowledge.chunking import MarkdownChunker
 from geoops_api.knowledge.embeddings import DeterministicEmbeddingProvider
@@ -25,6 +29,8 @@ class ApplicationContainer:
     dispatch_service: DispatchService
     maps_provider: MapsProvider
     knowledge_service: KnowledgeService
+    approval_repository: ApprovalRepository
+    approval_service: ApprovalService
     agent_runtime: AgentRuntime
 
 
@@ -42,10 +48,18 @@ def build_container(settings: Settings) -> ApplicationContainer:
     )
     catalog_service = CatalogService(repository)
     dispatch_service = DispatchService(repository, maps_provider)
+    approval_repository = build_approval_repository(settings)
+    approval_service = ApprovalService(
+        repository=approval_repository,
+        catalog_service=catalog_service,
+        dispatch_service=dispatch_service,
+        ttl=timedelta(minutes=settings.approval_ttl_minutes),
+    )
     agent_registry = AgentToolRegistry(
         catalog_service=catalog_service,
         dispatch_service=dispatch_service,
         knowledge_service=knowledge_service,
+        approval_service=approval_service,
     )
     return ApplicationContainer(
         catalog_repository=repository,
@@ -53,5 +67,7 @@ def build_container(settings: Settings) -> ApplicationContainer:
         dispatch_service=dispatch_service,
         maps_provider=maps_provider,
         knowledge_service=knowledge_service,
+        approval_repository=approval_repository,
+        approval_service=approval_service,
         agent_runtime=build_agent_runtime(settings, agent_registry),
     )

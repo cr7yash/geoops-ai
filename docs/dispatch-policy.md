@@ -38,13 +38,13 @@ All applicable reasons are returned. The policy never relaxes a hard gate to man
 
 Only eligible candidates receive a score. The maximum is 100 points:
 
-| Factor | Maximum | Calculation |
-| --- | ---: | --- |
-| Required certification | 25 | Full credit after the certification gate passes |
-| Travel time | 30 | Linear decay from 0 to the 120-minute route limit |
-| Current workload | 20 | Linear penalty through three active/future assignments |
-| Historical rating | 15 | Rating normalized against 5.0 |
-| Experience | 10 | Completed jobs normalized at 200 jobs |
+| Factor                 | Maximum | Calculation                                            |
+| ---------------------- | ------: | ------------------------------------------------------ |
+| Required certification |      25 | Full credit after the certification gate passes        |
+| Travel time            |      30 | Linear decay from 0 to the 120-minute route limit      |
+| Current workload       |      20 | Linear penalty through three active/future assignments |
+| Historical rating      |      15 | Rating normalized against 5.0                          |
+| Experience             |      10 | Completed jobs normalized at 200 jobs                  |
 
 Candidates are ordered by score descending, then route duration ascending, then technician ID. This makes ties stable and auditable.
 
@@ -52,4 +52,4 @@ Candidates are ordered by score descending, then route duration ascending, then 
 
 The default mock provider multiplies Haversine distance by a fixed road factor and applies a fixed average speed. Its output is deterministic and explicitly marked as an estimate. The Google adapter uses Geocoding v4 and Routes v2 only when configured with a server-side API key. Provider failure produces an auditable `route_unavailable` exclusion rather than silently falling back to straight-line scoring.
 
-Assignment mutations remain out of scope until the approval workflow is implemented.
+Phase 7 can snapshot a qualifying recommendation into a human approval proposal. Approval does not mutate the assignment; event publication and execution remain Phase 8 responsibilities.

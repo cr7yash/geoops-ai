@@ -22,6 +22,9 @@ class JsonFormatter(logging.Formatter):
         "tool",
         "retrieval_count",
         "success",
+        "approval_id",
+        "ticket_id",
+        "approval_status",
     )
 
     def format(self, record: logging.LogRecord) -> str:

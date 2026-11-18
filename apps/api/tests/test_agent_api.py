@@ -30,6 +30,7 @@ def test_chat_recommends_with_tool_and_route_evidence() -> None:
         "label": "Review James Chen for ticket 184",
         "ticket_id": "184",
         "technician_id": "T-001",
+        "approval_id": None,
     }
     assert [item["tool"] for item in payload["tools_used"]] == [
         "get_ticket",
@@ -50,16 +51,17 @@ def test_chat_retrieves_cited_knowledge_for_ticket() -> None:
     assert response.status_code == 200
     payload = response.json()
     assert payload["sources"]
-    assert payload["sources"][0]["citation"] in payload["answer"] or payload["sources"][0][
-        "title"
-    ] in payload["answer"]
+    assert (
+        payload["sources"][0]["citation"] in payload["answer"]
+        or payload["sources"][0]["title"] in payload["answer"]
+    )
     assert [item["tool"] for item in payload["tools_used"]] == [
         "get_ticket",
         "search_knowledge",
     ]
 
 
-def test_chat_refuses_mutation_without_running_a_tool() -> None:
+def test_chat_creates_a_validated_approval_without_mutating_assignment() -> None:
     with make_client() as client:
         response = client.post(
             "/api/chat",
@@ -69,9 +71,14 @@ def test_chat_refuses_mutation_without_running_a_tool() -> None:
     assert response.status_code == 200
     payload = response.json()
     assert payload["requires_approval"] is True
-    assert payload["recommended_action"] is None
-    assert payload["tools_used"] == []
-    assert "cannot change" in payload["answer"]
+    assert payload["recommended_action"]["kind"] == "review_approval_request"
+    assert payload["recommended_action"]["approval_id"].startswith("APR-")
+    assert [item["tool"] for item in payload["tools_used"]] == [
+        "search_technicians",
+        "request_dispatch_approval",
+    ]
+    assert "pending human review" in payload["answer"]
+    assert "no assignment has been changed" in payload["answer"]
 
 
 def test_chat_supports_session_continuity_identifier() -> None:
@@ -131,7 +138,7 @@ def test_google_adk_runtime_is_selected_without_exposing_credentials() -> None:
     assert "secret-test-key" not in runtime.describe()  # type: ignore[attr-defined]
 
 
-def test_google_adk_runtime_refuses_mutations_before_model_execution() -> None:
+def test_google_adk_runtime_routes_mutations_through_local_approval_policy() -> None:
     settings = Settings(
         _env_file=None,
         model_provider="gemini_api",
@@ -146,5 +153,5 @@ def test_google_adk_runtime_refuses_mutations_before_model_execution() -> None:
 
     assert response.status_code == 200
     assert response.json()["requires_approval"] is True
-    assert response.json()["tools_used"] == []
-    assert response.json()["model_provider"] == "gemini_api"
+    assert response.json()["recommended_action"]["approval_id"].startswith("APR-")
+    assert response.json()["model_provider"] == "local-policy"

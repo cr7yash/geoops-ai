@@ -2,7 +2,7 @@
 
 GeoOps AI is a geospatial AI operations platform for field-service teams. The planned system combines structured operational data, geospatial reasoning, enterprise knowledge retrieval, typed agent tools, human approval, asynchronous dispatch, and reproducible evaluation.
 
-The current implementation includes the platform foundation, domain/data catalog, deterministic dispatch, maps, knowledge retrieval, and Phase 6 agent orchestration. The agent uses typed read-only tools and returns inspectable evidence; it does not display invented performance metrics or execute operational mutations.
+The current implementation includes the platform foundation, domain/data catalog, deterministic dispatch, maps, knowledge retrieval, agent orchestration, and the Phase 7 human-approval workflow. The agent can create a validated assignment proposal, but approval does not execute the assignment; event delivery and dispatch execution remain Phase 8.
 
 ## Current capabilities
 
@@ -19,9 +19,12 @@ The current implementation includes the platform foundation, domain/data catalog
 - Route-duration evidence and explicit routing failures in dispatch results
 - Local document storage, heading-aware ingestion, and deterministic embeddings
 - Metadata-filtered knowledge search with ranked source passages and citations
-- Typed read-only agent tools for tickets, technicians, dispatch recommendations, and knowledge
+- Typed agent tools for read operations and validated approval proposals
 - Provider-neutral agent runtime with key-free local orchestration and Google ADK adapters
 - Safe agent evidence including tool names, citations, route results, and correlation identifiers
+- Pending assignment proposals with deterministic eligibility evidence and expiry
+- Atomic approve/reject transitions with idempotent repeated decisions
+- Provider-neutral approval storage with memory and Firestore adapters
 - BigQuery `VECTOR_SEARCH` query and vector-index definitions
 - Typed, deterministic `GET /health` API contract and generated OpenAPI documentation
 - Validated environment configuration with safe local defaults
@@ -42,6 +45,7 @@ flowchart LR
     MAPS[Maps provider<br/>mock or Google]
     KNOWLEDGE[Knowledge service<br/>ingestion + retrieval]
     AGENT[Agent runtime<br/>local or Google ADK]
+    APPROVALS[Approval state machine<br/>memory or Firestore]
     DOCS[Enterprise documents<br/>local originals]
     LOCAL[Deterministic JSON data]
     LOGS[Structured JSON logs]
@@ -58,14 +62,15 @@ flowchart LR
     API --> AGENT
     AGENT -->|Typed read-only tools| DISPATCH
     AGENT -->|Typed read-only tools| KNOWLEDGE
+    AGENT -->|Validated proposal| APPROVALS
     KNOWLEDGE --> DOCS
     API --> LOGS
     API -. repository port .-> BQ
 
     KNOWLEDGE -. vector repository .-> BQ
 
-    FUTURE[Phase 7+ services]
-    API -. approval + execution boundaries .-> FUTURE
+    FUTURE[Phase 8+ services]
+    APPROVALS -. approved event + execution .-> FUTURE
 ```
 
 The browser calls the API directly, exercising the real cross-origin application boundary. Application services depend on repository, maps, storage, and embedding protocols rather than vendor SDKs. Local mode uses a deterministic JSON snapshot, reproducible route estimates, filesystem documents, and key-free embeddings. Google Maps and BigQuery assets remain opt-in cloud paths.
@@ -136,27 +141,30 @@ make api
 
 ## Configuration
 
-| Variable | Default | Purpose |
-| --- | --- | --- |
-| `APP_ENV` | `development` | API environment label returned by `/health` |
-| `LOG_LEVEL` | `INFO` | Python structured-log threshold |
-| `CORS_ORIGINS` | Local web origins | JSON array of allowed browser origins |
-| `HOST` | `0.0.0.0` | API bind host for local tooling and containers |
-| `PORT` | `8000` | API port |
-| `SEED_DATA_PATH` | `data/seed/geoops_seed.json` | Local operational dataset |
-| `MAPS_PROVIDER` | `mock` | Maps adapter: `mock` or `google` |
-| `GOOGLE_MAPS_API_KEY` | unset | Server-only key required when `MAPS_PROVIDER=google` |
-| `MAPS_TIMEOUT_SECONDS` | `10` | Outbound maps request timeout, greater than 0 and at most 60 seconds |
-| `KNOWLEDGE_DOCUMENTS_PATH` | `data/documents` | Local source-document root |
-| `EMBEDDING_DIMENSIONS` | `256` | Deterministic local embedding dimensions |
-| `KNOWLEDGE_CHUNK_SIZE` | `900` | Maximum characters per source chunk |
-| `KNOWLEDGE_CHUNK_OVERLAP` | `120` | Character overlap between split chunks |
-| `MODEL_PROVIDER` | `local` | Agent runtime: `local`, `gemini_api`, or `vertex_ai` |
-| `MODEL_NAME` | `geoops-local-planner-v1` | Local planner label or configured Gemini model ID |
-| `GEMINI_API_KEY` | unset | Server-only key required for `gemini_api` |
-| `GOOGLE_CLOUD_PROJECT` | unset | Project required for `vertex_ai` |
-| `GOOGLE_CLOUD_LOCATION` | `us-central1` | Vertex AI location |
-| `NEXT_PUBLIC_API_BASE_URL` | `http://localhost:8000` | Browser-visible API origin |
+| Variable                         | Default                      | Purpose                                                              |
+| -------------------------------- | ---------------------------- | -------------------------------------------------------------------- |
+| `APP_ENV`                        | `development`                | API environment label returned by `/health`                          |
+| `LOG_LEVEL`                      | `INFO`                       | Python structured-log threshold                                      |
+| `CORS_ORIGINS`                   | Local web origins            | JSON array of allowed browser origins                                |
+| `HOST`                           | `0.0.0.0`                    | API bind host for local tooling and containers                       |
+| `PORT`                           | `8000`                       | API port                                                             |
+| `SEED_DATA_PATH`                 | `data/seed/geoops_seed.json` | Local operational dataset                                            |
+| `MAPS_PROVIDER`                  | `mock`                       | Maps adapter: `mock` or `google`                                     |
+| `GOOGLE_MAPS_API_KEY`            | unset                        | Server-only key required when `MAPS_PROVIDER=google`                 |
+| `MAPS_TIMEOUT_SECONDS`           | `10`                         | Outbound maps request timeout, greater than 0 and at most 60 seconds |
+| `KNOWLEDGE_DOCUMENTS_PATH`       | `data/documents`             | Local source-document root                                           |
+| `EMBEDDING_DIMENSIONS`           | `256`                        | Deterministic local embedding dimensions                             |
+| `KNOWLEDGE_CHUNK_SIZE`           | `900`                        | Maximum characters per source chunk                                  |
+| `KNOWLEDGE_CHUNK_OVERLAP`        | `120`                        | Character overlap between split chunks                               |
+| `MODEL_PROVIDER`                 | `local`                      | Agent runtime: `local`, `gemini_api`, or `vertex_ai`                 |
+| `MODEL_NAME`                     | `geoops-local-planner-v1`    | Local planner label or configured Gemini model ID                    |
+| `GEMINI_API_KEY`                 | unset                        | Server-only key required for `gemini_api`                            |
+| `GOOGLE_CLOUD_PROJECT`           | unset                        | Project required for `vertex_ai`                                     |
+| `GOOGLE_CLOUD_LOCATION`          | `us-central1`                | Vertex AI location                                                   |
+| `APPROVAL_STORE`                 | `memory`                     | Approval repository: `memory` or `firestore`                         |
+| `APPROVAL_TTL_MINUTES`           | `30`                         | Pending-proposal lifetime from 5 to 1440 minutes                     |
+| `FIRESTORE_APPROVALS_COLLECTION` | `approval_requests`          | Firestore operational-state collection                               |
+| `NEXT_PUBLIC_API_BASE_URL`       | `http://localhost:8000`      | Browser-visible API origin                                           |
 
 Values prefixed with `NEXT_PUBLIC_` are embedded in browser assets and must never contain secrets.
 
@@ -175,28 +183,33 @@ To format supported source files:
 make format
 ```
 
-The API test suite covers health and catalog contracts, seed-data integrity, dispatch rules, maps providers, document validation, deterministic embeddings, metadata filters, citations, typed agent tools, model configuration, mutation refusal, CORS, and error handling. The web suite covers health states, catalogs, route-aware recommendations, knowledge citations, agent evidence, approval boundaries, empty retrieval, and failure states.
+The API test suite covers health and catalog contracts, seed-data integrity, dispatch rules, maps providers, document validation, deterministic embeddings, metadata filters, citations, typed agent tools, approval validation, expiry, atomic and idempotent decisions, model configuration, CORS, and error handling. The web suite covers health states, catalogs, route-aware recommendations, knowledge citations, agent evidence, approval decisions, terminal states, empty retrieval, and failure states.
 
 ## Operational catalog
 
 The local dataset is anchored to a fixed reference time so SLA and certification edge cases remain reproducible. Regenerate the committed snapshot with `make seed`.
 
-| Endpoint | Purpose |
-| --- | --- |
-| `GET /api/tickets` | Paginated ticket search with status and priority filters |
-| `GET /api/tickets/{id}` | Ticket, customer, site, SLA, and assignment detail |
-| `GET /api/technicians` | Technician search with availability and certification filters |
-| `GET /api/technicians/{id}` | Technician qualifications, performance, and schedule detail |
-| `GET /api/dispatch/recommendations/{ticket_id}` | Eligible candidates, ranking evidence, and exclusion reasons |
-| `POST /api/maps/geocode` | Geocode an address through the configured provider |
-| `POST /api/maps/routes` | Compute one driving route |
-| `POST /api/maps/route-matrix` | Compute routes between typed waypoint sets |
-| `GET /api/knowledge/documents` | List indexed source documents and metadata |
-| `POST /api/knowledge/search` | Retrieve ranked, filtered passages with citations |
-| `POST /api/knowledge/ingest` | Rebuild the deterministic in-memory index from originals |
-| `POST /api/chat` | Run read-only agent orchestration with tool and source evidence |
+| Endpoint                                        | Purpose                                                          |
+| ----------------------------------------------- | ---------------------------------------------------------------- |
+| `GET /api/tickets`                              | Paginated ticket search with status and priority filters         |
+| `GET /api/tickets/{id}`                         | Ticket, customer, site, SLA, and assignment detail               |
+| `GET /api/technicians`                          | Technician search with availability and certification filters    |
+| `GET /api/technicians/{id}`                     | Technician qualifications, performance, and schedule detail      |
+| `GET /api/dispatch/recommendations/{ticket_id}` | Eligible candidates, ranking evidence, and exclusion reasons     |
+| `POST /api/maps/geocode`                        | Geocode an address through the configured provider               |
+| `POST /api/maps/routes`                         | Compute one driving route                                        |
+| `POST /api/maps/route-matrix`                   | Compute routes between typed waypoint sets                       |
+| `GET /api/knowledge/documents`                  | List indexed source documents and metadata                       |
+| `POST /api/knowledge/search`                    | Retrieve ranked, filtered passages with citations                |
+| `POST /api/knowledge/ingest`                    | Rebuild the deterministic in-memory index from originals         |
+| `POST /api/chat`                                | Run agent orchestration with tool, source, and proposal evidence |
+| `GET /api/approvals`                            | List proposals, optionally filtered by status                    |
+| `POST /api/approvals`                           | Create a validated assignment proposal                           |
+| `GET /api/approvals/{id}`                       | Read current proposal state and evidence                         |
+| `POST /api/approvals/{id}/approve`              | Atomically approve a pending proposal                            |
+| `POST /api/approvals/{id}/reject`               | Atomically reject a pending proposal                             |
 
-See [the data model](docs/data-model.md) for relationships and storage responsibilities, [the dispatch policy](docs/dispatch-policy.md) for gates and scoring, [the maps providers](docs/maps-providers.md) for adapter behavior, [knowledge retrieval](docs/knowledge-retrieval.md) for ingestion and citation guarantees, and [agent orchestration](docs/agent-orchestration.md) for runtime and tool safety boundaries.
+See [the data model](docs/data-model.md) for relationships and storage responsibilities, [the dispatch policy](docs/dispatch-policy.md) for gates and scoring, [the maps providers](docs/maps-providers.md) for adapter behavior, [knowledge retrieval](docs/knowledge-retrieval.md) for ingestion and citation guarantees, [agent orchestration](docs/agent-orchestration.md) for runtime and tool safety boundaries, and [human approval](docs/human-approval.md) for validation and transition rules.
 
 ## Containers
 
@@ -244,7 +257,7 @@ Every response includes `X-Request-ID`. A caller-supplied ID is propagated; othe
 - **Retrieval remains inspectable:** the knowledge endpoint returns ranked passages, while agent synthesis keeps the supporting citations attached.
 - **Models use tools, never repositories:** agent runtimes can access operational facts only through strict read-only tool inputs.
 - **Evidence is not chain-of-thought:** responses expose tool results, citations, route evidence, and identifiers without hidden reasoning traces.
-- **Mutations remain unavailable:** Phase 6 can recommend an assignment, but cannot write one or bypass the forthcoming approval boundary.
+- **Approval is not execution:** approving a proposal authorizes later processing but does not change an assignment or publish an event in Phase 7.
 - **Provider-neutral embeddings:** local hashing vectors require no key, while the embedding interface can accept a managed provider without changing retrieval logic.
 - **No empty architecture:** services and cloud resources arrive in the phase that needs them, avoiding unused abstractions.
 - **No fake dashboard metrics:** the console reports service state and records derived from the deterministic operational dataset.
@@ -258,7 +271,7 @@ Every response includes `X-Request-ID`. A caller-supplied ID is propagated; othe
 4. **Maps — complete:** mock and Google Maps provider adapters, geocoding, routes, route matrices, and route-aware dispatch.
 5. **Knowledge retrieval — complete:** source documents, ingestion, chunking, local embeddings, metadata filtering, BigQuery vector-search assets, citations, and operator workspace.
 6. **Agent orchestration — complete:** typed read-only tools, local orchestration, provider-neutral Gemini/ADK integration, evidence telemetry, and operator workspace.
-7. **Human approval:** explicit mutation proposals and approval state machine.
+7. **Human approval — complete:** explicit assignment proposals, eligibility evidence, expiry, atomic decisions, Firestore adapter, and approval console.
 8. **Async dispatch:** event bus, idempotent worker, and operational updates.
 9. **Evaluation:** reproducible datasets, quality metrics, and regression gates.
 10. **Observability, infrastructure, and CI/CD:** cloud telemetry, Terraform, and deployment automation.

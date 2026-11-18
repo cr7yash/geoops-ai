@@ -2,7 +2,6 @@
 
 from geoops_api.domain.models import (
     AgentRun,
-    ApprovalRequest,
     Assignment,
     Certification,
     Customer,
@@ -20,7 +19,6 @@ from geoops_api.domain.models import (
 
 __all__ = [
     "AgentRun",
-    "ApprovalRequest",
     "Assignment",
     "Certification",
     "Customer",

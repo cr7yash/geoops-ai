@@ -7,6 +7,11 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
+from geoops_api.approvals.service import (
+    ApprovalNotFoundError,
+    ApprovalService,
+    ApprovalValidationError,
+)
 from geoops_api.domain.models import TechnicianStatus, TicketPriority, TicketStatus
 from geoops_api.knowledge.models import DocumentType, KnowledgeFilters
 from geoops_api.knowledge.service import KnowledgeService
@@ -56,6 +61,17 @@ class SearchKnowledgeInput(ToolInput):
     limit: int = Field(default=5, ge=1, le=10)
 
 
+class RequestDispatchApprovalInput(ToolInput):
+    ticket_id: str = Field(min_length=1, max_length=50)
+    technician_id: str = Field(min_length=1, max_length=50)
+    reason: str = Field(min_length=3, max_length=500)
+    requested_by: str = Field(min_length=2, max_length=100)
+
+
+class GetApprovalStatusInput(ToolInput):
+    approval_id: str = Field(min_length=5, max_length=100)
+
+
 class ToolOutput(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -96,10 +112,12 @@ class AgentToolRegistry:
         catalog_service: CatalogService,
         dispatch_service: DispatchService,
         knowledge_service: KnowledgeService,
+        approval_service: ApprovalService,
     ) -> None:
         self._catalog = catalog_service
         self._dispatch = dispatch_service
         self._knowledge = knowledge_service
+        self._approvals = approval_service
         self._tools: dict[str, AgentTool[Any]] = {
             "get_ticket": AgentTool(
                 name="get_ticket",
@@ -138,6 +156,21 @@ class AgentToolRegistry:
                 description="Retrieve cited passages from operational source documents.",
                 input_model=SearchKnowledgeInput,
                 handler=self._search_knowledge,
+            ),
+            "request_dispatch_approval": AgentTool(
+                name="request_dispatch_approval",
+                description=(
+                    "Create a pending, validated human approval proposal. This does not "
+                    "change the assignment."
+                ),
+                input_model=RequestDispatchApprovalInput,
+                handler=self._request_dispatch_approval,
+            ),
+            "get_approval_status": AgentTool(
+                name="get_approval_status",
+                description="Read the current status of one approval request.",
+                input_model=GetApprovalStatusInput,
+                handler=self._get_approval_status,
             ),
         }
 
@@ -213,9 +246,7 @@ class AgentToolRegistry:
     async def _get_technician(self, payload: GetTechnicianInput) -> ToolOutput:
         technician = await self._catalog.get_technician(payload.technician_id)
         return ToolOutput(
-            data={
-                "technician": technician.model_dump(mode="json") if technician else None
-            },
+            data={"technician": technician.model_dump(mode="json") if technician else None},
             summary=(
                 f"Loaded technician {payload.technician_id}."
                 if technician
@@ -223,9 +254,7 @@ class AgentToolRegistry:
             ),
         )
 
-    async def _search_technicians(
-        self, payload: SearchTechniciansInput
-    ) -> ToolOutput:
+    async def _search_technicians(self, payload: SearchTechniciansInput) -> ToolOutput:
         result = await self._catalog.list_technicians(
             status=payload.status,
             certification_id=payload.certification_id,
@@ -235,15 +264,11 @@ class AgentToolRegistry:
         )
         return ToolOutput(
             data=result.model_dump(mode="json"),
-            summary=(
-                f"Found {result.total} matching technicians; returned {len(result.items)}."
-            ),
+            summary=(f"Found {result.total} matching technicians; returned {len(result.items)}."),
             retrieval_count=len(result.items),
         )
 
-    async def _recommend_assignment(
-        self, payload: RecommendAssignmentInput
-    ) -> ToolOutput:
+    async def _recommend_assignment(self, payload: RecommendAssignmentInput) -> ToolOutput:
         result = await self._dispatch.recommend(payload.ticket_id)
         candidate = result.eligible_candidates[0] if result and result.eligible_candidates else None
         summary = (
@@ -292,4 +317,38 @@ class AgentToolRegistry:
             summary=f"Retrieved {len(sources)} cited source passages.",
             sources=sources,
             retrieval_count=len(sources),
+        )
+
+    async def _request_dispatch_approval(self, payload: RequestDispatchApprovalInput) -> ToolOutput:
+        try:
+            approval = await self._approvals.request_assignment(
+                ticket_id=payload.ticket_id,
+                technician_id=payload.technician_id,
+                reason=payload.reason,
+                requested_by=payload.requested_by,
+            )
+        except (ApprovalNotFoundError, ApprovalValidationError) as exc:
+            return ToolOutput(
+                data={"approval": None, "error": str(exc)},
+                summary=f"Approval proposal was not created: {exc}",
+            )
+        return ToolOutput(
+            data={"approval": approval.model_dump(mode="json")},
+            summary=(
+                f"Created pending approval {approval.approval_id} for ticket "
+                f"{approval.ticket_id}; no assignment was changed."
+            ),
+        )
+
+    async def _get_approval_status(self, payload: GetApprovalStatusInput) -> ToolOutput:
+        try:
+            approval = await self._approvals.get(payload.approval_id)
+        except ApprovalNotFoundError as exc:
+            return ToolOutput(
+                data={"approval": None, "error": str(exc)},
+                summary=str(exc),
+            )
+        return ToolOutput(
+            data={"approval": approval.model_dump(mode="json")},
+            summary=(f"Approval {approval.approval_id} is {approval.status.value}."),
         )

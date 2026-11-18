@@ -22,10 +22,11 @@ class AgentToolUse(ApiModel):
 
 
 class RecommendedAction(ApiModel):
-    kind: Literal["review_dispatch_recommendation"]
+    kind: Literal["review_dispatch_recommendation", "review_approval_request"]
     label: str
     ticket_id: str
     technician_id: str | None = None
+    approval_id: str | None = None
 
 
 class ChatResponse(ApiModel):

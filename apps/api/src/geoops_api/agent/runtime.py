@@ -53,18 +53,12 @@ class LocalAgentRuntime:
         tools_used: list[AgentToolUse] = []
 
         if requests_mutation(normalized):
-            return self._response(
-                answer=(
-                    "I can inspect operational data and prepare recommendations, but I "
-                    "cannot change an assignment in Phase 6. This action requires the "
-                    "approval workflow introduced in Phase 7."
-                ),
+            return await self._request_approval(
+                message=message,
                 trace_id=trace_id,
                 session_id=session_id,
                 agent_run_id=agent_run_id,
                 tools_used=tools_used,
-                confidence=1.0,
-                requires_approval=True,
             )
 
         ticket_id = self._ticket_id(message)
@@ -250,8 +244,7 @@ class LocalAgentRuntime:
             )
             items = output.data["items"]
             descriptions = ", ".join(
-                f"{item['ticket_id']} ({item['sla_state'].replace('_', ' ')})"
-                for item in items[:5]
+                f"{item['ticket_id']} ({item['sla_state'].replace('_', ' ')})" for item in items[:5]
             )
             return self._response(
                 answer=(
@@ -297,6 +290,121 @@ class LocalAgentRuntime:
         tools_used.append(evidence)
         return output
 
+    async def _request_approval(
+        self,
+        *,
+        message: str,
+        trace_id: str,
+        session_id: str,
+        agent_run_id: str,
+        tools_used: list[AgentToolUse],
+    ) -> ChatResponse:
+        ticket_id = self._ticket_id(message)
+        technician_query = self._technician_query(message)
+        if not ticket_id or not technician_query:
+            return self._response(
+                answer=(
+                    "I can prepare an approval proposal, but the request must identify "
+                    "both a ticket and a target technician. No operational change was made."
+                ),
+                trace_id=trace_id,
+                session_id=session_id,
+                agent_run_id=agent_run_id,
+                tools_used=tools_used,
+                confidence=1.0,
+                requires_approval=True,
+            )
+
+        technician_id_match = re.fullmatch(r"T-\d+", technician_query, re.IGNORECASE)
+        if technician_id_match:
+            technician_id = technician_id_match.group(0).upper()
+            technician_output = await self._call(
+                "get_technician",
+                {"technician_id": technician_id},
+                trace_id,
+                session_id,
+                agent_run_id,
+                tools_used,
+            )
+            technician = technician_output.data["technician"]
+        else:
+            search_output = await self._call(
+                "search_technicians",
+                {"query": technician_query, "limit": 5},
+                trace_id,
+                session_id,
+                agent_run_id,
+                tools_used,
+            )
+            matches = search_output.data["items"]
+            exact = [
+                item for item in matches if item["name"].casefold() == technician_query.casefold()
+            ]
+            technician = exact[0] if len(exact) == 1 else None
+            technician_id = technician["technician_id"] if technician else ""
+
+        if not technician:
+            return self._response(
+                answer=(
+                    f"I could not uniquely identify technician “{technician_query}”. "
+                    "Use the technician's full name or ID. No proposal was created."
+                ),
+                trace_id=trace_id,
+                session_id=session_id,
+                agent_run_id=agent_run_id,
+                tools_used=tools_used,
+                confidence=0.95,
+                requires_approval=True,
+            )
+
+        approval_output = await self._call(
+            "request_dispatch_approval",
+            {
+                "ticket_id": ticket_id,
+                "technician_id": technician_id,
+                "reason": f"Requested through agent: {message}"[:500],
+                "requested_by": f"agent:{agent_run_id}",
+            },
+            trace_id,
+            session_id,
+            agent_run_id,
+            tools_used,
+        )
+        approval = approval_output.data["approval"]
+        if approval is None:
+            return self._response(
+                answer=(
+                    f"I could not create the proposal. {approval_output.data['error']} "
+                    "No assignment was changed."
+                ),
+                trace_id=trace_id,
+                session_id=session_id,
+                agent_run_id=agent_run_id,
+                tools_used=tools_used,
+                confidence=1.0,
+                requires_approval=True,
+            )
+        return self._response(
+            answer=(
+                f"I created approval {approval['approval_id']} to assign "
+                f"{approval['to_technician_name']} to ticket {ticket_id}. It is pending "
+                "human review, and no assignment has been changed."
+            ),
+            trace_id=trace_id,
+            session_id=session_id,
+            agent_run_id=agent_run_id,
+            tools_used=tools_used,
+            confidence=1.0,
+            requires_approval=True,
+            recommended_action=RecommendedAction(
+                kind="review_approval_request",
+                label=f"Review approval {approval['approval_id']}",
+                ticket_id=ticket_id,
+                technician_id=technician_id,
+                approval_id=approval["approval_id"],
+            ),
+        )
+
     def _response(
         self,
         *,
@@ -328,6 +436,22 @@ class LocalAgentRuntime:
     def _ticket_id(message: str) -> str | None:
         match = re.search(r"\b(?:ticket\s*#?\s*)?(\d{3,})\b", message, re.IGNORECASE)
         return match.group(1) if match else None
+
+    @staticmethod
+    def _technician_query(message: str) -> str | None:
+        technician_id = re.search(r"\bT-\d+\b", message, re.IGNORECASE)
+        if technician_id:
+            return technician_id.group(0).upper()
+        patterns = (
+            r"\breassign\s+(.+?)\s+to\s+ticket\b",
+            r"\bassign\s+(.+?)\s+to\s+ticket\b",
+            r"\bticket\s*#?\s*\d+\s+to\s+(?:technician\s+)?(.+)$",
+        )
+        for pattern in patterns:
+            match = re.search(pattern, message, re.IGNORECASE)
+            if match:
+                return match.group(1).strip(" .?!")
+        return None
 
     @staticmethod
     def _is_dispatch_question(message: str) -> bool:
