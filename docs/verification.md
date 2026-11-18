@@ -1,12 +1,12 @@
 # Verification record
 
-The implementation was verified locally on November 17, 2026. This record distinguishes executed checks from cloud and container checks that require another environment.
+The implementation was verified locally and in GitHub CI on November 17, 2026. [The complete hosted run passed](https://github.com/cr7yash/geoops-ai/actions/runs/44213703800) for implementation commit `1706178`.
 
 ## Executed checks
 
 - Python lint and formatting passed, including the reusable acceptance scripts.
 - Strict mypy checks passed across the API package.
-- API tests passed for health, catalogs, maps, knowledge, agent tools, human decisions, outbox recovery, replay, transport retries, authentication, and evaluation.
+- All 66 API tests passed for health, catalogs, maps, knowledge, agent tools, human decisions, outbox recovery, replay, transport retries, authentication, and evaluation.
 - Web ESLint and TypeScript checks passed.
 - All 18 web tests passed, including approval decisions and measured evaluation output.
 - The optimized Next.js build and Python source distribution and wheel build passed.
@@ -14,6 +14,7 @@ The implementation was verified locally on November 17, 2026. This record distin
 - The live acceptance script passed through the real web proxy, created and approved a proposal, observed worker execution, confirmed the assignment, ran evaluation, and loaded the agent, approval, and evaluation pages.
 - Terraform formatting and schema validation passed with the locked Google provider. The mocked plan test passed for private operator access, bounded retries, protected source documents, and scale to zero.
 - The generated BigQuery table schemas match the canonical SQL DDL.
+- GitHub CI validated Compose and built all four runtime targets: API, web, dispatch worker, and ingestion job.
 - The production JavaScript dependency audit reported no known vulnerabilities after updating Next.js to 16.4.6 and React to 19.3.1.
 
 ## Reproduce
@@ -22,7 +23,7 @@ Run `make lint`, `make typecheck`, `make test`, `make eval`, `make build`, and `
 
 ## Checks awaiting an equipped environment
 
-Docker and the Google Cloud CLI were not installed on the implementation machine. Compose execution and all four image builds are configured in repository CI but were not marked as passing locally. Terraform ran with a mocked provider; no infrastructure was applied.
+Docker and the Google Cloud CLI were not installed on the implementation machine. Hosted CI supplied Docker and passed Compose validation and all four image builds. Terraform ran with a mocked provider; no infrastructure was applied.
 
 No GCP project or provider credentials were supplied. Firestore transactions, Pub/Sub delivery, BigQuery SQL, GCS ingestion, Google embeddings, Google Maps, Vertex AI, and Gemini Developer API calls need managed-provider integration checks in the deployment project. API integration tests and the live acceptance flow use local adapters.
 

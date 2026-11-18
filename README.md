@@ -202,6 +202,6 @@ Follow [the deployment guide](docs/deployment.md) to bootstrap images and secret
 9. Evaluation: labeled scenarios, measured results, comparison dashboard, persistent history, and regression gates.
 10. Delivery and observability: structured telemetry, cloud adapters, Terraform, separate identities, Secret Manager, GitHub CI, and Cloud Build.
 
-Implementation and local verification are recorded in [the verification report](docs/verification.md). Docker builds, managed-provider calls, and deployed GCP connectivity remain environment-dependent checks. The simulation uses a bounded catalog snapshot and shared service authentication; benchmark catalog scale and integrate verified application user identities before using it with live field-service data.
+Implementation, local checks, and the successful hosted container builds are recorded in [the verification report](docs/verification.md). Managed-provider calls and deployed GCP connectivity still require your project and credentials. The simulation uses a bounded catalog snapshot and shared service authentication; benchmark catalog scale and integrate verified application user identities before using it with live field-service data.
 
 More detail: [data model](docs/data-model.md), [dispatch policy](docs/dispatch-policy.md), [maps providers](docs/maps-providers.md), [knowledge retrieval](docs/knowledge-retrieval.md), [agent orchestration](docs/agent-orchestration.md), [human approval](docs/human-approval.md), and [async dispatch](docs/async-dispatch.md).
