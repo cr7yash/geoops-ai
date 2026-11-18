@@ -46,8 +46,8 @@ erDiagram
 ## Storage responsibilities
 
 - Local mode reads `data/seed/geoops_seed.json` through `JsonCatalogRepository`.
-- BigQuery is the planned analytical and historical store for structured business data, event history, evaluation results, and knowledge chunks.
-- Firestore stores short-lived approval state through the Phase 7 repository adapter. Sessions, agent state, and tool execution state remain reserved for their relevant phases.
+- BigQuery adapters read structured catalog snapshots, search knowledge vectors, and persist analytical records and evaluation results.
+- Firestore stores operational workflow documents, assignments, outbox events, sessions, and agent run state. SQLite supplies the same transactional document boundary locally.
 - The API never exposes a storage SDK. Routes call application services, which call the `CatalogRepository` protocol.
 
 ## Deterministic scenarios

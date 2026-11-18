@@ -24,6 +24,7 @@ COPY apps/api/src ./apps/api/src
 COPY apps/api/tests ./apps/api/tests
 COPY data/seed ./data/seed
 COPY data/documents ./data/documents
+COPY data/evaluation ./data/evaluation
 RUN uv sync --frozen --all-groups --package geoops-api
 
 EXPOSE 8000
@@ -34,6 +35,7 @@ FROM base AS production-builder
 COPY apps/api/src ./apps/api/src
 COPY data/seed ./data/seed
 COPY data/documents ./data/documents
+COPY data/evaluation ./data/evaluation
 RUN uv sync --frozen --no-dev --package geoops-api
 
 FROM python:3.13-slim AS production
@@ -47,9 +49,11 @@ COPY --from=production-builder /app/.venv /app/.venv
 COPY --from=production-builder /app/apps/api/src /app/apps/api/src
 COPY --from=production-builder /app/data/seed /app/data/seed
 COPY --from=production-builder /app/data/documents /app/data/documents
+COPY --from=production-builder /app/data/evaluation /app/data/evaluation
 
 RUN addgroup --system --gid 10001 geoops \
-    && adduser --system --uid 10001 --ingroup geoops geoops
+    && adduser --system --uid 10001 --ingroup geoops geoops \
+    && mkdir -p /app/data/runtime && chown geoops:geoops /app/data/runtime
 
 USER geoops
 EXPOSE 8000
@@ -58,3 +62,10 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD ["python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=2)"]
 
 CMD ["uvicorn", "geoops_api.main:app", "--host", "0.0.0.0", "--port", "8000", "--no-access-log"]
+
+FROM production AS worker
+CMD ["uvicorn", "geoops_api.worker_app:app", "--host", "0.0.0.0", "--port", "8000", "--no-access-log"]
+
+FROM production AS ingestion
+HEALTHCHECK NONE
+CMD ["python", "-m", "geoops_api.ingestion"]

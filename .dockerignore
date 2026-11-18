@@ -13,4 +13,10 @@ coverage
 dist
 build
 .DS_Store
+data/runtime
+**/.terraform
+**/*.tfstate*
+**/*.tfvars
+**/*.tfplan
+.env.*
 

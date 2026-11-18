@@ -53,7 +53,11 @@ class InMemoryKnowledgeRepository:
 
     @staticmethod
     def _matches(chunk: IndexedKnowledgeChunk, filters: KnowledgeFilters) -> bool:
-        if filters.customer_id and chunk.customer_id != filters.customer_id:
+        if (
+            filters.customer_id
+            and chunk.customer_id != filters.customer_id
+            and not (filters.include_global and chunk.customer_id is None)
+        ):
             return False
         if filters.equipment_type and chunk.equipment_type != filters.equipment_type:
             return False

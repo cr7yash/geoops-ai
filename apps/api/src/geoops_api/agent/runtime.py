@@ -105,6 +105,27 @@ class LocalAgentRuntime:
                     confidence=0.98,
                 )
             top = candidates[0]
+            knowledge_sources: list[KnowledgeSource] = []
+            knowledge_answer = ""
+            if self._is_knowledge_question(normalized):
+                knowledge = await self._call(
+                    "search_knowledge",
+                    {
+                        "query": f"{ticket['equipment_type']} manual {message}"[:500],
+                        "customer_id": ticket["customer_id"],
+                        "equipment_type": ticket["equipment_type"],
+                        "include_global": True,
+                        "limit": 5,
+                    },
+                    trace_id,
+                    session_id,
+                    agent_run_id,
+                    tools_used,
+                )
+                knowledge_sources = knowledge.sources
+                if knowledge_sources:
+                    lead = knowledge_sources[0]
+                    knowledge_answer = f" {lead.citation}: {lead.excerpt}"
             distance = top["distance_km"]
             duration = top["travel_duration_minutes"]
             route_label = "estimated route" if top["route_is_estimate"] else "route"
@@ -113,13 +134,14 @@ class LocalAgentRuntime:
                     f"{top['technician_name']} is the highest-ranked eligible technician "
                     f"for ticket {ticket_id}, with a score of {top['score']:.2f}. The "
                     f"{route_label} is {distance:.1f} km and {duration:.1f} minutes. "
-                    f"The recommendation is read-only; no assignment was changed."
+                    f"The recommendation is read-only; no assignment was changed.{knowledge_answer}"
                 ),
                 trace_id=trace_id,
                 session_id=session_id,
                 agent_run_id=agent_run_id,
                 tools_used=tools_used,
                 confidence=0.99,
+                sources=knowledge_sources,
                 recommended_action=RecommendedAction(
                     kind="review_dispatch_recommendation",
                     label=f"Review {top['technician_name']} for ticket {ticket_id}",
@@ -142,6 +164,7 @@ class LocalAgentRuntime:
                 ticket = ticket_output.data["ticket"]
                 if ticket:
                     filters["customer_id"] = ticket["customer_id"]
+                    filters["include_global"] = True
                     filters["equipment_type"] = ticket["equipment_type"]
             knowledge = await self._call(
                 "search_knowledge",
@@ -434,7 +457,10 @@ class LocalAgentRuntime:
 
     @staticmethod
     def _ticket_id(message: str) -> str | None:
-        match = re.search(r"\b(?:ticket\s*#?\s*)?(\d{3,})\b", message, re.IGNORECASE)
+        match = re.search(r"\bticket\s*#?\s*(\d+)\b", message, re.IGNORECASE)
+        if match:
+            return match.group(1)
+        match = re.search(r"(?<![\w-])(\d{3,})\b", message)
         return match.group(1) if match else None
 
     @staticmethod

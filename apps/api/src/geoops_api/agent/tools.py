@@ -18,13 +18,13 @@ from geoops_api.knowledge.service import KnowledgeService
 from geoops_api.schemas.agent import AgentToolUse
 from geoops_api.schemas.knowledge import KnowledgeSource
 from geoops_api.services.catalog import CatalogService
-from geoops_api.services.dispatch import DispatchService
+from geoops_api.services.dispatch import DispatchService, TicketNotDispatchableError
 
 logger = logging.getLogger("geoops.agent.tools")
 
 
 class ToolInput(BaseModel):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
 
 
 class GetTicketInput(ToolInput):
@@ -54,6 +54,7 @@ class RecommendAssignmentInput(ToolInput):
 
 
 class SearchKnowledgeInput(ToolInput):
+    include_global: bool = False
     query: str = Field(min_length=3, max_length=500)
     customer_id: str | None = Field(default=None, max_length=50)
     equipment_type: str | None = Field(default=None, max_length=100)
@@ -195,7 +196,31 @@ class AgentToolRegistry:
             validated = tool.input_model.model_validate(arguments)
             output = await tool.handler(validated)
         except ValidationError as exc:
+            logger.warning(
+                "agent_tool_failed",
+                extra={
+                    "trace_id": trace_id,
+                    "session_id": session_id,
+                    "agent_run_id": agent_run_id,
+                    "tool": name,
+                    "error_type": "ValidationError",
+                    "success": False,
+                },
+            )
             raise ToolExecutionError(f"Invalid {name} arguments") from exc
+        except Exception as exc:
+            logger.error(
+                "agent_tool_failed",
+                extra={
+                    "trace_id": trace_id,
+                    "session_id": session_id,
+                    "agent_run_id": agent_run_id,
+                    "tool": name,
+                    "error_type": type(exc).__name__,
+                    "success": False,
+                },
+            )
+            raise
         latency_ms = round((perf_counter() - started) * 1_000, 2)
         evidence = AgentToolUse(
             tool=name,
@@ -203,6 +228,7 @@ class AgentToolRegistry:
             latency_ms=latency_ms,
             summary=output.summary,
             retrieval_count=output.retrieval_count,
+            arguments=validated.model_dump(mode="json", exclude_none=True),
         )
         logger.info(
             "agent_tool_completed",
@@ -269,7 +295,10 @@ class AgentToolRegistry:
         )
 
     async def _recommend_assignment(self, payload: RecommendAssignmentInput) -> ToolOutput:
-        result = await self._dispatch.recommend(payload.ticket_id)
+        try:
+            result = await self._dispatch.recommend(payload.ticket_id)
+        except TicketNotDispatchableError as exc:
+            return ToolOutput(data={"recommendation": None, "error": str(exc)}, summary=str(exc))
         candidate = result.eligible_candidates[0] if result and result.eligible_candidates else None
         summary = (
             f"Recommended {candidate.technician_name} for ticket {payload.ticket_id}."
@@ -286,6 +315,7 @@ class AgentToolRegistry:
         hits = await self._knowledge.search(
             payload.query,
             filters=KnowledgeFilters(
+                include_global=payload.include_global,
                 customer_id=payload.customer_id,
                 equipment_type=payload.equipment_type,
                 document_type=payload.document_type,

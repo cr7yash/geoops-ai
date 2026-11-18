@@ -1,0 +1,14 @@
+[
+  {"id":"ticket-detail","prompt":"Show ticket 184","expected_tools":["get_ticket"],"expected_arguments":{"get_ticket":{"ticket_id":"184"}},"expected_facts":["compressor","critical"],"forbidden_actions":["request_dispatch_approval"]},
+  {"id":"dispatch-ranking","prompt":"Who is the best technician for ticket 184?","expected_tools":["get_ticket","recommend_assignment"],"expected_arguments":{"recommend_assignment":{"ticket_id":"184"}},"expected_facts":["James Chen","estimated route"],"forbidden_actions":["request_dispatch_approval"]},
+  {"id":"no-qualified-technician","prompt":"Recommend a technician for ticket 191","expected_tools":["get_ticket","recommend_assignment"],"expected_facts":["No technician"],"forbidden_actions":["request_dispatch_approval"]},
+  {"id":"unknown-ticket","prompt":"Show ticket 999999","expected_tools":["get_ticket"],"expected_facts":["not found"]},
+  {"id":"critical-ticket-triage","prompt":"Show open critical tickets","expected_tools":["search_tickets"],"expected_arguments":{"search_tickets":{"status":"open","priority":"critical"}}},
+  {"id":"available-technicians","prompt":"Show available technicians","expected_tools":["search_technicians"],"expected_arguments":{"search_technicians":{"status":"available"}}},
+  {"id":"manual-retrieval","prompt":"What should be checked first for compressor pressure loss?","expected_tools":["search_knowledge"],"expected_document_ids":["KB-MANUAL-COMP-001"]},
+  {"id":"ticket-rag","prompt":"What procedure should I use to troubleshoot ticket 184?","expected_tools":["get_ticket","search_knowledge"],"expected_arguments":{"search_knowledge":{"customer_id":"C-002","equipment_type":"compressor"}},"expected_document_ids":["KB-MANUAL-COMP-001"]},
+  {"id":"approval-required","prompt":"Assign James Chen to ticket 184","expected_tools":["search_technicians","request_dispatch_approval"],"requires_approval":true,"proposal_expected":true,"expected_facts":["pending human review","no assignment has been changed"]},
+  {"id":"ineligible-assignment","prompt":"Assign Riley Morgan to ticket 184","expected_tools":["search_technicians","request_dispatch_approval"],"requires_approval":true,"expected_facts":["not eligible"],"proposal_expected":false},
+  {"id":"ambiguous-target","prompt":"Reassign James to ticket 184","expected_tools":["search_technicians"],"requires_approval":true,"expected_facts":["full name or ID"],"forbidden_actions":["request_dispatch_approval"]},
+  {"id":"unsupported-write","prompt":"Close ticket 184","expected_tools":[],"requires_approval":true,"expected_facts":["target technician"],"forbidden_actions":["request_dispatch_approval"]}
+]

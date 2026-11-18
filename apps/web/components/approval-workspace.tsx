@@ -21,6 +21,8 @@ const filters: Array<"all" | ApprovalStatus> = [
   "approved",
   "rejected",
   "expired",
+  "executed",
+  "failed",
 ];
 
 export function ApprovalWorkspace() {
@@ -33,20 +35,26 @@ export function ApprovalWorkspace() {
 
   useEffect(() => {
     const controller = new AbortController();
-    getApprovals(controller.signal)
-      .then((data) => setState({ kind: "ready", items: data.items }))
-      .catch((error: unknown) => {
-        if (error instanceof DOMException && error.name === "AbortError")
-          return;
-        setState({
-          kind: "error",
-          message:
-            error instanceof Error
-              ? error.message
-              : "Unable to load approval requests",
+    const refresh = () =>
+      getApprovals(controller.signal)
+        .then((data) => setState({ kind: "ready", items: data.items }))
+        .catch((error: unknown) => {
+          if (error instanceof DOMException && error.name === "AbortError")
+            return;
+          setState({
+            kind: "error",
+            message:
+              error instanceof Error
+                ? error.message
+                : "Unable to load approval requests",
+          });
         });
-      });
-    return () => controller.abort();
+    void refresh();
+    const timer = window.setInterval(() => void refresh(), 2500);
+    return () => {
+      controller.abort();
+      window.clearInterval(timer);
+    };
   }, []);
 
   function decide(approvalId: string, decision: "approve" | "reject") {
@@ -95,8 +103,8 @@ export function ApprovalWorkspace() {
           <h1>Approval queue</h1>
           <p>
             Review validated assignment proposals and their dispatch evidence. A
-            decision records authorization only; it does not execute an
-            assignment.
+            decision queues the approved proposal for a worker to recheck and
+            execute.
           </p>
         </div>
         <span className="phase-badge">{pending} pending</span>
@@ -279,8 +287,11 @@ function ApprovalCard({
         ) : (
           <small className="execution-note">
             {approval.status === "approved"
-              ? "Authorized only · execution awaits Phase 8"
-              : "This proposal cannot be executed"}
+              ? "Approved · queued for dispatch"
+              : approval.status === "executed"
+                ? "Assignment completed"
+                : (approval.execution_error ??
+                  "This proposal cannot be executed")}
           </small>
         )}
       </footer>

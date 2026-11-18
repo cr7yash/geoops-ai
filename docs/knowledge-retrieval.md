@@ -39,4 +39,4 @@ The existing `knowledge_chunks` table stores `ARRAY<FLOAT64>` embeddings and fil
 
 ## Current boundary
 
-No language model is invoked in this phase. Combining ticket data, dispatch evidence, routes, and retrieved passages belongs to the typed agent/tool layer in Phase 6. This boundary keeps unsupported claims out of the knowledge API and makes citation correctness independently testable.
+The knowledge API returns source passages directly. The typed agent layer combines those passages with tickets and dispatch evidence. Ticket-specific searches can include shared manuals with `include_global` while keeping other customers' documents excluded. Filesystem and GCS originals, local and Google embeddings, and memory and BigQuery vector repositories use the same service interface.

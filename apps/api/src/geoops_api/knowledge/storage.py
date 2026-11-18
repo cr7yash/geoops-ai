@@ -30,7 +30,13 @@ class FilesystemDocumentStorage:
         resolved = path.resolve()
         if self._root not in resolved.parents:
             raise DocumentFormatError(f"Document escapes configured root: {path}")
-        metadata, content = self._parse_front_matter(resolved.read_text(encoding="utf-8"), path)
+        return self.parse_text(
+            resolved.read_text(encoding="utf-8"), resolved.relative_to(self._root).as_posix()
+        )
+
+    def parse_text(self, text: str, storage_uri: str) -> SourceDocument:
+        path = Path(storage_uri)
+        metadata, content = self._parse_front_matter(text, path)
         required = {"document_id", "title", "document_type", "version"}
         missing = sorted(required - metadata.keys())
         if missing:
@@ -47,7 +53,7 @@ class FilesystemDocumentStorage:
                 effective_date=(date.fromisoformat(effective_date) if effective_date else None),
                 customer_id=metadata.get("customer_id"),
                 equipment_type=metadata.get("equipment_type"),
-                storage_uri=resolved.relative_to(self._root).as_posix(),
+                storage_uri=storage_uri,
                 content=content,
                 metadata=extra,
             )

@@ -1,0 +1,55 @@
+substitutions:
+  _REGION: us-central1
+  _DEPLOY: "false"
+options:
+  logging: CLOUD_LOGGING_ONLY
+steps:
+  - id: web-quality
+    name: node:24-slim
+    entrypoint: bash
+    args:
+      - -ceu
+      - |
+        corepack enable
+        pnpm install --frozen-lockfile
+        pnpm lint:web && pnpm typecheck:web && pnpm test:web && pnpm build:web
+  - id: api-quality
+    name: ghcr.io/astral-sh/uv:0.11.3-python3.13-bookworm-slim
+    entrypoint: sh
+    args:
+      - -ceu
+      - |
+        uv sync --frozen --all-packages
+        uv run ruff check apps/api
+        uv run mypy apps/api/src
+        uv run pytest
+        uv run --package geoops-api python -m geoops_api.evaluation --local
+    waitFor: ["-"]
+  - id: build-images
+    name: gcr.io/cloud-builders/docker
+    entrypoint: sh
+    args:
+      - -ceu
+      - |
+        for target in production worker ingestion; do
+          image=api
+          if [ "$$target" != production ]; then image="$$target"; fi
+          docker build -f apps/api/Dockerfile --target "$$target" -t "${_REGION}-docker.pkg.dev/$PROJECT_ID/geoops/$$image:$BUILD_ID" .
+          docker push "${_REGION}-docker.pkg.dev/$PROJECT_ID/geoops/$$image:$BUILD_ID"
+        done
+        docker build -f apps/web/Dockerfile --target production --build-arg NEXT_PUBLIC_API_BASE_URL= -t ${_REGION}-docker.pkg.dev/$PROJECT_ID/geoops/web:$BUILD_ID .
+        docker push ${_REGION}-docker.pkg.dev/$PROJECT_ID/geoops/web:$BUILD_ID
+    waitFor: [web-quality, api-quality]
+  - id: deploy
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: sh
+    args:
+      - -ceu
+      - |
+        if [ "${_DEPLOY}" = true ]; then
+          gcloud run services update geoops-api --region=${_REGION} --image=${_REGION}-docker.pkg.dev/$PROJECT_ID/geoops/api:$BUILD_ID
+          gcloud run services update geoops-worker --region=${_REGION} --image=${_REGION}-docker.pkg.dev/$PROJECT_ID/geoops/worker:$BUILD_ID
+          gcloud run services update geoops-web --region=${_REGION} --image=${_REGION}-docker.pkg.dev/$PROJECT_ID/geoops/web:$BUILD_ID
+          gcloud run jobs update geoops-ingestion --region=${_REGION} --image=${_REGION}-docker.pkg.dev/$PROJECT_ID/geoops/ingestion:$BUILD_ID
+        fi
+timeout: 1800s

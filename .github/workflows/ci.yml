@@ -1,0 +1,38 @@
+name: Verify platform
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: 0.11.3
+          python-version: "3.13"
+      - run: pnpm install --frozen-lockfile
+      - run: uv sync --frozen --all-packages
+      - run: pnpm lint && pnpm typecheck && pnpm test
+      - run: uv run --package geoops-api python -m geoops_api.evaluation --local
+      - run: pnpm build
+      - run: uv run --package geoops-api python scripts/verify_local.py
+      - run: docker compose config --quiet
+      - run: |
+          docker build -f apps/api/Dockerfile --target production -t geoops-api:test .
+          docker build -f apps/api/Dockerfile --target worker -t geoops-worker:test .
+          docker build -f apps/api/Dockerfile --target ingestion -t geoops-ingestion:test .
+          docker build -f apps/web/Dockerfile --target production -t geoops-web:test .
+      - uses: hashicorp/setup-terraform@v3
+      - run: terraform -chdir=infrastructure/terraform init -backend=false
+      - run: terraform -chdir=infrastructure/terraform fmt -check && terraform -chdir=infrastructure/terraform validate
+      - run: terraform -chdir=infrastructure/terraform test
+      - run: uv run python scripts/generate_tables.py && git diff --exit-code infrastructure/terraform/tables.json

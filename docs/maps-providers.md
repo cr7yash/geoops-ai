@@ -30,10 +30,10 @@ Restrict the key to the enabled APIs and the server environment. Never place it 
 
 ## HTTP endpoints
 
-| Endpoint | Request |
-| --- | --- |
-| `POST /api/maps/geocode` | Address string |
-| `POST /api/maps/routes` | Origin, destination, and optional departure time |
+| Endpoint                      | Request                                                                |
+| ----------------------------- | ---------------------------------------------------------------------- |
+| `POST /api/maps/geocode`      | Address string                                                         |
+| `POST /api/maps/routes`       | Origin, destination, and optional departure time                       |
 | `POST /api/maps/route-matrix` | One to 25 origins, one to 25 destinations, and optional departure time |
 
 Provider outages are returned as HTTP 502 for direct maps calls. In dispatch evaluation, route failures exclude affected prequalified candidates with `route_unavailable` so the recommendation cannot be based on missing travel evidence.

@@ -25,12 +25,13 @@ class KnowledgeService:
         embedding_provider: EmbeddingProvider,
         repository: KnowledgeRepository,
         chunker: MarkdownChunker,
+        preindexed: bool = False,
     ) -> None:
         self._storage = storage
         self._embedding_provider = embedding_provider
         self._repository = repository
         self._chunker = chunker
-        self._ready = False
+        self._ready = preindexed
         self._ingestion_lock = asyncio.Lock()
 
     async def ingest(self) -> IngestionReport:

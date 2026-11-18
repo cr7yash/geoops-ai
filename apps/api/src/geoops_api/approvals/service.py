@@ -136,6 +136,8 @@ class ApprovalService:
                 route_provider=candidate.route_provider,
                 route_is_estimate=candidate.route_is_estimate,
                 matched_certification_ids=candidate.matched_certification_ids,
+                service_window_start=recommendation.service_window_start,
+                service_window_end=recommendation.service_window_end,
             ),
         )
         created = await self._repository.create(approval)

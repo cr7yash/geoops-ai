@@ -1,7 +1,15 @@
 """FastAPI application factory and ASGI entrypoint."""
 
-from fastapi import FastAPI
+import asyncio
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager, suppress
+from secrets import compare_digest
+
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from starlette.middleware.base import RequestResponseEndpoint
+from starlette.responses import Response
 
 from geoops_api.config import Settings, get_settings
 from geoops_api.container import ApplicationContainer, build_container
@@ -10,9 +18,11 @@ from geoops_api.middleware import RequestTelemetryMiddleware
 from geoops_api.routers.agent import router as agent_router
 from geoops_api.routers.approvals import router as approvals_router
 from geoops_api.routers.dispatch import router as dispatch_router
+from geoops_api.routers.evaluations import router as evaluations_router
 from geoops_api.routers.health import router as health_router
 from geoops_api.routers.knowledge import router as knowledge_router
 from geoops_api.routers.maps import router as maps_router
+from geoops_api.routers.operations import router as operations_router
 from geoops_api.routers.technicians import router as technicians_router
 from geoops_api.routers.tickets import router as tickets_router
 
@@ -25,14 +35,42 @@ def create_app(
 
     resolved_settings = settings or get_settings()
     configure_logging(resolved_settings.log_level)
+    resolved_container = container or build_container(resolved_settings)
+
+    @asynccontextmanager
+    async def lifespan(application: FastAPI) -> AsyncIterator[None]:
+        task = (
+            asyncio.create_task(
+                resolved_container.outbox_relay.run(resolved_settings.worker_poll_seconds)
+            )
+            if resolved_settings.worker_enabled
+            else None
+        )
+        yield
+        if task:
+            task.cancel()
+            with suppress(asyncio.CancelledError):
+                await task
+        await resolved_container.event_bus.close()
+        await resolved_container.approval_repository.store.close()
 
     application = FastAPI(
         title="GeoOps AI API",
         summary="Operations gateway for the GeoOps AI platform.",
         version=resolved_settings.version,
+        lifespan=lifespan,
     )
     application.state.settings = resolved_settings
-    application.state.container = container or build_container(resolved_settings)
+    application.state.container = resolved_container
+
+    @application.middleware("http")
+    async def authenticate(request: Request, call_next: RequestResponseEndpoint) -> Response:
+        token = resolved_settings.api_token
+        if token and request.url.path.startswith("/api/") and request.method != "OPTIONS":
+            supplied = request.headers.get("X-Geoops-Token", "")
+            if not compare_digest(supplied, token.get_secret_value()):
+                return JSONResponse({"detail": "Authentication required"}, status_code=401)
+        return await call_next(request)
 
     application.add_middleware(RequestTelemetryMiddleware)
     application.add_middleware(
@@ -50,6 +88,8 @@ def create_app(
     application.include_router(knowledge_router)
     application.include_router(agent_router)
     application.include_router(approvals_router)
+    application.include_router(evaluations_router)
+    application.include_router(operations_router)
     return application
 
 

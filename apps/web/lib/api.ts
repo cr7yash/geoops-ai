@@ -5,6 +5,7 @@ import type {
   ApprovalListResponse,
   ApprovalRequest,
   DispatchRecommendation,
+  EvaluationRun,
   KnowledgeDocumentList,
   KnowledgeSearchRequest,
   KnowledgeSearchResponse,
@@ -107,6 +108,14 @@ export function askAgent(request: AgentChatRequest, signal?: AbortSignal) {
 
 export function getApprovals(signal?: AbortSignal) {
   return getJson<ApprovalListResponse>("/api/approvals", signal);
+}
+
+export function getEvaluationRuns(signal?: AbortSignal) {
+  return getJson<EvaluationRun[]>("/api/evaluations", signal);
+}
+
+export function runEvaluation() {
+  return postJson<EvaluationRun>("/api/evaluations/run", {});
 }
 
 export function decideApproval(
