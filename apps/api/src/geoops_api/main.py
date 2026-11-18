@@ -1,5 +1,9 @@
 """FastAPI application factory and ASGI entrypoint."""
 
+import asyncio
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager, suppress
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -25,14 +29,33 @@ def create_app(
 
     resolved_settings = settings or get_settings()
     configure_logging(resolved_settings.log_level)
+    resolved_container = container or build_container(resolved_settings)
+
+    @asynccontextmanager
+    async def lifespan(application: FastAPI) -> AsyncIterator[None]:
+        task = (
+            asyncio.create_task(
+                resolved_container.outbox_relay.run(resolved_settings.worker_poll_seconds)
+            )
+            if resolved_settings.worker_enabled
+            else None
+        )
+        yield
+        if task:
+            task.cancel()
+            with suppress(asyncio.CancelledError):
+                await task
+        await resolved_container.event_bus.close()
+        await resolved_container.approval_repository.store.close()
 
     application = FastAPI(
         title="GeoOps AI API",
         summary="Operations gateway for the GeoOps AI platform.",
         version=resolved_settings.version,
+        lifespan=lifespan,
     )
     application.state.settings = resolved_settings
-    application.state.container = container or build_container(resolved_settings)
+    application.state.container = resolved_container
 
     application.add_middleware(RequestTelemetryMiddleware)
     application.add_middleware(

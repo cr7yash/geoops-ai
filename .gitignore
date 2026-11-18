@@ -31,5 +31,11 @@ build/
 # Logs and runtime files
 *.log
 *.pid
+data/runtime/
+.terraform/
+*.tfstate*
+*.tfplan
+*.tfvars
+!*.tfvars.example
 .coverage
 htmlcov/

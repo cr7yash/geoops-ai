@@ -272,6 +272,6 @@ Every response includes `X-Request-ID`. A caller-supplied ID is propagated; othe
 5. **Knowledge retrieval — complete:** source documents, ingestion, chunking, local embeddings, metadata filtering, BigQuery vector-search assets, citations, and operator workspace.
 6. **Agent orchestration — complete:** typed read-only tools, local orchestration, provider-neutral Gemini/ADK integration, evidence telemetry, and operator workspace.
 7. **Human approval — complete:** explicit assignment proposals, eligibility evidence, expiry, atomic decisions, Firestore adapter, and approval console.
-8. **Async dispatch:** event bus, idempotent worker, and operational updates.
+8. **Async dispatch — implemented:** transactional outbox, SQLite and Firestore operational state, memory and Pub/Sub delivery, replay-safe worker, and assignment updates.
 9. **Evaluation:** reproducible datasets, quality metrics, and regression gates.
 10. **Observability, infrastructure, and CI/CD:** cloud telemetry, Terraform, and deployment automation.

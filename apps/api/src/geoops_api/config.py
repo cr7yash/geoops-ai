@@ -41,7 +41,12 @@ class Settings(BaseSettings):
     gemini_api_key: SecretStr | None = None
     google_cloud_project: str | None = None
     google_cloud_location: str = "us-central1"
-    approval_store: Literal["memory", "firestore"] = "memory"
+    approval_store: Literal["memory", "sqlite", "firestore"] = "memory"
+    state_database_path: Path = Path("data/runtime/state.sqlite3")
+    event_bus: Literal["memory", "pubsub"] = "memory"
+    pubsub_topic: str = "dispatch-approved"
+    worker_enabled: bool = False
+    worker_poll_seconds: float = Field(default=1, ge=0.05, le=60)
     approval_ttl_minutes: int = Field(default=30, ge=5, le=1440)
     firestore_approvals_collection: str = "approval_requests"
 

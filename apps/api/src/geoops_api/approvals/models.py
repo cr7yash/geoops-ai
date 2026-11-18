@@ -24,6 +24,8 @@ class ApprovalEvidence(ApprovalModel):
     route_provider: str | None = None
     route_is_estimate: bool | None = None
     matched_certification_ids: list[str] = Field(default_factory=list)
+    service_window_start: datetime | None = None
+    service_window_end: datetime | None = None
 
 
 class ApprovalRequest(ApprovalModel):
@@ -45,3 +47,4 @@ class ApprovalRequest(ApprovalModel):
     decision_comment: str | None = None
     evidence: ApprovalEvidence
     version: int = Field(default=1, ge=1)
+    execution_error: str | None = None
