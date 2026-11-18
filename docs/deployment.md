@@ -23,7 +23,7 @@ terraform -chdir=infrastructure/terraform apply \
   -target=google_service_account.service \
   -target=google_artifact_registry_repository.images \
   -target=google_secret_manager_secret.secret
-openssl rand -hex 32 | gcloud secrets versions add geoops-api-token --data-file=-
+openssl rand -hex 32 | tr -d '\n' | gcloud secrets versions add geoops-api-token --data-file=-
 gcloud builds submit --config=cloudbuild.yaml --substitutions=_DEPLOY=false
 ```
 

@@ -11,8 +11,9 @@ from geoops_api.container import build_container
 from geoops_api.main import create_app
 
 
-def test_service_auth_protects_operations_and_keeps_health_available() -> None:
-    with TestClient(create_app(Settings(_env_file=None, api_token="test-service-token"))) as client:
+@pytest.mark.parametrize("configured_token", ["test-service-token", "test-service-token\n"])
+def test_service_auth_protects_operations_and_keeps_health_available(configured_token: str) -> None:
+    with TestClient(create_app(Settings(_env_file=None, api_token=configured_token))) as client:
         assert client.get("/health").status_code == 200
         assert client.get("/api/operations").status_code == 401
         response = client.get("/api/operations", headers={"X-Geoops-Token": "test-service-token"})
