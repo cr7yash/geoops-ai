@@ -14,6 +14,7 @@ WORKDIR /app
 COPY --from=uv /uv /uvx /bin/
 COPY pyproject.toml uv.lock ./
 COPY apps/api/pyproject.toml apps/api/README.md ./apps/api/
+COPY infrastructure/terraform/tables.json ./infrastructure/terraform/tables.json
 
 RUN uv sync --frozen --no-dev --no-install-workspace --package geoops-api
 
@@ -50,6 +51,7 @@ COPY --from=production-builder /app/apps/api/src /app/apps/api/src
 COPY --from=production-builder /app/data/seed /app/data/seed
 COPY --from=production-builder /app/data/documents /app/data/documents
 COPY --from=production-builder /app/data/evaluation /app/data/evaluation
+COPY --from=production-builder /app/infrastructure/terraform/tables.json ./infrastructure/terraform/tables.json
 
 RUN addgroup --system --gid 10001 geoops \
     && adduser --system --uid 10001 --ingroup geoops geoops \
